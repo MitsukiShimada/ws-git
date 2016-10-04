@@ -1,0 +1,432 @@
+/* ********************タイトル部分******************** */
+div.title_part{
+	background-color: white;
+	border-color: black;
+	height: 50px;
+	width: 1200px;
+	text-color: #ffffff;
+	text-align: center;
+}
+h1#title{
+}
+/********************* body全体******************** */
+body {
+	width: 1200px;
+	font-family: "Helvetica Neue", helvetica, arial;
+	padding: 15px;
+	background-color: #ffb6c1;
+	margin-left: auto;
+	margin-right: auto;
+}
+/* ********************デバイス部分******************** */
+div.device_part{
+	margin-top: 20px;
+	width: 300px;
+	float: left;
+}
+/* 接続ステータス */
+div.my_connect_status_part{
+	width: 300px;
+	height: 35px;
+	background-color: #f4a460;
+	border-style: solid;
+	border-color: gray;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+nobr#my_connect_status{
+	color: red;
+}
+/* デバイス登録 */
+div.device_regist_part{
+	width: 300px;
+	height: 130px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	background-color: white;
+}
+div.device_regist_part_title{
+	width: 300px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: left;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.registbox{
+	width: 295px;
+	height: 100px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+div.regist_button{
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+div.form1{
+	display: block;
+	float: left;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+div.form2{
+	display: block;
+	float: left;
+	margin-right: 20px;
+}
+div.form3{
+	display: block;
+	float: left;
+}
+/* デバイスステータス */
+div.my_device_status_part{
+	width: 300px;
+	height: 35px;
+	background-color: #f4a460;
+	border-style: solid;
+	border-color: gray;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+nobr#my_device_status{
+	color: red;
+}
+/* 接続ステータス */
+div.connect_part{
+	width: 300px;
+	height: 190px;
+	margin-top: 5px;
+}
+div.connect_part_title{
+	width: 300px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.connectbox{
+	width: 295px;
+	height: 160px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+div.con1{
+	display: block;
+	float: left;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+div.con2{
+	display: block;
+	float: left;
+}
+/* Kinectステータス */
+div.kinect_part{
+	width: 300px;
+	height: 580px;
+	margin-top: 10px;
+}
+div.kinect_part_title{
+	width: 300px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.kinectbox{
+	width: 295px;
+	height: 550px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+nobr#check_kinect_text{
+	width: 300px;
+	height: 30px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+/* ********************稽古部分******************** */
+div.training_part{
+	margin-top: 20px;
+	margin-left: 25px;
+	width: 500px;
+	float: left;
+}
+/* 指示 */
+div.instruction_part{
+	width: 500px;
+	height: 35px;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+	background-color: black;
+	color: white;
+}
+nobr#instruction_title{
+	color: red;
+}
+/* 台本選択 */
+div.choice_script_part{
+	width: 500px;
+	height: 135px;
+	margin-top: 5px;
+}
+div.choice_script_part_title{
+	width: 500px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: left;
+	display: table-cell;
+	vertical-align: middle;
+}
+nobr#choice_script_title{
+}
+div.choicebox{
+	width: 495px;
+	height: 105px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+div.choice_script1{
+	margin-top: 1px;
+	width: 50px;
+	float: left;
+}
+div.choice_script2{
+	margin-top: 1px;
+	width: 50px;
+	float: left;
+}
+div.script_table{
+	width: 390px;
+	float: left;
+}
+table.script_information{
+	width: 395px;
+	font-size: 80%;
+	border-collapse: collapse;
+}
+nobr#number_script{
+	color: red;
+}
+nobr#scripttitle{
+	color: red;
+}
+nobr#actor1_name{font-size: 80%}
+nobr#actor1_first{font-size: 80%}
+nobr#actor2_name{font-size: 80%}
+nobr#actor2_first{font-size: 80%}
+nobr#actor3_name{font-size: 80%}
+nobr#actor3_first{font-size: 80%}
+#script_title{
+	border: 0px;
+}
+.info1{
+	width: 70px;
+}
+.info2{
+	width: 40px;
+}
+/* 稽古操作 */
+div.operation_part{
+	width: 500px;
+	height: 225px;
+	margin-top: 10px;
+}
+div.operation_part_title{
+	width: 500px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: left;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.operationbox{
+	width: 495px;
+	height: 195px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+table.watch_debug{
+	width: 495px;
+	font-size: 80%;
+	border: 0px;
+	border-collapse: collapse;
+}
+.watch_tr{
+	height: 30px;
+}
+th.watch_th1{
+	width: 100px;
+}
+th.watch_th2{
+	width: 395px;
+	max-width: 370px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+div.training_operation{
+	width: 495px;
+	text-align: center;
+	font-size: 110%;
+}
+button#training_start{
+	font-size: 100%;
+}
+button#training_stop{
+	margin-left: 30px;
+	font-size: 100%;
+}
+button#training_restart{
+	margin-left: 30px;
+	font-size: 100%;
+}
+button#training_restart_back1{
+	font-size: 100%;
+}
+button#training_restart_back2{
+	margin-left: 30px;
+	font-size: 100%;
+}
+/* 台本進行状況 */
+div.training_log_part{
+	width: 500px;
+	height: 580px;
+	margin-top: 10px;
+}
+div.training_log_part_title{
+	width: 500px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.traininglogbox{
+	width: 495px;
+	height: 550px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+table.script{
+	background-color: white;
+	width: 495px;
+	table-layout: fixed;
+	border: 0px;
+	border-collapse: collapse;
+}
+th.one{
+	width: 40px;
+}
+th.two{
+	width: 40px;
+}
+th.three{
+	width: 280px;
+}
+th.four{
+	width: 135px;
+}
+tr.ttitle{
+	background-color: #afeeee;
+}
+/* ********************ボックス部分******************** */
+div.box_part{
+	width: 350px;
+	float: right;
+	margin-top: 20px;
+}
+/* チャット部分 */
+div.chat_part_title{
+	width: 350px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: left;
+	display: table-cell;
+	vertical-align: middle;
+}
+nobr#chat_title{
+}
+div.chat_part_input{
+	width: 350px;
+	height: 30px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+input#chat_input{
+	width: 295px;
+	height: 30px;
+}
+input#chat_button{
+	width: 50px;
+	height: 30px;
+}
+div.chatbox{
+	width: 345px;
+	height: 150px;
+	border-style: solid;
+	border-color: gray;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	background-color: white;
+}
+/* ログ部分 */
+div.log_part_title{
+	width: 350px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.logbox{
+	width: 345px;
+	height: 150px;
+	border-style: solid;
+	border-color: gray;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 5px;
+	background-color: white;
+}
+/* ping部分 */
+div.ping_part_title{
+	width: 350px;
+	height: 30px;
+	background-color: #696969;
+	color: white;
+	text-align: center;
+	display: table-cell;
+	vertical-align: middle;
+}
+div.pingbox{
+	width: 345px;
+	height: 550px;
+	border-style: solid;
+	border-color: gray;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: white;
+}

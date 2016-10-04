@@ -1,0 +1,319 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+	<title>WS修論システム</title>
+	<meta http-equiv="Content-Style-Type" content="text/css" />
+	<meta http-equiv="content-script-type" content="text/javascript" />
+	<link rel="stylesheet" href="indexc.css" type="text/css" />
+	<script type="text/javascript" src="indexc.js"></script>
+
+<!-- --------------------スクリプト部分-------------------- -->
+<!-- スクリプト部分終わり -->
+
+
+</head>
+<body>
+	<!-- **********タイトル********** -->
+	<div class="title_part">
+		<h1 id="title">WebSocket修論システム</h1><br>
+	</div>
+	<!-- **********タイトルend********** -->	
+	
+
+	
+	<!-- **********デバイス・通信********** -->
+	<div class="device_part">
+		
+		<!-- 自身の接続ステータス部分 -->
+		<div class="my_connect_status_part">
+			接続状態：　<nobr id="my_connect_status">未接続</nobr><br>
+		</div>
+		
+		<!-- デバイス登録部分 -->
+		<div class="device_regist_part">
+			<!-- タイトル部分 -->
+			<div class="device_regist_part_title">
+				<nobr id="device_regist_title">デバイス登録</nobr><br>
+			</div>
+			<!-- 登録ボックス部分 -->
+			<div class="registbox">
+				<!-- 登録ボタン、変更ボタン -->
+				<div class="regist_button">
+					<button name="button_regist_device" value="regist_device" onclick="onDeviceRadioButton();">デバイス登録</button>
+					<button name="button_change_device" value="change_device" onclick="onDeviceChangeRadioButton()">デバイス変更</button><br/>
+				</div>
+				<!-- デバイス選択ラジオボタン -->
+				<div class="regist_form">
+					<form>
+						<div class="form1">
+							<input type="radio" name="device" id="pc1" value="pc1"/><label for="pc1">PC1</label><br>
+							<input type="radio" name="device" id="tablet1" value="tablet1"/><label for="tablet1">Tablet1</label>
+						</div>
+						<div class="form2">
+							<input type="radio" name="device" id="pc2" value="pc2"/><label for="pc2">PC2</label><br>
+							<input type="radio" name="device" id="tablet2" value="tablet2"/><label for="tablet2">Tablet2</label>
+						</div>
+						<div class="form3">
+							<input type="radio" name="device" id="pc3" value="pc3"/><label for="pc3">PC3</label><br>
+							<input type="radio" name="device" id="tablet3" value="tablet3"/><label for="tablet3">Tablet3</label>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 自身のデバイスステータス部分 -->
+		<div class="my_device_status_part">
+			This PC ステータス：　<nobr id="my_device_status">未登録</nobr><br>
+		</div>
+		
+		<!-- 全体デバイスステータス部分 -->
+		<div class="connect_part">
+			<!-- タイトル部分 -->
+			<div class="connect_part_title">
+				<nobr id="connect_title">---デバイス通信状況---</nobr><br>
+			</div>
+			<!-- デバイスステータスボックス部分 -->
+			<div class="connectbox">
+				<div class="con1">
+					PC1：<font color="red" id="con_pc1">未接続</font><br>
+					PC2：<font color="red" id="con_pc2">未接続</font><br>
+					PC3：<font color="red" id="con_pc3">未接続</font>
+				</div>
+				<div class="con2">
+					Tablet1：<font color="red" id="con_tablet1">未接続</font><br>
+					Tablet2：<font color="red" id="con_tablet2">未接続</font><br>
+					Tablet3：<font color="red" id="con_tablet3">未接続</font>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Kinect接続部分 -->
+		<div class="kinect_part">
+			<!-- タイトル部分 -->
+			<div class="kinect_part_title">
+				<nobr id="kinect_title">---KINECT通信状況---</nobr><br>
+			</div>
+			<!-- Kinectボックス部分 -->
+			<div class="kinectbox">
+				通知なしモード:順番を入力してチェック<br>
+				<input type="text" id="kinect_count_input"/>
+				<button name="button_kinect_check" value="kinect_check" onclick="onKinectCheckButton();">kinectチェック</button><br>
+				<nobr id="check_kinect_text">kinectチェック前</nobr><br>
+				
+				<nobr id="debug_daihon3">台本3 モーション有り</nobr><br>
+				<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>
+				<button name="scenario6" value="s6" onclick="Scenario6Button();">6</button>
+				<button name="scenario13" value="s13" onclick="Scenario13Button();">13</button>
+				<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button>
+				<button name="scenario19" value="s19" onclick="Scenario19Button();">19</button>
+				<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>
+				<button name="scenario24" value="s24" onclick="Scenario24Button();">24</button>
+				<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button><br>
+				<button name="scenario26" value="s26" onclick="Scenario26Button();">26</button>
+				<button name="scenario27" value="s27" onclick="Scenario27Button();">27</button>
+				<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>
+				<button name="scenario29" value="s29" onclick="Scenario29Button();">29</button>
+				<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>
+				<button name="scenario32" value="s32" onclick="Scenario32Button();">32</button>
+				<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button><br>
+				<nobr id="debug_daihon4">台本4 モーション有り</nobr><br>
+				<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>
+				<button name="scenario3" value="s3" onclick="Scenario3Button();">3</button>
+				<button name="scenario4" value="s4" onclick="Scenario4Button();">4</button>
+				<button name="scenario5" value="s5" onclick="Scenario5Button();">5</button>
+				<button name="scenario7" value="s7" onclick="Scenario7Button();">7</button>
+				<button name="scenario8" value="s8" onclick="Scenario8Button();">8</button>
+				<button name="scenario9" value="s9" onclick="Scenario9Button();">9</button>
+				<button name="scenario13" value="s15" onclick="Scenario15Button();">15</button>
+				<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button><br>
+				<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>
+				<button name="scenario23" value="s23" onclick="Scenario23Button();">23</button>
+				<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button>
+				<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>
+				<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>
+				<button name="scenario31" value="s31" onclick="Scenario31Button();">31</button>
+				<button name="scenario33" value="s33" onclick="Scenario33Button();">33</button><br>
+				<button name="scenario34" value="s34" onclick="Scenario34Button();">34</button>
+				<button name="scenario37" value="s37" onclick="Scenario37Button();">37</button>
+				<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button>
+				<button name="scenario39" value="s39" onclick="Scenario39Button();">39</button><br>
+				<br>
+				<nobr id="debug_watch">Watchデバッグ</nobr><br>
+				<button name="button_debug_watch1" value="debug_watch1" onclick="onDebugWatch1Button();">Watch1-OK</button>
+				<button name="button_debug_watch2" value="debug_watch2" onclick="onDebugWatch2Button();">Watch2-OK</button>
+				<button name="button_debug_watch3" value="debug_watch3" onclick="onDebugWatch3Button();">Watch3-OK</button><br>
+				<nobr>--母or男1-----父or女1-----娘or男2--</nobr><br>
+				<br>
+				watchingの値: <nobr id="display_watching">無</nobr>
+				kinectingの値: <nobr id="display_kinecting">無</nobr>
+			</div>
+		</div>
+		<br>
+	</div>
+	<!-- **********デバイス・通信end********** -->
+	
+	<!-- **********台本・稽古********** -->
+	<div class="training_part">
+		
+		<!-- 指示部分 -->
+		<div class="instruction_part">
+			指示： <nobr id="instruction_title">デバイス登録をしてください</nobr><br>
+		</div>
+		
+		<!-- 台本選択部分 -->
+		<div class="choice_script_part">
+			<!-- タイトル部分 -->
+			<div class="choice_script_part_title">
+				<nobr id="choice_script_title">台本選択</nobr><br>
+			</div>
+			<!-- 選択ボックス部分 -->
+			<div class="choicebox">
+				
+				<!-- 台本選択ボタン -->
+				<div class="choice_script1">
+					<button name="scriptbutton1" onclick="onScriptButton1();">台本1</button><br>
+					<button name="scriptbutton2" onclick="onScriptButton2();">台本2</button><br>
+					<button name="scriptbutton3" onclick="onScriptButton3();">台本3</button><br>
+					<button name="scriptbutton4" onclick="onScriptButton4();">台本4</button><br>
+				</div>
+				<div class="choice_script2">
+					<button name="scriptbutton5" onclick="onScriptButton5();">台本5</button><br>
+					<button name="scriptbutton6" onclick="onScriptButton6();">台本6</button><br>
+					<button name="scriptbutton7" onclick="onScriptButton7();">台本7</button><br>
+					<button name="scriptbutton8" onclick="onScriptButton8();">台本8</button><br>
+				</div>
+				
+				<!-- 台本の概要表示部分 -->
+				<div class="script_table">
+					<table border=1 class="script_information">
+						<tr id="script_title">
+							<th class="info1"><button name="scriptdecide" onclick="onScriptDecideButton();">台本決定</button></th>
+							<th class="info2"><font color="red">台本<nobr id="number_script">0</nobr></font></th>
+							<th class="info3"><nobr id="scripttitle">ノータイトル</nobr></th>
+						</tr>
+						<tr>
+							<th>デバイス</th>
+							<th>役者名</th>
+							<th>初期状態</th>
+						</tr>
+						<tr>
+							<td>Watch1</td>
+							<td><nobr id="actor1_name">none</nobr></td>
+							<td><nobr id="actor1_first">none</nobr></td>
+						</tr>
+						<tr>
+							<td>Watch2</td>
+							<td><nobr id="actor2_name">none</nobr></td>
+							<td><nobr id="actor2_first">none</nobr></td>
+						</tr>
+						<tr>
+							<td>Watch3</td>
+							<td><nobr id="actor3_name">none</nobr></td>
+							<td><nobr id="actor3_first">none</nobr></td>
+						</tr>
+					</table>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<!-- 稽古操作部分 -->
+		<div class="operation_part">
+			<!-- タイトル部分 -->
+			<div class="operation_part_title">
+				<nobr id="operation_title">稽古操作</nobr><br>
+			</div>
+			<!-- 稽古ボックス部分 -->
+			<div class="operationbox">
+				
+				<!-- Watchデバッグ部分 -->
+				<div class="watch_table">
+					<table border=1 class="watch_debug">
+						<tr class="watch_tr">
+							<th class="watch_th1"><button name="watch_debug1" onclick="onWatchRaiseButton1();">Watch1起動</button></th>
+							<th class="watch_th2" id="watchvoicereply1"><nobr id="watch_voice_reply1">No Message</nobr></th>
+						</tr>
+						<tr class="watch_tr">
+							<th class="watch_th1"><button name="watch_debug2" onclick="onWatchRaiseButton2();">Watch2起動</button></th>
+							<th class="watch_th2" id="watchvoicereply2"><nobr id="watch_voice_reply2">No Message</nobr></th>
+						</tr>
+						<tr class="watch_tr">
+							<th class="watch_th1"><button name="watch_debug3" onclick="onWatchRaiseButton3();">Watch3起動</button></th>
+							<th class="watch_th2" id="watchvoicereply3"><nobr id="watch_voice_reply3">No Message</nobr></th>
+						</tr>
+					</table>
+				</div>
+				
+				<!-- 稽古オペレーション部分 -->
+				<div class="training_operation">
+					<nobr id="training_now">準備中</nobr>　　　<nobr id="training_count">0</nobr><br>
+					<button name="training_start" id="training_start" onclick="onStartButton();">稽古スタート</button>
+					<button name="training_stop" id="training_stop" onclick="onStopButton();">一時停止</button>
+					<button name="training_restart" id="training_restart" onclick="onRestartButton();">再スタート</button><br>
+					<button name="training_restart_back1" id="training_restart_back1" onclick="onRestartBack1Button();"><nobr id="restart_back1">-1</nobr>から再スタート</button>
+					<button name="training_restart_back2" id="training_restart_back2" onclick="onRestartBack2Button();"><nobr id="restart_back2">-2</nobr>から再スタート</button>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		<!-- 稽古進行状況部分 -->
+		<div class="training_log_part">
+			<!-- タイトル部分 -->
+			<div class="training_log_part_title">
+				<nobr id="training_log_title">---台本進行状況---</nobr><br>
+			</div>
+			<!-- 稽古ログ部分 -->
+			<div class="traininglogbox" id="training_field" style="overflow-y:scroll;">
+			</div>
+		</div>
+	</div>
+	
+	<!-- **********台本・稽古end********** -->
+	
+	<!-- **********ボックス********** -->
+	<div class="box_part">
+		<!-- デバッグ用チャット部分 -->
+		<div class="chat_part">
+			<!-- タイトル部分 -->
+			<div class="chat_part_title">
+				<nobr id="chat_title">デバッグ用チャット</nobr><br>
+			</div>
+			<!-- チャットインプット部分 -->
+			<div class="chat_part_input">
+				<input type="text" id="chat_input"/>
+				<input type="button" id="chat_button" onclick="onChatSendButton()" value="送信"/><br>
+			</div>
+			<!-- チャットボックス部分 -->
+			<div class="chatbox" id="chat_field" style="overflow-y:scroll;">
+			</div>
+		</div>
+
+		<!-- 接続ログ部分 -->
+		<div class="log_part">
+			<!-- タイトル部分 -->
+			<div class="log_part_title">
+				<nobr id="log_title">--ログ--</nobr><br>
+			</div>
+			<!-- 接続ログボックス部分 -->
+			<div class="logbox" id="log_field" style="overflow-y:scroll;">
+			</div>
+		</div>
+	
+		<!-- ping部分:通信を切らないために -->
+		<div class="ping_part">
+			<!-- タイトル部分 -->
+			<div class="ping_part_title">
+				<nobr id="ping_title">--PINGBOX ＜ 通信を切らないために ＞--</nobr><br>
+			</div>
+			<!-- pingボックス部分 -->
+			<div class="pingbox" id="ping_field" style="overflow-y:scroll;">
+			</div>
+		</div>
+	</div>
+	<!-- **********ボックスend********** -->	
+  </body>
+</html>
