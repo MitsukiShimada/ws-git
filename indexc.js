@@ -664,9 +664,9 @@ function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
 //	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	var sql = "select count(script_id) from actor where script_id=1";
-	var query = connection.query(sql, (err, rows, fields){
+	var query = connection.query(sql, (err, rows, fields) => {
 		if(err) throw err;
-		console.log('The result is:', rows); 
+		console.log('The result is: ', rows); 
 	});
 }
 
