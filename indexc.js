@@ -653,7 +653,7 @@ function dbConnect(){	//データベースに接続
 
 //台本に登場する役者の数を取得
 function countActorOfScriptID(script_id){
-	var dbscript_id +=1;
+	var dbscript_id = script_id + 1;
 //	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	var sql = "select count(script_id) from actor where script_id=1";
 	var query = connection.query(sql, (err, rows, fields){
