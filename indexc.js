@@ -26,6 +26,12 @@ ws.onopen = function(){
 		type: 'connect',
 		text: 'open'
 	}));
+
+//島田追加
+dbConnect();
+countActorOfScriptID(1);
+dbClose();
+
 }
 
 //********************クローズイベント********************
