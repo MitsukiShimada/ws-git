@@ -604,6 +604,11 @@ function onChatSendButton() {
 }
 
 
+
+
+
+
+
 //********************台本、稽古 機能イベント********************
 
 //+++++-----台本の読み込み-----+++++
@@ -619,6 +624,53 @@ function getCSVFile(daihon) {
     xhr.open("get", daihon, true);
     xhr.send(null);
 }
+
+
+
+
+//島田修正-------------------------------------------------
+//--------------------------------------------------------
+
+//わかりやすいように修正部分の変数をここで宣言
+//あとで修正する予定
+var mysql = require('mysql');
+var connection = mysql.createConnection({
+	host		: 'localhost', //接続先ホスト名
+	user    	: 'root', //ユーザー名
+	password	: 'vNagCs6H', //パスワード
+	database	: 'ddaihon' //DB名
+});
+
+function dbConnect(){	//データベースに接続
+	connection.connect();
+}
+
+//台本に登場する役者の数を取得
+function countActorOfScriptID(script_id){
+	var dbscript_id +=1;
+//	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+	var sql = "select count(script_id) from actor where script_id=1";
+	var query = connection.query(sql, (err, rows, fields){
+		if(err) throw err;
+	});
+	concole.log(rows. ' actors are in this script'); 
+}
+
+/*
+function getActorName(script_id){
+	var sql = 'select actor_name from actor where script_id = ' + script_id;
+
+}
+*/
+
+
+//接続の破棄
+function dbClose(){
+	connection.end();
+}
+//---------------------------------------------------------
+//---------------------------------------------------------
+
 
 //CSVの読み込みに必要なxhrの作成
 function createXMLHttpRequest() {
@@ -717,6 +769,12 @@ function displayArray(resulttable){
 	var training_log = document.getElementById("training_field");
 	training_log.innerHTML = resulttable;
 }
+
+
+
+
+
+
 
 //+++++-----台本の判定-----+++++
 
