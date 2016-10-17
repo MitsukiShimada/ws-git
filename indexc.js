@@ -27,10 +27,6 @@ ws.onopen = function(){
 		text: 'open'
 	}));
 
-//島田追加
-dbConnect();
-countActorOfScriptID(1);
-
 }
 
 //********************クローズイベント********************
@@ -348,6 +344,12 @@ function onDeviceRadioButton(){
 	var tablet1 = document.getElementById("tablet1").checked;
 	var tablet2 = document.getElementById("tablet2").checked;
 	var tablet3 = document.getElementById("tablet3").checked;
+
+
+//島田追加
+dbConnect();
+countActorOfScriptID(1);
+	
 	
 	//値の代入
 	if(pc1==true){
