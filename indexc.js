@@ -656,6 +656,7 @@ var connection;
 //DBへの接続をオープン
 function dbConnect(){	//データベースに接続
 	connection = mysql.createConnection(dbConfig);
+	connection.connect();
 }
 
 //台本に登場する役者の数を取得
@@ -663,8 +664,10 @@ function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
 //	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	var sql = "select count(script_id) from actor where script_id=1";
-	var query = connection.query(sql);
-	concole.log(query); 
+	var query = connection.query(sql, (err, rows, fields){
+		if(err) throw err;
+		console.log('The result is:', rows); 
+	});
 }
 
 /*
