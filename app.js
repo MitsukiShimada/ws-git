@@ -5,10 +5,14 @@ const mysql = require('mysql');
  
 // MySQLとのコネクションの作成
 const connection = mysql.createConnection({
-  host : 'localhost',
-  user : 'root',
-  password : 'vNagCs6H',
-  database: 'ddihon'
+  // host : 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d',
+  // user : 'viztaro',
+  // password : 'vizmos',
+  // database: 'viztaro'
+  host	: "localhost",
+  user  : "root",
+  password  :  "vNagCs6H",
+  database  :  "ddihon"
 });
  
 // 接続

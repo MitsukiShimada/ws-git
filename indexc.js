@@ -27,12 +27,6 @@ ws.onopen = function(){
 		text: 'open'
 	}));
 
-
-//島田追加
-dbConnect();
-countActorOfScriptID(1);
-
-
 }
 
 //********************クローズイベント********************
@@ -43,10 +37,6 @@ ws.onclose = function(event){
 		type: 'connect',
 		text: 'close'
 	}));
-
-//島田追加
-	dbClose();
-
 }
 
 window.onunload = function(event){
@@ -615,11 +605,6 @@ function onChatSendButton() {
 }
 
 
-
-
-
-
-
 //********************台本、稽古 機能イベント********************
 
 //+++++-----台本の読み込み-----+++++
@@ -638,56 +623,6 @@ function getCSVFile(daihon) {
 
 
 
-
-//島田修正---------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
-
-//わかりやすいように修正部分の変数をここで宣言
-//あとで修正する予定
-//var mysql = require('mysql');
-var mysql = require('mysql');
-
-//接続設定の用意
-var dbConfig = {
-	host		: 'localhost', //接続先ホスト名
-	user    	: 'root', //ユーザー名
-	password	: 'vNagCs6H', //パスワード
-	database	: 'ddihon' //DB名
-};
-var connection;
-
-//DBへの接続をオープン
-function dbConnect(){	//データベースに接続
-	connection = mysql.createConnection(dbConfig);
-	connection.connect();
-	console.log('MySQLに接続');
-}
-
-//台本に登場する役者の数を取得
-function countActorOfScriptID(script_id){
-	var dbscript_id = script_id + 1;
-//	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
-	var sql = "select count(script_id) from actor where script_id=1";
-	var query = connection.query(sql, (err, rows, fields) => {
-		if(err) throw err;
-		console.log('The result is: ', rows); 
-	});
-}
-
-/*
-function getActorName(script_id){
-	var sql = 'select actor_name from actor where script_id = ' + script_id;
-
-}
-*/
-
-
-//接続の破棄
-function dbClose(){
-	connection.end();
-}
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 
 
 //CSVの読み込みに必要なxhrの作成
