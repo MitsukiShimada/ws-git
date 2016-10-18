@@ -8,7 +8,14 @@ var port = process.env.PORT || 5000;			//ポート
 
 //島田追加
 var mysql = require('mysql2');	//mysql2モジュールを使用
-var dc＿connection;	//mysqlの接続
+var db_connection;	//mysqlの接続
+//接続設定の用意
+var dbConfig = {
+	host		: 'localhost', //接続先ホスト名
+	user    	: 'root', //ユーザー名
+	password	: 'vNagCs6H', //パスワード
+	database	: 'ddihon' //DB名
+};
 
 
 //付け加え変数定義
@@ -135,10 +142,12 @@ function connect(s_user, s_text){
 		tablet3 = 1;
 	}
 	
+
+	db_connect();
+	countActorOfScriptID(1);
+
+
 };
-
-
-
 
 //島田修正---------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -146,14 +155,6 @@ function connect(s_user, s_text){
 //わかりやすいように修正部分の変数をここで宣言
 //あとで修正する予定
 //var mysql = require('mysql');
-
-//接続設定の用意
-var dbConfig = {
-	host		: 'localhost', //接続先ホスト名
-	user    	: 'root', //ユーザー名
-	password	: 'vNagCs6H', //パスワード
-	database	: 'ddihon' //DB名
-};
 
 //DBへの接続をオープン
 function dbConnect(){	//データベースに接続
@@ -167,10 +168,11 @@ function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
 //	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	var sql = "select count(script_id) from actor where script_id=1";
-	var query = connection.query(sql, (err, rows, fields) => {
+	connection.query(sql, function(err, rows, fields) {
 		if(err) throw err;
-		console.log('The result is: ', rows); 
+		console.log('The result is: ' + rows[0]); 
 	});
+
 }
 
 /*
