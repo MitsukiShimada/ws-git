@@ -6,18 +6,6 @@ var app = express();							//appという名のexpress
 var port = process.env.PORT || 5000;			//ポート
 
 
-//島田追加
-var mysql = require('mysql');	//mysqlモジュールを使用
-var db_connection;	//mysqlの接続
-//接続設定の用意
-var dbConfig = {
-	host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
-	user    	: 'viztaro', //ユーザー名
-	password	: 'vizmos', //パスワード
-	database	: 'viztaro' //DB名
-};
-
-
 //付け加え変数定義
 var connections = [];							//Websocket接続の保存用配列
 
@@ -35,6 +23,18 @@ var wss = new WebSocketServer({server: server});
 //console表示　※ポート番号は毎回変わる
 //console.log("コンソール：http server listening on %d", port);
 //console.log("コンソール：websocket server created");
+//島田追加
+var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
+// var mysql = require('mysql');	//browserifyを使用する場合
+
+var db_connection;	//mysqlの接続
+//接続設定の用意
+var dbConfig = {
+	host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
+	user    	: 'viztaro', //ユーザー名
+	password	: 'vizmos', //パスワード
+	database	: 'viztaro' //DB名
+};
 
 
 
@@ -143,11 +143,12 @@ function connect(s_user, s_text){
 	}
 	
 
-	db_connect();
+		dbConnect();
 	countActorOfScriptID(1);
 
-
 };
+
+
 
 //島田修正---------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
@@ -187,3 +188,4 @@ function dbClose(){
 }
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
+
