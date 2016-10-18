@@ -42,7 +42,7 @@ var dbConfig = {
 };
 
 dbConnect();
-countActorOfScriptID(1);
+// countActorOfScriptID(1);
 
 //クライアントと接続すると動作するイベント
 wss.on("connection", function(ws) {
