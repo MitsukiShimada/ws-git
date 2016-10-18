@@ -19,8 +19,8 @@ var motion_user = 0;
 var timer = 0;
 
 //島田追加
-// var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-var mysql = require('mysql');	//browserifyを使用する場合
+var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
+// var mysql = require('mysql');	//browserifyを使用する場合
 
 var db_connection;	//mysqlの接続
 //接続設定の用意
