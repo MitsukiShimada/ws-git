@@ -30,10 +30,16 @@ var mysql = require('mysql');	//browserifyを使用する場合
 var db_connection;	//mysqlの接続
 //接続設定の用意
 var dbConfig = {
-	host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
-	user    	: 'viztaro', //ユーザー名
-	password	: 'vizmos', //パスワード
-	database	: 'viztaro' //DB名
+	// host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
+	// user    	: 'viztaro', //ユーザー名
+	// password	: 'vizmos', //パスワード
+	// database	: 'viztaro' //DB名
+
+	host	: "localhost",
+  	user  : "root",
+  	password  :  "vNagCs6H",
+  	database  :  "ddihon"
+
 };
 
 
