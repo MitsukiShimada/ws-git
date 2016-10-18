@@ -645,7 +645,7 @@ function getCSVFile(daihon) {
 //わかりやすいように修正部分の変数をここで宣言
 //あとで修正する予定
 //var mysql = require('mysql');
-var mysql = require('mysql2');
+var mysql = require(['node_modules/mysql2']);
 
 //接続設定の用意
 var dbConfig = {
