@@ -18,18 +18,6 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
-//島田追加
-var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-// var mysql = require('mysql');	//browserifyを使用する場合
-
-var db_connection;	//mysqlの接続
-//接続設定の用意
-var dbConfig = {
-	host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
-	user    	: 'viztaro', //ユーザー名
-	password	: 'vizmos', //パスワード
-	database	: 'viztaro' //DB名
-};
 
 
 //********************オープン処理********************
@@ -41,8 +29,6 @@ ws.onopen = function(){
 	}));
 
 
-	dbConnect();
-	countActorOfScriptID(1);
 
 }
 
@@ -639,45 +625,6 @@ function getCSVFile(daihon) {
 }
 
 
-
-//島田修正---------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
-
-//わかりやすいように修正部分の変数をここで宣言
-//あとで修正する予定
-//var mysql = require('mysql');
-
-//DBへの接続をオープン
-function dbConnect(){	//データベースに接続
-	db_connection = mysql.createConnection(dbConfig);
-	db_connection.connect();
-	console.log('MySQLに接続');
-}
-
-//台本に登場する役者の数を取得
-function countActorOfScriptID(script_id){
-	var dbscript_id = script_id + 1;
-//	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
-	var sql = "select count(script_id) from actor where script_id=1";
-	connection.query(sql, function(err, rows, fields) {
-		if(err) throw err;
-		console.log('The result is: ' + rows[0]); 
-	});
-
-}
-
-/*
-function getActorName(script_id){
-	var sql = 'select actor_name from actor where script_id = ' + script_id;
-}
-*/
-
-//接続の破棄
-function dbClose(){
-	connection.end();
-}
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
 
 
 
