@@ -42,7 +42,8 @@ var dbConfig = {
 
 };
 
-
+dbConnect();
+countActorOfScriptID(1);
 
 //クライアントと接続すると動作するイベント
 wss.on("connection", function(ws) {
@@ -178,7 +179,7 @@ function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
 //	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	var sql = "select count(script_id) from actor where script_id=1";
-	connection.query(sql, function(err, rows, fields) {
+	db_connection.query(sql, function(err, rows, fields) {
 		if(err) throw err;
 		console.log('The result is: ' + rows[0]); 
 	});
