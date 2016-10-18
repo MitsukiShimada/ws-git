@@ -135,10 +135,6 @@ function connect(s_user, s_text){
 			broadcast(connect_message);
 		}
 
-	//島田追加
-	dbConnect();
-	// countActorOfScriptID(1);
-
 
 	//クローズ処理
 	} else if(s_text == "close"){
