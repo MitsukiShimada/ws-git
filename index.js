@@ -39,7 +39,6 @@ var dbConfig = {
   	user  : "root",
   	password  :  "vNagCs6H",
   	database  :  "ddihon"
-
 };
 
 dbConnect();
