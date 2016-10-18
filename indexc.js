@@ -644,6 +644,7 @@ function getCSVFile(daihon) {
 
 //わかりやすいように修正部分の変数をここで宣言
 //あとで修正する予定
+//var mysql = require('mysql');
 var mysql = require('mysql');
 
 //接続設定の用意
@@ -651,7 +652,7 @@ var dbConfig = {
 	host		: 'localhost', //接続先ホスト名
 	user    	: 'root', //ユーザー名
 	password	: 'vNagCs6H', //パスワード
-	database	: 'ddaihon' //DB名
+	database	: 'ddihon' //DB名
 };
 var connection;
 
@@ -659,6 +660,7 @@ var connection;
 function dbConnect(){	//データベースに接続
 	connection = mysql.createConnection(dbConfig);
 	connection.connect();
+	console.log('MySQLに接続');
 }
 
 //台本に登場する役者の数を取得
