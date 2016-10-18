@@ -143,8 +143,8 @@ function connect(s_user, s_text){
 	}
 	
 
-	db_connect();
-	countActorOfScriptID(1);
+//	db_connect();
+//	countActorOfScriptID(1);
 
 
 };
