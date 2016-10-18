@@ -25,7 +25,7 @@ var wss = new WebSocketServer({server: server});
 //console.log("コンソール：websocket server created");
 //島田追加
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-var mysql = require('mysql');	//browserifyを使用する場合
+// var mysql = require('mysql');	//browserifyを使用する場合
 
 var db_connection;	//mysqlの接続
 //接続設定の用意
@@ -143,8 +143,8 @@ function connect(s_user, s_text){
 	}
 	
 
-		dbConnect();
-	countActorOfScriptID(1);
+	// 	dbConnect();
+	// countActorOfScriptID(1);
 
 };
 
