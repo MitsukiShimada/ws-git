@@ -19,7 +19,7 @@ var motion_user = 0;
 var timer = 0;
 
 //島田追加
-var mysql = require(['mysql']);	//mysqlモジュールを使用
+var mysql = require(['node_modules/mysql']);	//mysqlモジュールを使用
 var db_connection;	//mysqlの接続
 //接続設定の用意
 var dbConfig = {
@@ -39,7 +39,7 @@ ws.onopen = function(){
 	}));
 
 
-	db_connect();
+	dbConnect();
 	countActorOfScriptID(1);
 
 }
