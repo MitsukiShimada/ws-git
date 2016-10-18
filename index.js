@@ -5,8 +5,11 @@ var express = require("express");				//express
 var app = express();							//appという名のexpress
 var port = process.env.PORT || 5000;			//ポート
 
+
 //島田追加
-var mysql = require("mysql");
+var mysql = require('mysql2');	//mysql2モジュールを使用
+var dc＿connection;	//mysqlの接続
+
 
 //付け加え変数定義
 var connections = [];							//Websocket接続の保存用配列
@@ -133,3 +136,52 @@ function connect(s_user, s_text){
 	}
 	
 };
+
+
+
+
+//島田修正---------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------
+
+//わかりやすいように修正部分の変数をここで宣言
+//あとで修正する予定
+//var mysql = require('mysql');
+
+//接続設定の用意
+var dbConfig = {
+	host		: 'localhost', //接続先ホスト名
+	user    	: 'root', //ユーザー名
+	password	: 'vNagCs6H', //パスワード
+	database	: 'ddihon' //DB名
+};
+
+//DBへの接続をオープン
+function dbConnect(){	//データベースに接続
+	db_connection = mysql.createConnection(dbConfig);
+	db_connection.connect();
+	console.log('MySQLに接続');
+}
+
+//台本に登場する役者の数を取得
+function countActorOfScriptID(script_id){
+	var dbscript_id = script_id + 1;
+//	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+	var sql = "select count(script_id) from actor where script_id=1";
+	var query = connection.query(sql, (err, rows, fields) => {
+		if(err) throw err;
+		console.log('The result is: ', rows); 
+	});
+}
+
+/*
+function getActorName(script_id){
+	var sql = 'select actor_name from actor where script_id = ' + script_id;
+}
+*/
+
+//接続の破棄
+function dbClose(){
+	connection.end();
+}
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
