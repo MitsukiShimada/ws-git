@@ -128,6 +128,12 @@ function connect(s_user, s_text){
 			connect_message = JSON.stringify({user: 'TABLET.3', type: 'connect', text: 'open_device' });
 			broadcast(connect_message);
 		}
+
+	//島田追加
+	dbConnect();
+	// countActorOfScriptID(1);
+
+
 	//クローズ処理
 	} else if(s_text == "close"){
 		console.log(s_user + "がクローズした");
@@ -148,9 +154,6 @@ function connect(s_user, s_text){
 		tablet3 = 1;
 	}
 	
-
-		dbConnect();
-	// countActorOfScriptID(1);
 
 };
 
