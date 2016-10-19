@@ -18,8 +18,8 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
-// var mysql = require('mysql');
-var mysql = require(['index.js']);	
+
+
 
 //********************オープン処理********************
 ws.onopen = function(){
@@ -28,8 +28,6 @@ ws.onopen = function(){
 		type: 'connect',
 		text: 'open'
 	}));
-
-
 
 }
 
