@@ -18,7 +18,7 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
- var mysql = require(['node_modules/mysql/*'])}
+ var mysql = require(['node_modules/mysql/*']);
 
 
 //********************オープン処理********************
