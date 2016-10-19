@@ -1,6 +1,6 @@
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-var mysql = require(['node_modules/mysql']);	//browserifyを使用する場合, 通常の場合
+var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
 // var DBClient = require('mysql').Client;
 
 var db_connection;	//mysqlの接続
