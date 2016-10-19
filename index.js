@@ -39,10 +39,15 @@ var dbConfig = {
 	// password	: 'vizmos', //パスワード
 	// database	: 'viztaro' //DB名
 
-	host	: "localhost",
-  	user  : "root",
-  	password  :  "vNagCs6H",
-  	database  :  "ddihon"
+	// host	: "localhost",
+ //  	user  : "root",
+ //  	password  :  "vNagCs6H",
+ //  	database  :  "ddihon"
+
+ host : 'us-cdbr-iron-east-04.cleardb.net',
+ user : 'b823897b16dff2',
+ password : '43ac4401',
+ database : 'heroku_26dd74052841cb5'
 };
 
 dbConnect();

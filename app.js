@@ -5,10 +5,11 @@ const mysql = require('mysql');
  
 // MySQLとのコネクションの作成
 const connection = mysql.createConnection({
-  host	: "localhost",
-  user  : "root",
-  password  :  "vNagCs6H",
-  database  :  "ddihon"
+  // host	: "localhost",
+  host : "192.168.20.129",
+  user : "root",
+  password : "vNagCs6H",
+  database : "ddihon"
 });
  
 // 接続
