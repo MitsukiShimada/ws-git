@@ -29,6 +29,7 @@ var wss = new WebSocketServer({server: server});
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
 var mysql = require('mysql');	//browserifyを使用する場合
+// var DBClient = require('mysql').Client;
 
 var db_connection;	//mysqlの接続
 //接続設定の用意
@@ -44,8 +45,8 @@ var dbConfig = {
   	database  :  "ddihon"
 };
 
-// dbConnect();
-// countActorOfScriptID(1);
+dbConnect();
+countActorOfScriptID(1);
 //-------------------------------------------------------------------------------------------
 
 
@@ -173,6 +174,10 @@ function dbConnect(){	//データベースに接続
 	db_connection = mysql.createConnection(dbConfig);
 	db_connection.connect();
 	console.log('MySQLに接続');
+	db_connection.ping(function (err) {
+  if (err) throw err;
+  console.log('Server responded to ping');
+})
 }
 
 //台本に登場する役者の数を取得
@@ -184,7 +189,6 @@ function countActorOfScriptID(script_id){
 		if(err) throw err;
 		console.log('The result is: ' + rows[0]); 
 	});
-
 }
 
 /*

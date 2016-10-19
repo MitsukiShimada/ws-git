@@ -5,14 +5,6 @@ const mysql = require('mysql');
  
 // MySQLとのコネクションの作成
 const connection = mysql.createConnection({
-  // host : 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d',
-  // host : 'http://viztaro.s17.xrea.com/log/phpmyadmin/index.php?token=d2dff2008e79084d172b3623c221575d#PMAURL-1:db_structure.php?db=viztaro&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d',
-  // host : '131.11.51.2',
-  // host : 'localhost',
-  // user : 'viztaro',
-  // password : 'vizmos',
-  // database: 'viztaro'
-  
   host	: "localhost",
   user  : "root",
   password  :  "vNagCs6H",
@@ -21,6 +13,11 @@ const connection = mysql.createConnection({
  
 // 接続
 connection.connect();
+
+connection.ping(function (err) {
+  if (err) throw err;
+  console.log('Server responded to ping');
+})
  
 // userdataの取得
 connection.query('SELECT * from actor;', function (err, rows, fields) {
