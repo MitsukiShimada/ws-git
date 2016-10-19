@@ -18,7 +18,7 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
-
+var mysql = require('mysql');	
 
 //********************オープン処理********************
 ws.onopen = function(){

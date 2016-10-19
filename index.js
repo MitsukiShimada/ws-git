@@ -28,7 +28,7 @@ var wss = new WebSocketServer({server: server});
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-var mysql = require('mysql');	//browserifyを使用する場合
+var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
 // var DBClient = require('mysql').Client;
 
 var db_connection;	//mysqlの接続
@@ -170,7 +170,6 @@ function connect(s_user, s_text){
 //島田修正---------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------
 
-//わかりやすいように修正部分の変数をここで宣言
 //あとで修正する予定
 //var mysql = require('mysql');
 
@@ -185,27 +184,30 @@ function dbConnect(){	//データベースに接続
 })
 }
 
+//接続の破棄
+function dbClose(){
+	connection.end();
+}
+
+
+/*****-------------------ここから卒論の範囲の機能-------------------*****/
+
 //台本に登場する役者の数を取得
 function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
-//	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
-	var sql = "select count(script_id) from actor where script_id=1";
+	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+	// var sql = "select count(script_id) from actor where script_id=1";
 	db_connection.query(sql, function(err, rows, fields) {
 		if(err) throw err;
 		console.log('The result is: ' + rows[0]); 
 	});
 }
 
-/*
-function getActorName(script_id){
-	var sql = 'select actor_name from actor where script_id = ' + script_id;
-}
-*/
 
-//接続の破棄
-function dbClose(){
-	connection.end();
-}
+/*****-------------------ここまで卒論の範囲の機能--------------------*****/
+
+
+
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 
