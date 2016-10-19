@@ -21,6 +21,7 @@ var timer = 0;
 
 // var db = require(['db']);
 // var db = require('./db');
+var mysql = require(['node_modules/mysql/index']);
 
 //********************オープン処理********************
 ws.onopen = function(){
