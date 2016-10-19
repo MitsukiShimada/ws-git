@@ -20,7 +20,7 @@ var timer = 0;
 
 
 // var db = require(['db']);
-var db = require('./db');
+// var db = require('./db');
 
 //********************オープン処理********************
 ws.onopen = function(){
