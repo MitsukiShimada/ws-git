@@ -22,27 +22,6 @@ var timer = 0;
 // var db = require(['db']);
 // var db = require('./db');
 // var mysql = require(['node_modules/mysql/index']);
-require( ['mysql'], function( mysql ) {
-  var db_connection =  mysql.createConnection({
-                      host : "us-cdbr-iron-east-04.cleardb.net",
-                      user : "viztaro",
-                      password : "vizmos",
-                      databaes : "viztaro"
-                    });
-
-  db_connection.connect();
-
-  db_connection.query("use verify");
-  var strQuery = "select * from actor";  
-
-  connection.query( strQuery, function(err, rows){
-    if(err) {
-      throw err;
-    }else{
-      console.log( rows );
-    }
-  });
-});
 
 // var db_connection;	//mysqlの接続
 // //接続設定の用意
@@ -63,6 +42,7 @@ require( ['mysql'], function( mysql ) {
 //  database : 'heroku_26dd74052841cb5'
 // };
 
+var mysql = require('index.js');
 
 
 //********************オープン処理********************
