@@ -21,33 +21,37 @@ var timer = 0;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
-// var DBClient = require('mysql').Client;
+// var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
+// // var DBClient = require('mysql').Client;
 
-var db_connection;	//mysqlの接続
-//接続設定の用意
-var dbConfig = {
-	// host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
-	// user    	: 'viztaro', //ユーザー名
-	// password	: 'vizmos', //パスワード
-	// database	: 'viztaro' //DB名
+require(['index.js'], function(db_connect){
+	var mysql = db_connect.count_actors(1);
+	console.log(mysql);
+})
 
-	// host	: "localhost",
- //  	user  : "root",
- //  	password  :  "vNagCs6H",
- //  	database  :  "ddihon"
+// var db_connection;	//mysqlの接続
+// //接続設定の用意
+// var dbConfig = {
+// 	// host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
+// 	// user    	: 'viztaro', //ユーザー名
+// 	// password	: 'vizmos', //パスワード
+// 	// database	: 'viztaro' //DB名
 
- host : 'us-cdbr-iron-east-04.cleardb.net',
- user : 'b823897b16dff2',
- password : '43ac4401',
- database : 'heroku_26dd74052841cb5'
-};
+// 	// host	: "localhost",
+//  //  	user  : "root",
+//  //  	password  :  "vNagCs6H",
+//  //  	database  :  "ddihon"
 
-dbConnect();
-countActors(1);
-dbClose();
+//  host : 'us-cdbr-iron-east-04.cleardb.net',
+//  user : 'b823897b16dff2',
+//  password : '43ac4401',
+//  database : 'heroku_26dd74052841cb5'
+// };
+
+// dbConnect();
+// countActors(1);
+// dbClose();
 //-------------------------------------------------------------------------------------------
-
 
 
 //********************オープン処理********************
