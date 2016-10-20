@@ -50,11 +50,16 @@ function dbClose(){
 	db_connection.end();
 }
 
+exports.dbClose = function(){
+	console.log('Database Connection Closed');
+	db_connection.end();
+};
+
 
 /*****-------------------ここから卒論の範囲の機能-------------------*****/
 
 //台本に登場する役者の数を取得
-function countActorOfScriptID(script_id){
+exports.countActorOfScriptID = function (script_id){
 	var dbscript_id = script_id + 1;
 	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
 	// var sql = "select count(script_id) from actor where script_id=1";
@@ -62,7 +67,7 @@ function countActorOfScriptID(script_id){
 		if(err) throw err;
 		console.log('The result is: ' + rows[0]); 
 	});
-}
+};
 
 function countActors(script_id){
 	var sql = "select actor_name from actor where script_id=" + script_id;
@@ -76,23 +81,21 @@ function countActors(script_id){
 }
 
 
-define(function(){
+// define(function(){
 
-	function countActors(script_id){
-
+	exports.countActors = function (script_id){
 		var sql = 'select actor_name from actor where script_id = 1';
 		db_connection.query(sql, function(err, rows, fields){
 		if(err) throw err;
 		return(rows[0].actor_name);
 		});
-
-	}
-
-
-	return {
-		countActors:countActors
 	};
-});
+
+
+	// return {
+	// 	countActors:countActors
+	// };
+// });
 
 
 
