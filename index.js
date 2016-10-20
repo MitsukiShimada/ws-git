@@ -75,8 +75,8 @@ wss.on("connection", function(ws) {
 		}
     });
 
-    	db.dbConnect();
-	db.countActors(1);
+ //    	db.dbConnect();
+	// db.countActors(1);
 	
 })
 
