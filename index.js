@@ -74,6 +74,9 @@ wss.on("connection", function(ws) {
 		
 		}
     });
+
+    	db.dbConnect();
+	db.countActors(1);
 	
 })
 
@@ -140,8 +143,8 @@ function connect(s_user, s_text){
 
 };
 
-	db.dbConnect();
-	db.countActors(1);
+	// db.dbConnect();
+	// db.countActors(1);
 	// var actors = new Array(db.countActors(1));
 	// console.log(actors[0].actor_name);
 
