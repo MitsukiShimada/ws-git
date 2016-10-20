@@ -87,6 +87,11 @@ define(function(){
 		});
 
 	}
+
+
+	return {
+		countActors:countActors;
+	};
 });
 
 
