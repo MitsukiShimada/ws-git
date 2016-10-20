@@ -20,6 +20,7 @@ var dbConfig = {
  database : 'heroku_26dd74052841cb5'
 };
 
+dbConnect();
 // dbConnect();
 // countActors(1);
 // dbClose();
