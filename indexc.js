@@ -24,7 +24,7 @@ var timer = 0;
 // var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
 // // var DBClient = require('mysql').Client;
 
-require(['index.js'], function(db_connect){
+require(['db.js'], function(db_connect){
 	var mysql = db_connect.count_actors(1);
 	console.log(mysql);
 })
