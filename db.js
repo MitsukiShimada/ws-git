@@ -33,7 +33,6 @@ dbConnect();
 
 //DBへの接続をオープン
 
-
 function dbConnect(){	//データベースに接続
 	db_connection = mysql.createConnection(dbConfig);
 	db_connection.connect();
