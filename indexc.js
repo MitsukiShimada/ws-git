@@ -42,7 +42,7 @@ var timer = 0;
 //  database : 'heroku_26dd74052841cb5'
 // };
 
-var mysql = require('index.js');
+var mysql = require(['index.js']);
 
 
 //********************オープン処理********************
