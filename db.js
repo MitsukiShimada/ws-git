@@ -90,7 +90,7 @@ define(function(){
 
 
 	return {
-		countActors:countActors;
+		countActors:countActors
 	};
 });
 
