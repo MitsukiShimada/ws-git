@@ -80,9 +80,6 @@ function countActors(script_id){
 	});
 }
 
-
-// define(function(){
-
 	exports.countActors = function (script_id){
 		var sql = 'select actor_name from actor where script_id = 1';
 		db_connection.query(sql, function(err, rows, fields){
@@ -90,13 +87,6 @@ function countActors(script_id){
 		return(rows[0].actor_name);
 		});
 	};
-
-
-	// return {
-	// 	countActors:countActors
-	// };
-// });
-
 
 
 /*****-------------------ここまで卒論の範囲の機能--------------------*****/
