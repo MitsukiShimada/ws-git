@@ -76,12 +76,17 @@ function countActors(script_id){
 }
 
 
-define(function(countActors){
-	var sql = 'select actor_name from actor where script_id = 1'
-	db_connection.query(sql, function(err, rows, fields){
-		if(err) throe err;
+define(function(){
+
+	function countActors(script_id){
+
+		var sql = 'select actor_name from actor where script_id = 1';
+		db_connection.query(sql, function(err, rows, fields){
+		if(err) throw err;
 		return(rows[0].actor_name);
-	})
+		});
+
+	}
 });
 
 
