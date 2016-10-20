@@ -27,7 +27,7 @@ var timer = 0;
 // require(['db'], function(db_connect){
 // 	console.log(db_connect.countActors(1));
 // });
-	var db = require('db.js');
+	var db = require(['db']);
 	db.countActors(1);
 
 // var db_connection;	//mysqlの接続
