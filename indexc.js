@@ -258,7 +258,7 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-	}else if(messages.type == "query_result"){	//島田追加
+	}else if(messages.type == "db_access"){	//島田追加
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
