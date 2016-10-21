@@ -264,7 +264,7 @@ ws.onmessage = function (event) {
 	//-----一応その他のtypeだった場合-----
 	} else {
 		console.log(event.data);
-		console.log(messages.data.type);
+		console.log(event.data.type);
 		// console.log(event.data.type);
 		// console.log(event.data.text);
 		// console.log(event.data.func_name);
