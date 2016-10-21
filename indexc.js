@@ -182,9 +182,6 @@ ws.onmessage = function (event) {
 
 
 	//-----typeがdatabase-----
-	}else if(messages.type == "database"){	//島田追加
-		DBdebug_chat(messages.function, messages.text);
-		
 	}else if(messages.type == "raise"){
 	//サーバ→Watch 一方通行 Watchのアプリ起動させる
 	
@@ -261,8 +258,9 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-	
-	
+	}else if(event.type == "database"){	//島田追加
+		DBdebug_chat(messages.function, messages.text);
+		
 	//-----一応その他のtypeだった場合-----
 	} else {
 		console.log("その他のtypeを受信: " + messages);
