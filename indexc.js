@@ -258,19 +258,13 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-	}else if(event.type == "database"){	//島田追加
+	}else if(event.type == "db_access"){	//島田追加
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
 		console.log(event.data);
-		console.log(event.data.messages);
 		console.log(event.type);
-		console.log(event.func_name);
-		console.log(event.data.type);
-		console.log(event.type.text);
-
-
 
 		console.log("その他のtypeを受信: " + messages);
 	}
@@ -676,6 +670,8 @@ function onChatSendButton() {
 //島田追加  DBとの接続テスト用--------------------------------------------------------
 function onDBChatSendButton(){
 	chat_ipt = document.getElementById("chat_input");
+
+	console.log(chat_ipt);
 	db_send(chat_ipt);//chatにindex.jsのメソッド名を入力する
 }
 //---------------------------------------------------------------
