@@ -263,7 +263,15 @@ ws.onmessage = function (event) {
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
+		console.log(event.data);
+		console.log(event.data.messages);
 		console.log(event.type);
+		console.log(event.func_name);
+		console.log(event.data.type);
+		console.log(event.type.text);
+
+
+
 		console.log("その他のtypeを受信: " + messages);
 	}
 
