@@ -246,11 +246,10 @@ function countActorOfScriptID(script_id){
 
 function getActorName(script_id){
 	var sql = "select actor_name from actor where script_id = " + script_id;
-	var row;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
-		var database_data = JSON.stringify({function: "getActorName", type: "databse", text: result})
+		var database_data = JSON.stringify({function: "getActorName", type: "database", text: result})
 		broadcast(database_data);
 
 	});

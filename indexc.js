@@ -193,7 +193,7 @@ ws.onmessage = function (event) {
 //---------------------------------------------------
 //-----------------------------------------------------------------
 
-
+	//-----typeがraise-----
 	else if(messages.type == "raise"){
 	//サーバ→Watch 一方通行 Watchのアプリ起動させる
 	
@@ -293,10 +293,10 @@ function send(Userid, Type, Text){
 	}));
 }
 
-function db_send(func_name){
+function db_send(function_name){
 	ws.send(JSON.stringify({
-		func_name: func_name,
-		type: db_access,
+		func_name: function_name,
+		type: "db_access",
 		script_id: 1
 	}));
 }
@@ -379,7 +379,7 @@ function write_chat(Userid, Text){
 //データベース接続デバッグ用 島田追加--------------------------------------------
 function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
-	cgat_fld.innerHTML += "Function: " + func_name + ", Result: "+ db_data + "<br>";
+	cgat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
 }
 //--------------------------------------------------------------------------
 
