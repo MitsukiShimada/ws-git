@@ -258,17 +258,18 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-	}else if(JSON.parse(event).type == "database"){	//島田追加
+	}else if(messages.data.type == "database"){	//島田追加
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
 		console.log(event.data);
+		console.log(messages.data.type);
 		// console.log(event.data.type);
 		// console.log(event.data.text);
 		// console.log(event.data.func_name);
-		console.log(JSON.parse(event).type);
-		console.log(JSON.parse(event).text);
+		// console.log(JSON.parse(event).type);
+		// console.log(JSON.parse(event).text);
 
 
 		console.log("その他のtypeを受信: " + messages);
