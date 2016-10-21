@@ -94,6 +94,7 @@ ws.onmessage = function (event) {
 	var messages = JSON.parse(event.data);
 //	console.log(messages);
 
+
 	//-----typeがping-----
 	if(messages.type == "ping"){
 		write_ping(userid, messages.text);
@@ -181,7 +182,19 @@ ws.onmessage = function (event) {
 
 
 	//-----typeがraise-----
-	} else if(messages.type == "raise"){
+	}else if 
+
+
+//---------島田追加-----------------------------------------------------
+//-----------------------------------------------
+	(messages.type == "database"){
+		DBdebug_chat(messages.function, messages.text);
+	}
+//---------------------------------------------------
+//-----------------------------------------------------------------
+
+
+	else if(messages.type == "raise"){
 	//サーバ→Watch 一方通行 Watchのアプリ起動させる
 	
 	
@@ -264,6 +277,8 @@ ws.onmessage = function (event) {
 		console.log("その他のtypeを受信: " + messages);
 	}
 
+
+
 };
 
 	
@@ -275,6 +290,14 @@ function send(Userid, Type, Text){
 		user: Userid,
 		type: Type,
 		text: Text
+	}));
+}
+
+function db_send(func_name){
+	ws.send(JSON.stringify({
+		func_name: func_name,
+		type: db_access,
+		script_id: 1
 	}));
 }
 
@@ -351,6 +374,15 @@ function write_chat(Userid, Text){
 	var chat_fld = document.getElementById("chat_field");
 	chat_fld.innerHTML += "ユーザ " + Userid + ": " + Text + "<br>";
 }
+
+
+//データベース接続デバッグ用 島田追加--------------------------------------------
+function DBdebug_chat(func_name, db_data){
+	var chat_fld = document.getElementById("chat_field");
+	cgat_fld.innerHTML += "Function: " + func_name + ", Result: "+ db_data + "<br>";
+}
+//--------------------------------------------------------------------------
+
 
 //ログボックスに書き込み
 function write_log(Userid, Text){
@@ -640,6 +672,15 @@ function onChatSendButton() {
 	motionsend(1,'kinect_send', 'text');	//役者名とモーションを通知
 
 }
+
+
+
+//島田追加  DBとの接続テスト用--------------------------------------------------------
+function onDBChatSendButton(){
+	chat_ipt = document.getElementById("chat_input");
+	db_send(chat_ipt);//chatにindex.jsのメソッド名を入力する
+}
+//---------------------------------------------------------------
 
 
 //********************台本、稽古 機能イベント********************

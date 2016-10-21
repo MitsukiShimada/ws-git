@@ -1,4 +1,5 @@
 var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
+var async = require('async');
 // var DBClient = require('mysql').Client;
 
 var db_connection;	//mysqlの接続
@@ -16,6 +17,18 @@ var dbConfig = {
 //var mysql = require('mysql');
 
 //DBへの接続をオープン
+// dbConnect();
+
+// function dbConnect(){
+// 		db_connection = mysql.createConnection(dbConfig);
+// 	db_connection.connect();
+// 	console.log('MySQLに接続');
+// 	db_connection.ping(function (err) {
+//   if (err) throw err;
+//   console.log('Server responded to ping');
+// });
+// };
+
 
 exports.dbConnect = function (){	//データベースに接続
 	db_connection = mysql.createConnection(dbConfig);
@@ -27,11 +40,12 @@ exports.dbConnect = function (){	//データベースに接続
 });
 };
 
-//接続の破棄
-function dbClose(){
-	console.log('Database Connection Closed');
-	db_connection.end();
-}
+exports.dbStatus = function (){
+	db_connection.ping(function (err){
+		if(err) return false;
+		return true;
+	});
+};
 
 exports.dbClose = function(){
 	console.log('Database Connection Closed');
@@ -67,14 +81,14 @@ exports.countActorOfScriptID = function (script_id){
 //
 exports.countActors = function (script_id){
 	var sql = 'select actor_name from actor where script_id = ' + script_id;
-	db_connection.query(sql, function(err, rows, fields){
+	var row;
+	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
-		// return(rows[0].actor_name);
-		console.log('The result is: ' + rows[0].actor_name); 
-		console.log('The result is: ' + rows[1].actor_name); 
-		console.log('The result is: ' + rows[2].actor_name); 
-
+		// console.log(result);
+		console.log('counActors() End');
+		return result;
 	});
+
 };
 
 

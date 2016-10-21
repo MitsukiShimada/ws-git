@@ -26,8 +26,72 @@ var wss = new WebSocketServer({server: server});
 //console.log("コンソール：websocket server created");
 
 //島田追加------------------------------------------------------------------------------
-// var db = require('./db');
+// var db = require("./db");
+// var async = require("async");
+var mysql = require('mysql');
+var db_connection;	//mysqlの接続
+//接続設定の用意
+var dbConfig = {
+ host : 'us-cdbr-iron-east-04.cleardb.net',
+ user : 'b823897b16dff2',
+ password : '43ac4401',
+ database : 'heroku_26dd74052841cb5'
+};
 
+dbConnect();
+
+// db.dbConnect();
+
+// async.series([	//第一引数はじめ
+// 	function(callback){
+// 		 var db_status = db.dbConnect();
+
+// 		console.log('first');
+// 		callback(null, actors = db.countActors(1));
+// 	},
+// 	function(callback){
+// 		while(actors == null){
+// 		actors = db.countActors(1);
+// 		};
+// 		console.log('second');
+// 		callback(null, actors);
+// 	},
+// 	function(callback){
+// 		console.log(actors);
+// 		console.log('third');
+// 		callback(null, actors);
+// 	}
+// 	], //第一引数おわり 
+// 	function(err, result){
+// 		if(err) throw err;
+// 		// console.log('Actors: ' + result);
+// 	}
+// );
+
+// 	db.countActors(1, db.dbConnect(err, result){
+// 	if(err) throw err;
+// 	actors = result;
+// });
+// 	console.log(actors);
+
+//コールバック関数を実行する関数
+// 	function dbCoonect_callback(callback){
+// 		db.dbConnect();
+// 		callback();
+// 	}
+
+// //コールバック関数
+// 	var showActors = function(){
+// 		actors = db.countActors(1);
+// 		console.log('In show Actors');
+// 		console.log(actors);
+// 	}
+
+// 	dbCoonect_callback(showActors);
+
+// db.dbConnect();
+// var actors = db.countActors(1);
+// console.log(actors);
 //-------------------------------------------------------------------------------------------
 
 
@@ -73,10 +137,19 @@ wss.on("connection", function(ws) {
 		}else if(JSON.parse(message).type == "training"){
 		
 		}
-    });
 
- //    	db.dbConnect();
-	// db.countActors(1);
+// 島田追加-------------------------------------------------------------------
+		else if(JSON.parse(message).type == "db_access"){
+			// var rows = db.countActors(1);
+			if(JSON.parse(message).func_name == "getActorName"){
+			getActorName(JSON.parse(message).script_id);
+			};
+		}
+	
+//---------------------------------------------------------------------------
+
+
+    });
 	
 })
 
@@ -143,9 +216,42 @@ function connect(s_user, s_text){
 
 };
 
-	// db.dbConnect();
-	// db.countActors(1);
-	// var actors = new Array(db.countActors(1));
-	// console.log(actors[0].actor_name);
+
+function dbConnect(){	//データベースに接続
+	db_connection = mysql.createConnection(dbConfig);
+	db_connection.connect();
+	console.log('MySQLに接続');
+	db_connection.ping(function (err) {
+  if (err) throw err;
+  console.log('Server responded to ping');
+});
+}
+
+function dbClose(){
+	console.log('Database Connection Closed');
+	db_connection.end();
+};
 
 
+function countActorOfScriptID(script_id){
+	var dbscript_id = script_id + 1;
+	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+	// var sql = "select count(script_id) from actor where script_id=1";
+	db_connection.query(sql, function(err, rows, fields) {
+		if(err) throw err;
+		console.log('The result is: ' + rows[0]); 
+	});
+};
+
+
+function getActorName(script_id){
+	var sql = "select actor_name from actor where script_id = " + script_id;
+	var row;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: "getActorName", type: "databse", text: result})
+		broadcast(database_data);
+
+	});
+};
