@@ -187,7 +187,7 @@ ws.onmessage = function (event) {
 
 //---------島田追加-----------------------------------------------------
 //-----------------------------------------------
-	(JSON.parse(event.type) == "database"){
+	(messages.type == "database"){
 		DBdebug_chat(messages.function, messages.text);
 	}
 //---------------------------------------------------
@@ -296,7 +296,7 @@ function send(Userid, Type, Text){
 function db_send(function_name){
 	ws.send(JSON.stringify({
 		func_name: function_name,
-		type: "db_access",
+		type: 'db_access',
 		script_id: 1
 	}));
 }
