@@ -181,7 +181,7 @@ ws.onmessage = function (event) {
 		write_chat(messages.user, messages.text);
 
 
-	//-----typeがraise-----
+	//-----typeがdatabase-----
 	}else if 
 
 
