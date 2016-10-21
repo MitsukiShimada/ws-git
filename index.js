@@ -249,7 +249,7 @@ function getActorName(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
-		var database_data = JSON.stringify({function: 'getActorName', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'getActorName', type: 'database', text: result})
 		broadcast(database_data);
 	});
 };
