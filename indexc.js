@@ -187,7 +187,7 @@ ws.onmessage = function (event) {
 
 //---------島田追加-----------------------------------------------------
 //-----------------------------------------------
-	(messages.type == "database"){
+	(JSON.parse(event.type) == "database"){
 		DBdebug_chat(messages.function, messages.text);
 	}
 //---------------------------------------------------
