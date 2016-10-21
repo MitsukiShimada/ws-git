@@ -671,7 +671,7 @@ function onChatSendButton() {
 function onDBChatSendButton(){
 	chat_ipt = document.getElementById("chat_input");
 
-	console.log(chat_ipt);
+	console.log(chat_ipt.value);
 	db_send(chat_ipt);//chatにindex.jsのメソッド名を入力する
 }
 //---------------------------------------------------------------
