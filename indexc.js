@@ -377,7 +377,7 @@ function write_chat(Userid, Text){
 //データベース接続デバッグ用 島田追加--------------------------------------------
 function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
-	cgat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
+	chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
 }
 //--------------------------------------------------------------------------
 
