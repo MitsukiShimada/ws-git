@@ -182,19 +182,10 @@ ws.onmessage = function (event) {
 
 
 	//-----typeがdatabase-----
-	}else if 
-
-
-//---------島田追加-----------------------------------------------------
-//-----------------------------------------------
-	(messages.type == "database"){
+	}else if(messages.type == "database"){	//島田追加
 		DBdebug_chat(messages.function, messages.text);
-	}
-//---------------------------------------------------
-//-----------------------------------------------------------------
-
-	//-----typeがraise-----
-	else if(messages.type == "raise"){
+		
+	}else if(messages.type == "raise"){
 	//サーバ→Watch 一方通行 Watchのアプリ起動させる
 	
 	
@@ -274,7 +265,7 @@ ws.onmessage = function (event) {
 	
 	//-----一応その他のtypeだった場合-----
 	} else {
-		console.log("その他のtypeを受信: " + messages.func_name);
+		console.log("その他のtypeを受信: " + messages);
 	}
 
 
