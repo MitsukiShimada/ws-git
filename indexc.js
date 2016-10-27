@@ -263,9 +263,13 @@ ws.onmessage = function (event) {
 //		console.log(event.data.text);
 		// console.log(event.data.text[0]);
 		// console.log(messages);
-		for(var i = 0; i < messages.text.length(); i++){
-		console.log(messages.text[i].actor_name);
-	};
+	// 	for(var i = 0; i < messages.text.length(); i++){
+	// 	console.log(messages.text[i].actor_name);
+	// };
+	for(key in messages.text){
+		console.log(messages.text[key].actor_name);
+	}
+
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		DBdebug_chat(messages.function, messages.text);
