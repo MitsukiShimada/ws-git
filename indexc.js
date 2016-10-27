@@ -384,7 +384,7 @@ function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
 	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
 	for(key in db_data){
-	chat_fld.innerHTML += "ActorName: " + db_data.text[key].actor_name + "<br>";
+	chat_fld.innerHTML += "ActorName: " + db_data[key].actor_name + "<br>";
 	}; 
 }
 //--------------------------------------------------------------------------
