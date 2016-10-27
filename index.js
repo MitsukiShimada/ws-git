@@ -20,7 +20,6 @@ var server = http.createServer(app);
 server.listen(port);
 var wss = new WebSocketServer({server: server});
 
-
 //console表示　※ポート番号は毎回変わる
 //console.log("コンソール：http server listening on %d", port);
 //console.log("コンソール：websocket server created");
