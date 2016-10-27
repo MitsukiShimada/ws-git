@@ -382,7 +382,10 @@ function write_chat(Userid, Text){
 //データベース接続デバッグ用 島田追加--------------------------------------------
 function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
-	chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
+	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
+	for(key in db_data){
+	chat_fld.innerHTML += "ActorName: " + db_data.text[i].actor_name + "<br>";
+	}; 
 }
 //--------------------------------------------------------------------------
 
