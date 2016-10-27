@@ -261,6 +261,7 @@ ws.onmessage = function (event) {
 	}else if(messages.type == "db_access"){	//島田追加
 		console.log(event.data);
 
+		
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
