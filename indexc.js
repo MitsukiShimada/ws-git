@@ -263,6 +263,7 @@ ws.onmessage = function (event) {
 //		console.log(event.data.text);
 		// console.log(event.data.text[0]);
 		console.log(messages);
+		console.log(JSON.parse(event).text);
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		DBdebug_chat(messages.function, messages.text);
