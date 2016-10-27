@@ -258,21 +258,17 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-	}else if(messages.type == "db_access"){	//島田追加
-		// console.log(event.data);
-//		console.log(event.data.text);
-		// console.log(event.data.text[0]);
-		// console.log(messages);
-	// 	for(var i = 0; i < messages.text.length(); i++){
-	// 	console.log(messages.text[i].actor_name);
-	// };
+//DBとのやりとりのための分岐,島田追加*********************************************	
+	}else if(messages.type == "db_access"){
+	console.log(event.data);
 	for(key in messages.text){
 		console.log(messages.text[key].actor_name);
 	}
-
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		DBdebug_chat(messages.function, messages.text);
+
+//********************************************************************
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
