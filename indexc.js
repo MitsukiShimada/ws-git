@@ -259,12 +259,13 @@ ws.onmessage = function (event) {
 	
 	
 	}else if(messages.type == "db_access"){	//島田追加
-		console.log(event.data);
+		// console.log(event.data);
 //		console.log(event.data.text);
 		// console.log(event.data.text[0]);
 		// console.log(messages);
-		// for(var i = 0; i < message)
+		for(var i = 0; i < messages.text.size(); i++){
 		console.log(messages.text[0].actor_name);
+	};
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		DBdebug_chat(messages.function, messages.text);
