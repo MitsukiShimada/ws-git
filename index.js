@@ -249,7 +249,7 @@ function getActorName(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
-		var actor_name[];
+		var actor_name = new Array();
 		for(var i = 0; i < result.size(); i++){
 			actor_name[i] = result[i].actor_name;
 		}

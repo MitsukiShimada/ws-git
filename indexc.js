@@ -261,10 +261,10 @@ ws.onmessage = function (event) {
 	}else if(messages.type == "db_access"){	//島田追加
 		console.log(event.data);
 //		console.log(event.data.text);
-		console.log(event.data.text[0]);
+		// console.log(event.data.text[0]);
+		console.log(messages);
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
-		console.log
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
