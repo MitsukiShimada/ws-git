@@ -260,20 +260,17 @@ ws.onmessage = function (event) {
 	
 	}else if(messages.type == "db_access"){	//島田追加
 		console.log(event.data);
-		console.log(event.data.text);
+//		console.log(event.data.text);
+		console.log(event.data.text[0]);
+		// var data = JSON.parse(event); 
+		// console.log(JSON.getString("text"));
+		console.log
 		DBdebug_chat(messages.function, messages.text);
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
 		console.log(event.data);
 		console.log(messages.data);
-		// console.log(event.data.type);
-		// console.log(event.data.type);
-		// console.log(event.data.text);
-		// console.log(event.data.func_name);
-		// console.log(JSON.parse(event).type);
-		// console.log(JSON.parse(event).text);
-
 		console.log("その他のtypeを受信: " + messages);
 	}
 
