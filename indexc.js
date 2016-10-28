@@ -684,6 +684,15 @@ function onDBChatSendButton(){
 	console.log(chat_ipt.value);
 	db_send(chat_ipt.value);//chatにindex.jsのメソッド名を入力する
 }
+
+function dbFunctionSendButtonWithScriptID(function_name, script_id){
+	
+}
+
+function dbFunctionSencdButtonWithScriptIDAndActorID(functione_name, script_id){
+
+}
+
 //---------------------------------------------------------------
 
 
@@ -712,46 +721,46 @@ function getCSVFile(daihon) {
 //var mysql = require('mysql');
 
 //DBへの接続をオープン
-function dbConnect(){	//データベースに接続
-	db_connection = mysql.createConnection(dbConfig);
-	db_connection.connect();
-	console.log('MySQLに接続');
-	db_connection.ping(function (err) {
-  if (err) throw err;
-  console.log('Server responded to ping');
-})
-}
+// function dbConnect(){	//データベースに接続
+// 	db_connection = mysql.createConnection(dbConfig);
+// 	db_connection.connect();
+// 	console.log('MySQLに接続');
+// 	db_connection.ping(function (err) {
+//   if (err) throw err;
+//   console.log('Server responded to ping');
+// })
+// }
 
-//接続の破棄
-function dbClose(){
-	console.log('Database Connection Closed');
-	db_connection.end();
-}
+// //接続の破棄
+// function dbClose(){
+// 	console.log('Database Connection Closed');
+// 	db_connection.end();
+// }
 
 
-/*****-------------------ここから卒論の範囲の機能-------------------*****/
+// /*****-------------------ここから卒論の範囲の機能-------------------*****/
 
-//台本に登場する役者の数を取得
-function countActorOfScriptID(script_id){
-	var dbscript_id = script_id + 1;
-	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
-	// var sql = "select count(script_id) from actor where script_id=1";
-	db_connection.query(sql, function(err, rows, fields) {
-		if(err) throw err;
-		console.log('The result is: ' + rows[0]); 
-	});
-}
+// //台本に登場する役者の数を取得
+// function countActorOfScriptID(script_id){
+// 	var dbscript_id = script_id + 1;
+// 	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+// 	// var sql = "select count(script_id) from actor where script_id=1";
+// 	db_connection.query(sql, function(err, rows, fields) {
+// 		if(err) throw err;
+// 		console.log('The result is: ' + rows[0]); 
+// 	});
+// }
 
-function countActors(script_id){
-	var sql = "select actor_name from actor where script_id=" + script_id;
-	// var sql = "select count(script_id) from actor where script_id=1";
-	db_connection.query(sql, function(err, rows, fields) {
-		if(err) throw err;
-		console.log('The result is: ' + rows[0].actor_name); 
-		console.log('The result is: ' + rows[1].actor_name); 
-		console.log('The result is: ' + rows[2].actor_name); 
-	});
-}
+// function countActors(script_id){
+// 	var sql = "select actor_name from actor where script_id=" + script_id;
+// 	// var sql = "select count(script_id) from actor where script_id=1";
+// 	db_connection.query(sql, function(err, rows, fields) {
+// 		if(err) throw err;
+// 		console.log('The result is: ' + rows[0].actor_name); 
+// 		console.log('The result is: ' + rows[1].actor_name); 
+// 		console.log('The result is: ' + rows[2].actor_name); 
+// 	});
+// }
 
 
 /*****-------------------ここまで卒論の範囲の機能--------------------*****/

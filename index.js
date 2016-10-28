@@ -254,194 +254,194 @@ function actorListBySceneID(script_id){
 	});
 };
 
-// function getScriptIDBySceneTitle(scene){
-// 	var sql = "select id from info where scene = " + scene;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function getScriptIDBySceneTitle(scene){
+	var sql = "select id from info where scene = " + scene;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function getActorIDByActorName(name){
-// 	var sql = "select actor_id from actor where actor_name = " + name;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function getActorIDByActorName(name){
+	var sql = "select actor_id from actor where actor_name = " + name;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readScriptTitleByID(script_id){
-// 	script_id++;
-// 	var sql = "select title from info where id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readScriptTitleByID(script_id){
+	script_id++;
+	var sql = "select title from info where id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readScriptSceneTitleByID(script_id){
-// 	script_id++;
-// 	var sql = "select actor_name from actor where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readScriptSceneTitleByID(script_id){
+	script_id++;
+	var sql = "select actor_name from actor where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readActorNameBySceneAndID(script_id, actor_id){
-// 	script_id++;
-// 	actor_id++;
-// 	var sql = "select actor_name from actor where script_id = " + script_id + " and actor_id = " + actor_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readActorNameBySceneAndID(script_id, actor_id){
+	script_id++;
+	actor_id++;
+	var sql = "select actor_name from actor where script_id = " + script_id + " and actor_id = " + actor_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readActionTimingDayaByScriptID(script_id){
-// 	script_id++;
-// 	var sql = "select timing from action where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readActionTimingDayaByScriptID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readActionTimingDayaByScriptID(script_id){
+	script_id++;
+	var sql = "select timing from action where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readActionTimingDayaByScriptID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readWhoIsActionDataByScriptID(script_id){
-// 	script_id++;
-// 	var sql = "select actor_name from actor where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readWhoIsActionDataByScriptID(script_id){
+	script_id++;
+	var sql = "select actor_name from actor where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function readActionImageDataByScriptID(script_id){
-// 	script_id++;
-// 	var sql = "select image from action where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
-
-
-// function readMoveDataBySceneAndID(script_id, actor_id){
-// 	script_id++;
-// 	actor_id++;
-// 	var sql = "select script from move where script_id = " + script_id + " and actor_id = " actor_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readMoveDataBySceneAndID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readActionImageDataByScriptID(script_id){
+	script_id++;
+	var sql = "select image from action where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
 
-// function readSee2DataBySceneAndID(script_id, actor_id){
-// 	script_id++;
-// 	actor_id++;
-// 	var sql = "select script from see2 where script_id = " + script_id + " and actor_id = " actor_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSee2DataBySceneAndID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readMoveDataBySceneAndID(script_id, actor_id){
+	script_id++;
+	actor_id++;
+	var sql = "select script from move where script_id = " + script_id + " and actor_id = " actor_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readMoveDataBySceneAndID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
 
-// function readSeeTimingDataBySceneAndID(script_id, actor_id){
-// 	script_id++;
-// 	actor_id++;
-// 	var sql = "select timing from see where script_id = " + script_id + " and actor_id = " actor_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSeeTimingDataBySceneAndID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readSee2DataBySceneAndID(script_id, actor_id){
+	script_id++;
+	actor_id++;
+	var sql = "select script from see2 where script_id = " + script_id + " and actor_id = " actor_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readSee2DataBySceneAndID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
 
-// function readSeeFlagDataBySceneAndID(script_id, actor_id){
-// 	script_id++;
-// 	actor_id++;
-// 	var sql = "select flag from see where script_id = " + script_id + " and actor_id = " actor_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSeeFlagDataBySceneAndID', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
-
-// function readTimingScriptDataByScene(script_id){
-// 	script_id++;
-// 	var sql = "select flag from see where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
-
-// function readWhoIsScriptDataByScene(script_id){
-// 	script_id++;
-// 	var sql = "select actor from script where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
-
-// function readLinesScriptDataByScene(script_id){
-// 	script_id++;
-// 	var sql = "select line from script where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
-// 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+function readSeeTimingDataBySceneAndID(script_id, actor_id){
+	script_id++;
+	actor_id++;
+	var sql = "select timing from see where script_id = " + script_id + " and actor_id = " actor_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readSeeTimingDataBySceneAndID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
 
-// function convertStringDataInto2DArray(input){
+function readSeeFlagDataBySceneAndID(script_id, actor_id){
+	script_id++;
+	actor_id++;
+	var sql = "select flag from see where script_id = " + script_id + " and actor_id = " actor_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readSeeFlagDataBySceneAndID', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// };
+function readTimingScriptDataByScene(script_id){
+	script_id++;
+	var sql = "select flag from see where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function convertStringDataInto1DFLoatArray(input){
+function readWhoIsScriptDataByScene(script_id){
+	script_id++;
+	var sql = "select actor from script where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// };
+function readLinesScriptDataByScene(script_id){
+	script_id++;
+	var sql = "select line from script where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log(result);
+		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 
-// function convertStringDataInto1SIntArray(input){
 
-// };
+function convertStringDataInto2DArray(input){
 
-// function convertStringDataInto1DStringArray(input){
+};
 
-// };
+function convertStringDataInto1DFLoatArray(input){
+
+};
+
+function convertStringDataInto1SIntArray(input){
+
+};
+
+function convertStringDataInto1DStringArray(input){
+
+};
 //DBから情報を取ってくるメソッド終わり************************************
 
 
