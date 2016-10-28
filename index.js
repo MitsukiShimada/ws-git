@@ -233,7 +233,6 @@ function dbClose(){
 	db_connection.end();
 };
 
-
 function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
 	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
@@ -243,7 +242,6 @@ function countActorOfScriptID(script_id){
 		console.log('The result is: ' + rows[0]); 
 	});
 };
-
 
 function actorListBySceneID(script_id){
 	script_id++;
