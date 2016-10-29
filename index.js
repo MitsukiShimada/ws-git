@@ -152,20 +152,34 @@ wss.on("connection", function(ws) {
 			var script_id = JSON.parse(message).script_id;
 			// var actor_id = JSON.parse(message).actor_id;
 
-			countActorOfScriptID(script_id);
-			actorListBySceneID(script_id);
+
+			//JSONのfunc_nameで呼び出すメソッドを分岐
+			if(funcName == "countActorOfScriptID"){
+				countActorOfScriptID(script_id);
+			}else if(funcName == "actorListBySceneID"){
+				actorListBySceneID(script_id);
+			}else if(funcName== "readScriptTitleByID"){
+				readScriptTitleByID(script_id);
+			}else if(funcName== "readScriptSceneTitleByID"){
+				readScriptSceneTitleByID(script_id);				
+			}else if(funcName== "readActorNameBySceneAndID"){
+				readActorNameBySceneAndID(script_id, actor_id);				
+			}else if(funcName== "readActionTimingDataByScriptID"){
+				readActionTimingDataByScriptID(script_id);				
+			}else if(funcName== "readWhoisActionDataByScriptID"){
+				readWhoIsActionDataByScriptID(script_id);			
+			}else if(funcName== "readActionImageDataByScriptID"){
+				readActionImageDataByScriptID(script_id);			
+			}else if(funcName== "readWhoIsScriptDataByScene"){
+				readWhoIsScriptDataByScene(script_id);			
+			}else if(funcName== "readLinesScriptDataByScene"){
+				readLinesScriptDataByScene(script_id);
+			}else {
+				broadcast(JSON.stringify({user: '', type: 'other', text: 'No Such Method' }));			}
 
 			// getScriptIDBySceneTitle("scene_title");
 			// getActorIDByActorName("name");
 
-			readScriptTitleByID(script_id);
-			readScriptSceneTitleByID(script_id);
-			readActorNameBySceneAndID(script_id, actor_id);
-			readActionTimingDataByScriptID(script_id);
-			readWhoIsActionDataByScriptID(script_id);
-			readActionImageDataByScriptID(script_id);
-			readWhoIsScriptDataByScene(script_id);
-			readLinesScriptDataByScene(script_id);
 
 		}
 	
