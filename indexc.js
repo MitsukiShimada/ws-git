@@ -383,6 +383,13 @@ function DBdebug_chat(func_name, db_data){
 	chat_fld.innerHTML += "ActorName: " + db_data[key].actor_name + "<br>";
 	}; 
 }
+
+
+
+
+
+
+
 //--------------------------------------------------------------------------
 
 
@@ -686,11 +693,20 @@ function onDBChatSendButton(){
 }
 
 function dbFunctionSendButtonWithScriptID(function_name, script_id){
-	
+	ws.send(JSON.stringify({
+		func_name: function_name,
+		type: 'db_access',
+		script_id: script_id
+	}));
 }
 
-function dbFunctionSencdButtonWithScriptIDAndActorID(functione_name, script_id){
-
+function dbFunctionSencdButtonWithScriptIDAndActorID(functione_name, script_id, actor_id){
+	ws.send(JSON.stringify({
+		func_name: function_name,
+		type: 'db_access',
+		script_id: script_id,
+		acrtor_id: actor_id
+	}));
 }
 
 //---------------------------------------------------------------

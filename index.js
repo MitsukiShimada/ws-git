@@ -345,7 +345,7 @@ function readActionImageDataByScriptID(script_id){
 function readMoveDataBySceneAndID(script_id, actor_id){
 	script_id++;
 	actor_id++;
-	var sql = "select script from move where script_id = " + script_id + " and actor_id = " actor_id;
+	var sql = "select script from move where script_id = " + script_id + " and actor_id = " + actor_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
@@ -426,6 +426,11 @@ function readLinesScriptDataByScene(script_id){
 	});
 };
 
+//DBから情報を取ってくるメソッド終わり************************************
+
+
+//取得したデータを配列に変換------------------------------------------------
+
 
 function convertStringDataInto2DArray(input){
 
@@ -442,8 +447,7 @@ function convertStringDataInto1SIntArray(input){
 function convertStringDataInto1DStringArray(input){
 
 };
-//DBから情報を取ってくるメソッド終わり************************************
 
-
+//配列に変換するメソッド終わり---------------------------------------------------------------------
 
 
