@@ -442,7 +442,7 @@ function readLinesScriptDataByScene(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };

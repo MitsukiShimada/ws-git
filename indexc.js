@@ -259,7 +259,7 @@ ws.onmessage = function (event) {
 	
 	
 //DBとのやりとりのための分岐,島田追加*********************************************	
-	}else if(messages.type == "db_access"){
+	}else if(messages.type == "db_result"){
 	console.log(event.data);
 
 	if(messages.fuction == "actorListBySceneID" || messages.function == "readActorNameBySceneAndID"){
