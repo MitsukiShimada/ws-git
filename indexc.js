@@ -700,13 +700,17 @@ function dbFunctionSendButtonWithScriptID(function_name, script_id){
 	}));
 }
 
-function dbFunctionSencdButtonWithScriptIDAndActorID(functione_name, script_id, actor_id){
+function dbFunctionSendButtonWithScriptIDAndActorID(functione_name, script_id, actor_id){
 	ws.send(JSON.stringify({
 		func_name: function_name,
 		type: 'db_access',
 		script_id: script_id,
 		acrtor_id: actor_id
 	}));
+}
+
+function dbDataConvert(){
+	
 }
 
 //---------------------------------------------------------------
