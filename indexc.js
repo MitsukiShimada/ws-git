@@ -261,9 +261,24 @@ ws.onmessage = function (event) {
 //DBとのやりとりのための分岐,島田追加*********************************************	
 	}else if(messages.type == "db_access"){
 	console.log(event.data);
-	for(key in messages.text){
-		console.log(messages.text[key].actor_name);
+
+	if(messages.fuction == "actorListBySceneID" || messages.function == "readActorNameBySceneAndID"){
+		for(key in messages.text){
+			console.log(messages.text[key].actor_name);
+		}
+	}else if(messages.function == "readScriptTitleByID"){
+			console.log(messages.text.title);
+	}else if(messages.function == "readScriptSceneTitleByID"){
+			console.log(messages.text.scene);
+	}else if(messages.function == "readActionTimingDataByScriptID"){
+			console.log(messages.text.timing);
+	}else if(messages.function == "readWhoIsActionDataByScriptID" == messages.function == "readWhoIsScriptDataByScene"){
+			console.log(messages.text.actor);
+	}else if(messages.function == "readLinesScriptDataByScene"){
+			console.log(messages.text.line);
 	}
+
+
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		DBdebug_chat(messages.function, messages.text);

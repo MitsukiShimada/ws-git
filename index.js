@@ -92,6 +92,7 @@ dbConnect();
 // var actors = db.countActors(1);
 // console.log(actors);
 
+// readLinesScriptDataByScene(1);
 //-------------------------------------------------------------------------------------------
 
 
@@ -155,10 +156,13 @@ wss.on("connection", function(ws) {
 
 			//JSONのfunc_nameで呼び出すメソッドを分岐
 			if(funcName == "countActorOfScriptID"){
+				//[object Object]
 				countActorOfScriptID(script_id);
 			}else if(funcName == "actorListBySceneID"){
+				//正常に名前まで出力されることを確認
 				actorListBySceneID(script_id);
 			}else if(funcName== "readScriptTitleByID"){
+				//[object Object]
 				readScriptTitleByID(script_id);
 			}else if(funcName== "readScriptSceneTitleByID"){
 				readScriptSceneTitleByID(script_id);				
@@ -175,7 +179,8 @@ wss.on("connection", function(ws) {
 			}else if(funcName== "readLinesScriptDataByScene"){
 				readLinesScriptDataByScene(script_id);
 			}else {
-				broadcast(JSON.stringify({user: '', type: 'other', text: 'No Such Method' }));			}
+				broadcast(JSON.stringify({user: '', type: 'other', text: 'No Such Method' }));
+			}
 
 			// getScriptIDBySceneTitle("scene_title");
 			// getActorIDByActorName("name");
@@ -422,7 +427,7 @@ function readWhoIsScriptDataByScene(script_id){
 		console.log("readWhoIsScriptDataByScene: ");
 		for(key in result){
 		console.log(result[key]);
-	}
+		}
 		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_access', text: result})
 		broadcast(database_data);
 	});
@@ -434,6 +439,9 @@ function readLinesScriptDataByScene(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log("readLinesScriptDataByScene: " + result);
+		for(key in result){
+			console.log(result[key]);
+		}
 		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_access', text: result})
 		broadcast(database_data);
 	});
