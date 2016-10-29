@@ -142,20 +142,22 @@ wss.on("connection", function(ws) {
 // 島田追加-------------------------------------------------------------------
 		else if(JSON.parse(message).type == "db_access"){
 			// var rows = db.countActors(1);
-			var methodName = JSON.parse(message).func_name;
+			var funcName = JSON.parse(message).func_name;
 			// if(methodName == "actorListBySceneID"){
 			// actorListBySceneID(JSON.parse(message).script_id);
 			// };
 
 			//ここらへんにクエリの実行のデバッグ用の記述
 			var i = 1;
-			var script_id = JSON.parse(message).scipt_id;
+			var script_id = JSON.parse(message).script_id;
 			// var actor_id = JSON.parse(message).actor_id;
 
 			countActorOfScriptID(script_id);
 			actorListBySceneID(script_id);
+
 			// getScriptIDBySceneTitle("scene_title");
 			// getActorIDByActorName("name");
+
 			readScriptTitleByID(script_id);
 			readScriptSceneTitleByID(script_id);
 			readActorNameBySceneAndID(script_id, actor_id);
