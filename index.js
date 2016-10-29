@@ -286,7 +286,7 @@ function countActorOfScriptID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'countActorOfScriptID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'countActorOfScriptID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -300,7 +300,7 @@ function actorListBySceneID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'actorListByScene', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'actorListByScene', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -313,7 +313,7 @@ function getScriptIDBySceneTitle(scene){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -326,7 +326,7 @@ function getActorIDByActorName(name){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -340,7 +340,7 @@ function readScriptTitleByID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -354,7 +354,7 @@ function readScriptSceneTitleByID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -369,7 +369,7 @@ function readActorNameBySceneAndID(script_id, actor_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -383,7 +383,7 @@ function readActionTimingDataByScriptID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActionTimingDayaByScriptID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readActionTimingDayaByScriptID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -397,7 +397,7 @@ function readWhoIsActionDataByScriptID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -413,7 +413,7 @@ function readActionImageDataByScriptID(script_id){
 		for(key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };
@@ -428,7 +428,7 @@ function readWhoIsScriptDataByScene(script_id){
 		for(key in result){
 		console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_result', text: result})
 		broadcast(database_data);
 	});
 };

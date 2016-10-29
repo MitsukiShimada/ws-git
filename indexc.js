@@ -258,40 +258,49 @@ ws.onmessage = function (event) {
 		console.log("kinectからの受信: " + messages.text);
 	
 	
-//DBとのやりとりのための分岐,島田追加*********************************************	
+//*************************DBとのやりとりのための分岐,島田追加*********************************************	
 	}else if(messages.type == "db_result"){
-	console.log(event.data);
+	// console.log(event.data);
+	var chat_fld = document.getElementById("chat_field");
+
 
 	if(messages.fuction == "actorListBySceneID" || messages.function == "readActorNameBySceneAndID"){
 		for(key in messages.text){
 			console.log(messages.text[key].actor_name);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
 		}
 	}else if(messages.function == "readScriptTitleByID"){
 			console.log(messages.text.title);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text.title + "<br>";
 	}else if(messages.function == "readScriptSceneTitleByID"){
 		for(key in messages.text){
 			console.log(messages.text[key].scene);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].scene + "<br>";
 		}
 	}else if(messages.function == "readActionTimingDataByScriptID"){
 		for(key in messages.text){
 			console.log(messages.text[key].timing);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].timing + "<br>";
+
 		}
 	}else if(messages.function == "readWhoIsActionDataByScriptID" == messages.function == "readWhoIsScriptDataByScene"){
 		for(key in messages.text){
 			console.log(messages.text[key].actor);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor + "<br>";
 		}
 	}else if(messages.function == "readLinesScriptDataByScene"){
 		for(key in messages.text){
 			console.log(messages.text[key].line);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].line + "<br>";
 		}
 	}
 
 
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
-		DBdebug_chat(messages.function, messages.text);
+		// DBdebug_chat(messages.function, messages.text);
 
-//********************************************************************
+//*******************************************************************************
 		
 	//-----一応その他のtypeだった場合-----
 	} else {
@@ -403,7 +412,7 @@ function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
 	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
 	for(key in db_data){
-	chat_fld.innerHTML += "ActorName: " + db_data[key].actor_name + "<br>";
+	chat_fld.innerHTML += "function: " + func_name + db_data[key].actor_name + "<br>";
 	}; 
 }
 
