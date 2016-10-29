@@ -358,7 +358,7 @@ function readMoveDataBySceneAndID(script_id, actor_id){
 function readSee2DataBySceneAndID(script_id, actor_id){
 	script_id++;
 	actor_id++;
-	var sql = "select script from see2 where script_id = " + script_id + " and actor_id = " actor_id;
+	var sql = "select script from see2 where script_id = " + script_id + " and actor_id = " + actor_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
@@ -371,7 +371,7 @@ function readSee2DataBySceneAndID(script_id, actor_id){
 function readSeeTimingDataBySceneAndID(script_id, actor_id){
 	script_id++;
 	actor_id++;
-	var sql = "select timing from see where script_id = " + script_id + " and actor_id = " actor_id;
+	var sql = "select timing from see where script_id = " + script_id + " and actor_id = " + actor_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
@@ -384,7 +384,7 @@ function readSeeTimingDataBySceneAndID(script_id, actor_id){
 function readSeeFlagDataBySceneAndID(script_id, actor_id){
 	script_id++;
 	actor_id++;
-	var sql = "select flag from see where script_id = " + script_id + " and actor_id = " actor_id;
+	var sql = "select flag from see where script_id = " + script_id + " and actor_id = " + actor_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log(result);
