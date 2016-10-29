@@ -270,8 +270,10 @@ ws.onmessage = function (event) {
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
 		}
 	}else if(messages.function == "readScriptTitleByID"){
-			console.log(messages.text.title);
-			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text.title + "<br>";
+		for(key in messages.text){
+			console.log(messages.text[key].title);
+			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].title + "<br>";
+		}
 	}else if(messages.function == "readScriptSceneTitleByID"){
 		for(key in messages.text){
 			console.log(messages.text[key].scene);
