@@ -297,7 +297,6 @@ ws.onmessage = function (event) {
 		}
 	}
 
-
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
 		// DBdebug_chat(messages.function, messages.text);
