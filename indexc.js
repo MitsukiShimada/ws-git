@@ -267,15 +267,25 @@ ws.onmessage = function (event) {
 			console.log(messages.text[key].actor_name);
 		}
 	}else if(messages.function == "readScriptTitleByID"){
-			console.log(messages.text.title);
+		for(key in messages.text){
+			console.log(messages.text[key].title);
+		}
 	}else if(messages.function == "readScriptSceneTitleByID"){
-			console.log(messages.text.scene);
+		for(key in messages.text){
+			console.log(messages.text[key].scene);
+		}
 	}else if(messages.function == "readActionTimingDataByScriptID"){
-			console.log(messages.text.timing);
+		for(key in messages.text){
+			console.log(messages.text[key].timing);
+		}
 	}else if(messages.function == "readWhoIsActionDataByScriptID" == messages.function == "readWhoIsScriptDataByScene"){
-			console.log(messages.text.actor);
+		for(key in messages.text){
+			console.log(messages.text[key].actor);
+		}
 	}else if(messages.function == "readLinesScriptDataByScene"){
-			console.log(messages.text.line);
+		for(key in messages.text){
+			console.log(messages.text[key].line);
+		}
 	}
 
 
