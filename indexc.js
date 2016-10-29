@@ -267,9 +267,7 @@ ws.onmessage = function (event) {
 			console.log(messages.text[key].actor_name);
 		}
 	}else if(messages.function == "readScriptTitleByID"){
-		for(key in messages.text){
-			console.log(messages.text[key].title);
-		}
+			console.log(messages.text.title);
 	}else if(messages.function == "readScriptSceneTitleByID"){
 		for(key in messages.text){
 			console.log(messages.text[key].scene);
