@@ -293,6 +293,7 @@ ws.onmessage = function (event) {
 		for(key in messages.text){
 			console.log(messages.text[key].line);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].line + "<br>";
+			console.log(convertStringDataInto1DStringArray(messages.text[key].line););
 		}
 	}　
 
@@ -764,7 +765,7 @@ function getCSVFile(daihon) {
     };
 	 //読み込む台本CSVファイルの定義
     xhr.open("get", daihon, true);
-    xhr.send(null);
+    xhr.send(null)
 }
 
 
@@ -780,18 +781,18 @@ function convertStringDataInto2DArray(input){
 //この２つはどっちかでもいいかも,それか明示的に使い分ける++++++++++++++++++++++
 function convertStringDataInto1DFloatArray(input){
 	var splitArray = new Array();
-	splitArray = input.split(",");
+	return splitArray = input.split(",");
 }
 
 function convertStringDataInto1DIntArray(input){
 	var splitArray = new Array();
-	splitArray = input.split(",");
+	return splitArray = input.split(",");
 }
 //++++++++++++++++++++++++++++++++++++++++++++++++
 
 function convertStringDataInto1DStringArray(input){
 	var splitArray = new Array();
-	splitArray = input.split("@@");
+	return splitArray = input.split("@@");
 }
 
 

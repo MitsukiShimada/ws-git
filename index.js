@@ -463,7 +463,7 @@ function convertStringDataInto1DFLoatArray(input){
 	splitArray = input.split(",");
 };
 
-function convertStringDataInto1SIntArray(input){
+function convertStringDataInto1DIntArray(input){
 	var scplitArray = new Array();
 	splitArray = input.split(",");
 };
