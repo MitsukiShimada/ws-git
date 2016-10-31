@@ -300,7 +300,7 @@ ws.onmessage = function (event) {
 			var convertArray = convertStringDataInto1DStringArray(messages.text[0].line);
 			for(key in convertArray){
 				console.log(convertArray[key]);
-				chat_fld.innerHTML += convertArray[key];
+				chat_fld.innerHTML += convertArray[key] + "<br>";
 			}
 	}
 
