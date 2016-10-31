@@ -293,7 +293,7 @@ ws.onmessage = function (event) {
 		for(key in messages.text){
 			console.log(messages.text[key].line);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].line + "<br>";
-			console.log(convertStringDataInto1DStringArray(messages.text[key].line););
+			console.log(convertStringDataInto1DStringArray(messages.text[key].line));
 		}
 	}　
 
