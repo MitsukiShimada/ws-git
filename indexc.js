@@ -291,11 +291,12 @@ ws.onmessage = function (event) {
 		}
 	}else if(messages.function == "readLinesScriptDataByScene"){
 		for(key in messages.text){
-			// console.log("messages.text[0].line= " + messages.text[0].line);
+			console.log("messages.text[0].line= " + messages.text[0].line);
 			console.log(messages.text[key].line);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].line + "<br>";
 			console.log(convertStringDataInto1DStringArray(messages.text[key].line));
-	}　
+		}　
+	}
 
 
 		// var data = JSON.parse(event); 
