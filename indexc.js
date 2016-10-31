@@ -274,6 +274,10 @@ ws.onmessage = function (event) {
 			console.log(messages.text[key].title);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].title + "<br>";
 		}
+
+		document.getElementById("scripttitle").innerHTML = messages.text[0].title;
+
+
 	}else if(messages.function == "readScriptSceneTitleByID"){
 		for(key in messages.text){
 			console.log(messages.text[key].scene);
@@ -302,6 +306,9 @@ ws.onmessage = function (event) {
 				console.log(convertArray[key]);
 				chat_fld.innerHTML += convertArray[key] + "<br>";
 			}
+
+
+
 	}
 
 
@@ -414,24 +421,6 @@ function write_chat(Userid, Text){
 	var chat_fld = document.getElementById("chat_field");
 	chat_fld.innerHTML += "ユーザ " + Userid + ": " + Text + "<br>";
 }
-
-
-//データベース接続デバッグ用 島田追加--------------------------------------------
-function DBdebug_chat(func_name, db_data){
-	var chat_fld = document.getElementById("chat_field");
-	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
-	for(key in db_data){
-	chat_fld.innerHTML += "function: " + func_name + db_data[key].actor_name + "<br>";
-	}; 
-}
-
-
-
-
-
-
-
-//--------------------------------------------------------------------------
 
 
 //ログボックスに書き込み
@@ -743,6 +732,9 @@ function dbFunctionSendButtonWithScriptID(function_name, script_id){
 	}));
 }
 
+
+
+
 function dbFunctionSendButtonWithScriptIDAndActorID(functione_name, script_id, actor_id){
 	ws.send(JSON.stringify({
 		func_name: function_name,
@@ -777,8 +769,20 @@ function getCSVFile(daihon) {
 
 
 
-//島田追加---------------------------------------------------------------------------------
-//台本変換系----------------------------------------------------------------------------------------
+//島田追加---------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+//台本変換系-------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+
+//デバッグ用
+function DBdebug_chat(func_name, db_data){
+	var chat_fld = document.getElementById("chat_field");
+	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
+	for(key in db_data){
+	chat_fld.innerHTML += "function: " + func_name + db_data[key].actor_name + "<br>";
+	}; 
+}
+
+
+
 function convertStringDataInto2DArray(input){
 	var splitArray = new Array();
 	return splitArray = input.split("@");
@@ -803,6 +807,25 @@ function convertStringDataInto1DStringArray(input){
 }
 
 
+
+function onScriptButton(script_id){
+
+	ws.send(JSON.stringify({
+		func_name: 'readScriptTitleByID',
+		type: 'db_access',
+		script_id: script_id
+	}));
+
+	ws.send(JSON.stringify({
+		func_name: 'readLinesScriptDataByScene',
+		type: 'db_access',
+		script_id: script_id
+	}));
+
+}
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 /*****-------------------ここまで卒論の範囲の機能--------------------*****/
 
 
