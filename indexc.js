@@ -283,7 +283,6 @@ ws.onmessage = function (event) {
 		for(key in messages.text){
 			console.log(messages.text[key].timing);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].timing + "<br>";
-
 		}
 	}else if(messages.function == "readWhoIsActionDataByScriptID" == messages.function == "readWhoIsScriptDataByScene"){
 		for(key in messages.text){
@@ -295,7 +294,8 @@ ws.onmessage = function (event) {
 			console.log(messages.text[key].line);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].line + "<br>";
 		}
-	}
+	}　
+
 
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
@@ -769,53 +769,30 @@ function getCSVFile(daihon) {
 
 
 
-//島田修正---------------------------------------------------------------------------------
-//----------------------------------------------------------------------------------------
-
-//あとで修正する予定
-//var mysql = require('mysql');
-
-//DBへの接続をオープン
-// function dbConnect(){	//データベースに接続
-// 	db_connection = mysql.createConnection(dbConfig);
-// 	db_connection.connect();
-// 	console.log('MySQLに接続');
-// 	db_connection.ping(function (err) {
-//   if (err) throw err;
-//   console.log('Server responded to ping');
-// })
-// }
-
-// //接続の破棄
-// function dbClose(){
-// 	console.log('Database Connection Closed');
-// 	db_connection.end();
-// }
+//島田追加---------------------------------------------------------------------------------
+//台本変換系----------------------------------------------------------------------------------------
+function convertStringDataInto2DArray(input){
+	var splitArray = new Array();
+	return splitArray = input.split("@");
+}
 
 
-// /*****-------------------ここから卒論の範囲の機能-------------------*****/
+//この２つはどっちかでもいいかも,それか明示的に使い分ける++++++++++++++++++++++
+function convertStringDataInto1DFloatArray(input){
+	var splitArray = new Array();
+	splitArray = input.split(",");
+}
 
-// //台本に登場する役者の数を取得
-// function countActorOfScriptID(script_id){
-// 	var dbscript_id = script_id + 1;
-// 	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
-// 	// var sql = "select count(script_id) from actor where script_id=1";
-// 	db_connection.query(sql, function(err, rows, fields) {
-// 		if(err) throw err;
-// 		console.log('The result is: ' + rows[0]); 
-// 	});
-// }
+function convertStringDataInto1DIntArray(input){
+	var splitArray = new Array();
+	splitArray = input.split(",");
+}
+//++++++++++++++++++++++++++++++++++++++++++++++++
 
-// function countActors(script_id){
-// 	var sql = "select actor_name from actor where script_id=" + script_id;
-// 	// var sql = "select count(script_id) from actor where script_id=1";
-// 	db_connection.query(sql, function(err, rows, fields) {
-// 		if(err) throw err;
-// 		console.log('The result is: ' + rows[0].actor_name); 
-// 		console.log('The result is: ' + rows[1].actor_name); 
-// 		console.log('The result is: ' + rows[2].actor_name); 
-// 	});
-// }
+function convertStringDataInto1DStringArray(input){
+	var splitArray = new Array();
+	splitArray = input.split("@@");
+}
 
 
 /*****-------------------ここまで卒論の範囲の機能--------------------*****/
