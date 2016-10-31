@@ -298,7 +298,7 @@ ws.onmessage = function (event) {
 		// }　
 			// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[0].line + "<br>";
 			var convertArray = convertStringDataInto1DStringArray(messages.text[0].line);
-			for(key in convertArray[key]){
+			for(key in convertArray){
 				console.log(convertArray[key]);
 				chat_fld.innerHTML += convertArray[key];
 			}
