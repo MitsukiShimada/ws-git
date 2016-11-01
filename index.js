@@ -167,6 +167,7 @@ wss.on("connection", function(ws) {
 			}else if(funcName== "readScriptSceneTitleByID"){
 				readScriptSceneTitleByID(script_id);				
 			}else if(funcName== "readActorNameBySceneAndID"){
+				var actor_id = JSON.parse(message).actor_id;
 				readActorNameBySceneAndID(script_id, actor_id);				
 			}else if(funcName== "readActionTimingDataByScriptID"){
 				readActionTimingDataByScriptID(script_id);				
@@ -459,17 +460,17 @@ function convertStringDataInto2DArray(input){
 };
 
 function convertStringDataInto1DFLoatArray(input){
-	var scplitArray = new Array();
+	var splitArray = new Array();
 	splitArray = input.split(",");
 };
 
 function convertStringDataInto1DIntArray(input){
-	var scplitArray = new Array();
+	var splitArray = new Array();
 	splitArray = input.split(",");
 };
 
 function convertStringDataInto1DStringArray(input){
-	var scplitArray = new Array();
+	var splitArray = new Array();
 	splitArray = input.split("@@");
 };
 
