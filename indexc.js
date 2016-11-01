@@ -18,6 +18,14 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
+var actorNameArray;
+var actionTimingArray;
+var scriptTimingArray;
+var whoIsActionArray;
+//セリフを喋る役者の順番をidで格納する配列
+var whoIsScriptArray;
+//選択した台本のセリフをかくのうする格納する配列
+var linesArray;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
@@ -264,13 +272,43 @@ ws.onmessage = function (event) {
 	var chat_fld = document.getElementById("chat_field");
 
 
-	if(messages.fuction == "actorListBySceneID" || messages.function == "readActorNameBySceneAndID"){
-		for(key in messages.text){
-			console.log(messages.text[key].actor_name);
-			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
+	if(messages.fuction == "actorListBySceneID"){
+		
+		if(messages.function == "actorListBySceneID"){
+			actorNameArray = new Array();
+			for(var i=0; i < messages.text.length; i++){
+				actorNameArray[i] = "";
+			}
+		//配列初期化
+			for(var key in messages.text){
+				// console.log(messages.text[key].actor_name);
+				// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
+				actorNameArray[key] = messages.text[key];
+				console.log("Name: " + actorNameArray[key]);
+			}
 		}
+		
+		// if(messages.function == "actorListBySceneID"){
+		// 	actorNameArray = new Array();
+		// 	for(var i=0; i < messages.text.length; i++){
+		// 		actorNameArray[i] = "";
+		// 	}
+		// //配列初期化
+		// 	for(var key in messages.text){
+		// 		// console.log(messages.text[key].actor_name);
+		// 		// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
+		// 		actorNameArray[key] = messages.text[key];
+		// 		console.log(actorNameArray[key]);
+		// 	}
+		// }
+
+			
+	}else if(messages.function == "readActorNameBySceneAndID"){
+	
+		
+		
 	}else if(messages.function == "readScriptTitleByID"){
-		for(key in messages.text){
+		for(var key in messages.text){
 			console.log(messages.text[key].title);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].title + "<br>";
 		}
@@ -278,18 +316,27 @@ ws.onmessage = function (event) {
 		document.getElementById("scripttitle").innerHTML = messages.text[0].title;
 
 
-	}else if(messages.function == "readScriptSceneTitleByID"){
-		for(key in messages.text){
-			console.log(messages.text[key].scene);
-			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].scene + "<br>";
-		}
+	// }else if(messages.function == "readScriptSceneTitleByID"){
+	// 	for(var key in messages.text){
+	// 		console.log(messages.text[key].scene);
+	// 		chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].scene + "<br>";
+	// 	}
 	}else if(messages.function == "readActionTimingDataByScriptID"){
-		for(key in messages.text){
-			console.log(messages.text[key].timing);
-			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].timing + "<br>";
+		var convertArray = convertStringDataInto1DFloatArray(messages.text[0].timing);
+		actionTimingArray = new Array();
+		//配列初期化
+		for(var i=0; i < convertArray.length; i++){
+			actionTimingArray[i] = "";
+		}		
+		for(var key in messages.text){
+			// console.log(messages.text[key].timing);
+			// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].timing + "<br>";
+			actionTimingArray[key] = convertArray[key];
+			console.log("action timing: " + actionTimingArray[key]);
 		}
+		
 	}else if(messages.function == "readWhoIsActionDataByScriptID" == messages.function == "readWhoIsScriptDataByScene"){
-		for(key in messages.text){
+		for(var key in messages.text){
 			console.log(messages.text[key].actor);
 			chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor + "<br>";
 		}
@@ -302,13 +349,31 @@ ws.onmessage = function (event) {
 		// }　
 			// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[0].line + "<br>";
 			var convertArray = convertStringDataInto1DStringArray(messages.text[0].line);
-			for(key in convertArray){
-				console.log(convertArray[key]);
-				chat_fld.innerHTML += convertArray[key] + "<br>";
+			linesArray = new Array();
+			//配列初期化
+			for(var i=0; i < convertArray.length; i++){
+				linesArray[i] = "";
 			}
-
-
-
+			for(var key in convertArray){
+				// console.log(convertArray[key]);
+				// chat_fld.innerHTML += convertArray[key] + "<br>";
+				linesArray[key] = convertArray[key];
+				console.log("line: " + linesArray[key]);
+			}
+	}else if(messages.function == "readTimingScriptDataByScene"){
+			var convertArray = convertStringDataInto1DFloatArray(messages.text[0].timing);
+			scriptTimingArray = new Array();
+			//配列初期化
+			for(var i=0; i < convertArray.length; i++){
+				scriptTimingArray[i] = "";
+			}
+			for(var key in convertArray){
+				// console.log(convertArray[key]);
+				// chat_fld.innerHTML += convertArray[key] + "<br>";
+				scriptTimingArray[key] = convertArray[key];
+				console.log("script timing: " + scriptTimingArray[key]);
+			}
+		
 	}
 
 
@@ -706,7 +771,7 @@ function onRestartBack2Button(){
 
 //チャット入力送信ボタン
 function onChatSendButton() {
-	chat_ipt = document.getElementById("chat_input");
+	var chat_ipt = document.getElementById("chat_input");
 	send(userid, 'chat', chat_ipt.value);
 	motionsend(1,'kinect_send', 'text');	//役者名とモーションを通知
 
@@ -716,7 +781,7 @@ function onChatSendButton() {
 
 //島田追加  DBとの接続テスト用--------------------------------------------------------
 function onDBChatSendButton(){
-	chat_ipt = document.getElementById("chat_input");
+	var chat_ipt = document.getElementById("chat_input");
 
 	if(chat_ipt.value != ""){
 	console.log(chat_ipt.value);
@@ -735,7 +800,7 @@ function dbFunctionSendButtonWithScriptID(function_name, script_id){
 
 
 
-function dbFunctionSendButtonWithScriptIDAndActorID(functione_name, script_id, actor_id){
+function dbFunctionSendButtonWithScriptIDAndActorID(function_name, script_id, actor_id){
 	ws.send(JSON.stringify({
 		func_name: function_name,
 		type: 'db_access',
@@ -776,7 +841,7 @@ function getCSVFile(daihon) {
 function DBdebug_chat(func_name, db_data){
 	var chat_fld = document.getElementById("chat_field");
 	// chat_fld.innerHTML += "Function: " + func_name + ", Result: " + db_data + "<br>";
-	for(key in db_data){
+	for(var key in db_data){
 	chat_fld.innerHTML += "function: " + func_name + db_data[key].actor_name + "<br>";
 	}; 
 }
@@ -858,14 +923,23 @@ function createScriptTable(csvData){
 			scriptArray[i][j] = "";
 		}
 	}
+	
+	
+	//島田修正，台本の配列に取得した情報を格納する格納する格納すr
+
 	//scriptArrayに台本csvファイルを格納
-    for(var i = 0; i < c_tempArray.length;i++){ 
+    for(var i = 0; i < c_tempArray.length;i++){
+    	//c_tempArrayは台本のCSVファイルを行単位で格納した配列
+    	//c_csvArrayは行単位のものをカンマでさらに分けて要素ごとに分割
 		c_csvArray = c_tempArray[i].split(",");		//セミコロンで分割
 		scriptArray[i] = new Array();
 		for(var j = 0; j<c_csvArray.length; j++){
+			
+			//c_csvArrayのiはCSVファイルの行番号に対応，jはCSVファイルの各列の要素に対応
 			scriptArray[i][j] = c_csvArray[j];
 		}
 	}
+	
 //	console.log(scriptArray);
 
 	//台本選択部分に反映

@@ -39,63 +39,6 @@ var dbConfig = {
 
 dbConnect();
 
-// db.dbConnect();
-
-// async.series([	//第一引数はじめ
-// 	function(callback){
-// 		 var db_status = db.dbConnect();
-
-// 		console.log('first');
-// 		callback(null, actors = db.countActors(1));
-// 	},
-// 	function(callback){
-// 		while(actors == null){
-// 		actors = db.countActors(1);
-// 		};
-// 		console.log('second');
-// 		callback(null, actors);
-// 	},
-// 	function(callback){
-// 		console.log(actors);
-// 		console.log('third');
-// 		callback(null, actors);
-// 	}
-// 	], //第一引数おわり 
-// 	function(err, result){
-// 		if(err) throw err;
-// 		// console.log('Actors: ' + result);
-// 	}
-// );
-
-// 	db.countActors(1, db.dbConnect(err, result){
-// 	if(err) throw err;
-// 	actors = result;
-// });
-// 	console.log(actors);
-
-//コールバック関数を実行する関数
-// 	function dbCoonect_callback(callback){
-// 		db.dbConnect();
-// 		callback();
-// 	}
-
-// //コールバック関数
-// 	var showActors = function(){
-// 		actors = db.countActors(1);
-// 		console.log('In show Actors');
-// 		console.log(actors);
-// 	}
-
-// 	dbCoonect_callback(showActors);
-
-// db.dbConnect();
-// var actors = db.countActors(1);
-// console.log(actors);
-
-// readLinesScriptDataByScene(1);
-//-------------------------------------------------------------------------------------------
-
-
 
 //クライアントと接続すると動作するイベント
 wss.on("connection", function(ws) {
@@ -284,7 +227,7 @@ function countActorOfScriptID(script_id){
 	db_connection.query(sql, function(err, result, fields) {
 		if(err) throw err;
 			console.log("countActorOfScriptID: "); 
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
 		var database_data = JSON.stringify({function: 'countActorOfScriptID', type: 'db_result', text: result})
@@ -298,7 +241,7 @@ function actorListBySceneID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("actorListBySceneID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
 		var database_data = JSON.stringify({function: 'actorListByScene', type: 'db_result', text: result})
@@ -448,6 +391,19 @@ function readLinesScriptDataByScene(script_id){
 	});
 };
 
+
+function readTimingScriptDataByScene(script_id){
+	script_id++;
+	var sql = "select timing from script where script_id = " + script_id;
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		for(key in result){
+			console.log(result[key]);
+		}
+		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_access', text: result})
+		broadcast(database_data);
+	});
+};
 //DBから情報を取ってくるメソッド終わり************************************
 
 
@@ -530,14 +486,64 @@ function convertStringDataInto1DStringArray(input){
 // 	});
 // };
 
-// function readTimingScriptDataByScene(script_id){
-// 	script_id++;
-// 	var sql = "select flag from see where script_id = " + script_id;
-// 	db_connection.query(sql, function(err, result, fields){
+
+
+
+//いらんかったやつ
+
+// db.dbConnect();
+
+// async.series([	//第一引数はじめ
+// 	function(callback){
+// 		 var db_status = db.dbConnect();
+
+// 		console.log('first');
+// 		callback(null, actors = db.countActors(1));
+// 	},
+// 	function(callback){
+// 		while(actors == null){
+// 		actors = db.countActors(1);
+// 		};
+// 		console.log('second');
+// 		callback(null, actors);
+// 	},
+// 	function(callback){
+// 		console.log(actors);
+// 		console.log('third');
+// 		callback(null, actors);
+// 	}
+// 	], //第一引数おわり 
+// 	function(err, result){
 // 		if(err) throw err;
-// 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_access', text: result})
-// 		broadcast(database_data);
-// 	});
-// };
+// 		// console.log('Actors: ' + result);
+// 	}
+// );
+
+// 	db.countActors(1, db.dbConnect(err, result){
+// 	if(err) throw err;
+// 	actors = result;
+// });
+// 	console.log(actors);
+
+//コールバック関数を実行する関数
+// 	function dbCoonect_callback(callback){
+// 		db.dbConnect();
+// 		callback();
+// 	}
+
+// //コールバック関数
+// 	var showActors = function(){
+// 		actors = db.countActors(1);
+// 		console.log('In show Actors');
+// 		console.log(actors);
+// 	}
+
+// 	dbCoonect_callback(showActors);
+
+// db.dbConnect();
+// var actors = db.countActors(1);
+// console.log(actors);
+
+// readLinesScriptDataByScene(1);
+//-------------------------------------------------------------------------------------------
 
