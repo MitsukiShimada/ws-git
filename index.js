@@ -104,24 +104,26 @@ wss.on("connection", function(ws) {
 			}else if(funcName == "actorListBySceneID"){
 				//正常に名前まで出力されることを確認
 				actorListBySceneID(script_id);
-			}else if(funcName== "readScriptTitleByID"){
+			}else if(funcName == "readScriptTitleByID"){
 				//[object Object]
 				readScriptTitleByID(script_id);
-			}else if(funcName== "readScriptSceneTitleByID"){
+			}else if(funcName == "readScriptSceneTitleByID"){
 				readScriptSceneTitleByID(script_id);				
-			}else if(funcName== "readActorNameBySceneAndID"){
+			}else if(funcName == "readActorNameBySceneAndID"){
 				var actor_id = JSON.parse(message).actor_id;
 				readActorNameBySceneAndID(script_id, actor_id);				
-			}else if(funcName== "readActionTimingDataByScriptID"){
+			}else if(funcName == "readActionTimingDataByScriptID"){
 				readActionTimingDataByScriptID(script_id);				
-			}else if(funcName== "readWhoisActionDataByScriptID"){
+			}else if(funcName == "readWhoIsActionDataByScriptID"){
 				readWhoIsActionDataByScriptID(script_id);			
-			}else if(funcName== "readActionImageDataByScriptID"){
+			}else if(funcName == "readActionImageDataByScriptID"){
 				readActionImageDataByScriptID(script_id);			
-			}else if(funcName== "readWhoIsScriptDataByScene"){
+			}else if(funcName == "readWhoIsScriptDataByScene"){
 				readWhoIsScriptDataByScene(script_id);			
-			}else if(funcName== "readLinesScriptDataByScene"){
+			}else if(funcName == "readLinesScriptDataByScene"){
 				readLinesScriptDataByScene(script_id);
+			}else if(funcName == "readTimingScriptDataByScene"){
+				readTimingScriptDataByScene(script_id);
 			}else {
 				broadcast(JSON.stringify({user: '', type: 'other', text: 'No Such Method' }));
 			}
@@ -218,7 +220,7 @@ function dbConnect(){	//データベースに接続
 function dbClose(){
 	console.log('Database Connection Closed');
 	db_connection.end();
-};
+}
 
 function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
@@ -230,10 +232,10 @@ function countActorOfScriptID(script_id){
 		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'countActorOfScriptID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'countActorOfScriptID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function actorListBySceneID(script_id){
 	script_id++;
@@ -244,36 +246,36 @@ function actorListBySceneID(script_id){
 		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'actorListByScene', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'actorListBySceneID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function getScriptIDBySceneTitle(scene){
 	var sql = "select id from info where scene = " + scene;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("getScriptIDBySceneTitle: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'getScriptIDBySceneTitle', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function getActorIDByActorName(name){
 	var sql = "select actor_id from actor where actor_name = " + name;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("getActorIDByActorName: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'getActorIDByActorName', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readScriptTitleByID(script_id){
 	script_id++;
@@ -281,13 +283,13 @@ function readScriptTitleByID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readScriptTitleByID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readScriptTitleByID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readScriptSceneTitleByID(script_id){
 	script_id++;
@@ -295,13 +297,13 @@ function readScriptSceneTitleByID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readScriptSceneTitleByID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readScriptSceneTitleByID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readActorNameBySceneAndID(script_id, actor_id){
 	script_id++;
@@ -310,13 +312,13 @@ function readActorNameBySceneAndID(script_id, actor_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readActorNameBySceneAndID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readActorNameBySceneAndID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readActionTimingDataByScriptID(script_id){
 	script_id++;
@@ -324,13 +326,13 @@ function readActionTimingDataByScriptID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readActionTimingDataByScriptID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActionTimingDayaByScriptID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readActionTimingDataByScriptID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readWhoIsActionDataByScriptID(script_id){
 	script_id++;
@@ -338,13 +340,13 @@ function readWhoIsActionDataByScriptID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readWhoisActionDataByScriptID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readWhoIsActionDataByScriptID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 
 //これを動きの記録用に転用？
@@ -354,13 +356,13 @@ function readActionImageDataByScriptID(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 			console.log("readActionImageDataByScriptID: ");
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readActionImageDataByScriptID', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 
 function readWhoIsScriptDataByScene(script_id){
@@ -369,13 +371,13 @@ function readWhoIsScriptDataByScene(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log("readWhoIsScriptDataByScene: ");
-		for(key in result){
+		for(var key in result){
 		console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readWhoIsScriptDataByScene', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 function readLinesScriptDataByScene(script_id){
 	script_id++;
@@ -383,13 +385,13 @@ function readLinesScriptDataByScene(script_id){
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
 		console.log("readLinesScriptDataByScene: " + result);
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_result', text: result})
+		var database_data = JSON.stringify({function: 'readLinesScriptDataByScene', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 
 
 function readTimingScriptDataByScene(script_id){
@@ -397,13 +399,13 @@ function readTimingScriptDataByScene(script_id){
 	var sql = "select timing from script where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
-		for(key in result){
+		for(var key in result){
 			console.log(result[key]);
 		}
-		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_access', text: result})
+		var database_data = JSON.stringify({function: 'readTimingScriptDataByScene', type: 'db_result', text: result});
 		broadcast(database_data);
 	});
-};
+}
 //DBから情報を取ってくるメソッド終わり************************************
 
 
@@ -413,22 +415,22 @@ function readTimingScriptDataByScene(script_id){
 function convertStringDataInto2DArray(input){
 	var splitArray = new Array();
 	splitArray = input.split("@");
-};
+}
 
 function convertStringDataInto1DFLoatArray(input){
 	var splitArray = new Array();
 	splitArray = input.split(",");
-};
+}
 
 function convertStringDataInto1DIntArray(input){
 	var splitArray = new Array();
 	splitArray = input.split(",");
-};
+}
 
 function convertStringDataInto1DStringArray(input){
 	var splitArray = new Array();
 	splitArray = input.split("@@");
-};
+}
 
 //配列に変換するメソッド終わり---------------------------------------------------------------------
 
@@ -442,7 +444,7 @@ function convertStringDataInto1DStringArray(input){
 // 	db_connection.query(sql, function(err, result, fields){
 // 		if(err) throw err;
 // 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readMoveDataBySceneAndID', type: 'db_access', text: result})
+// 		var database_data = JSON.stringify({function: 'readMoveDataBySceneAndID', type: 'db_result', text: result})
 // 		broadcast(database_data);
 // 	});
 // };
@@ -455,7 +457,7 @@ function convertStringDataInto1DStringArray(input){
 // 	db_connection.query(sql, function(err, result, fields){
 // 		if(err) throw err;
 // 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSee2DataBySceneAndID', type: 'db_access', text: result})
+// 		var database_data = JSON.stringify({function: 'readSee2DataBySceneAndID', type: 'db_result', text: result})
 // 		broadcast(database_data);
 // 	});
 // };
@@ -468,7 +470,7 @@ function convertStringDataInto1DStringArray(input){
 // 	db_connection.query(sql, function(err, result, fields){
 // 		if(err) throw err;
 // 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSeeTimingDataBySceneAndID', type: 'db_access', text: result})
+// 		var database_data = JSON.stringify({function: 'readSeeTimingDataBySceneAndID', type: 'db_result', text: result})
 // 		broadcast(database_data);
 // 	});
 // };
@@ -481,7 +483,7 @@ function convertStringDataInto1DStringArray(input){
 // 	db_connection.query(sql, function(err, result, fields){
 // 		if(err) throw err;
 // 		console.log(result);
-// 		var database_data = JSON.stringify({function: 'readSeeFlagDataBySceneAndID', type: 'db_access', text: result})
+// 		var database_data = JSON.stringify({function: 'readSeeFlagDataBySceneAndID', type: 'db_result', text: result})
 // 		broadcast(database_data);
 // 	});
 // };
