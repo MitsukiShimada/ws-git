@@ -18,14 +18,20 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
+//登場人物の名前の配列
 var actorNameArray;
+//動きのタイミングの配列
 var actionTimingArray;
+//セリフの発話のタイミングの配列
 var scriptTimingArray;
+//動きをする役者の順番をidで格納する配列
 var whoIsActionArray;
 //セリフを喋る役者の順番をidで格納する配列
 var whoIsScriptArray;
 //選択した台本のセリフをかくのうする格納する配列
 var linesArray;
+//動きのないよう内容
+var actionImageArray;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
@@ -285,7 +291,7 @@ ws.onmessage = function (event) {
 				// console.log(messages.text[key].actor_name);
 				// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor_name + "<br>";
 				actorNameArray[key] = messages.text[key].actor_name;
-				console.log("Name: " + actorNameArray[key]);
+				// console.log("Name: " + actorNameArray[key]);
 			}
 	
 	//シーンIDと役者IDから役者名取得
@@ -296,7 +302,7 @@ ws.onmessage = function (event) {
 	//台本のタイトル取得		
 		}else if(messages.function == "readScriptTitleByID"){
 			for(var key in messages.text){
-				console.log(messages.text[key].title);
+				// console.log(messages.text[key].title);
 				chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].title + "<br>";
 			}
 	
@@ -313,7 +319,7 @@ ws.onmessage = function (event) {
 		}else if(messages.function == "readActionTimingDataByScriptID"){
 			var convertArray = convertStringDataInto1DFloatArray(messages.text[0].timing);
 			actionTimingArray = new Array();
-			console.log("debug: " + messages.text[0].timing);
+			// console.log("debug: " + messages.text[0].timing);
 
 			//配列初期化
 			for(var i=0; i < convertArray.length; i++){
@@ -324,14 +330,14 @@ ws.onmessage = function (event) {
 				// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].timing + "<br>";
 				actionTimingArray[key] = convertArray[key];
 				// console.log("convertArray: " + convertArray[key].timing);
-				console.log("action timing: " + actionTimingArray[key]);
+				// console.log("action timing: " + actionTimingArray[key]);
 			}
 			
 	//動きをする人の順番取得	
 	//修正必要
 		}else if(messages.function == "readWhoIsActionDataByScriptID"){
 			var convertArray = convertStringDataInto1DIntArray(messages.text[0].actor);
-			console.log("debug: " + messages.text[0].actor);
+			// console.log("debug: " + messages.text[0].actor);
 			whoIsActionArray = new Array();
 			//配列初期化
 			for(var i=0; i < convertArray.length; i++){
@@ -342,7 +348,7 @@ ws.onmessage = function (event) {
 				// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor + "<br>";
 				whoIsActionArray[key] = convertArray[key];
 				// console.log("who action: " + convertArray[key]);
-				console.log(whoIsActionArray[key]);
+				// console.log(whoIsActionArray[key]);
 			}
 			
 	//セリフをいう人の順番を取得（IDで）
@@ -358,7 +364,7 @@ ws.onmessage = function (event) {
 				// console.log(messages.text[key].actor);
 				// chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].actor + "<br>";
 				whoIsScriptArray[key] = convertArray[key];
-				console.log(whoIsScriptArray[key]);
+				// console.log(whoIsScriptArray[key]);
 			}
 	//セリフの内容を取得
 		}else if(messages.function == "readLinesScriptDataByScene"){
@@ -379,7 +385,7 @@ ws.onmessage = function (event) {
 				// console.log(convertArray[key]);
 				// chat_fld.innerHTML += convertArray[key] + "<br>";
 				linesArray[key] = convertArray[key];
-				console.log("line: " + linesArray[key]);
+				// console.log("line: " + linesArray[key]);
 			}
 	//セリフの発話のタイミングの取得
 		}else if(messages.function == "readTimingScriptDataByScene"){
@@ -393,9 +399,26 @@ ws.onmessage = function (event) {
 				// console.log(convertArray[key]);
 				// chat_fld.innerHTML += convertArray[key] + "<br>";
 				scriptTimingArray[key] = convertArray[key];
-				console.log("script timing: " + scriptTimingArray[key]);
+				// console.log("script timing: " + scriptTimingArray[key]);
 			}
 			
+		}else if(messages.function == "readActionImageDataByScriptID"){
+			var convertArray = convertStringDataInto1DStringArray(messages.text[0].image);
+			actionImageArray = new Array();
+			//配列初期化
+			for(var i=0; i < convertArray.length; i++){
+				actionImageArray[i] = "";
+			}
+			for(var key in convertArray){
+				// console.log(convertArray[key]);
+				// chat_fld.innerHTML += convertArray[key] + "<br>";
+				actionImageArray[key] = convertArray[key];
+				// console.log("action image: " + actionImageArray[key]);
+			}
+			
+		//台本の選択ボタンを押したときに最後に呼び出されるからここで最後に牧さんの配列の形に変換
+		createScriptTable();
+
 		}
 		// var data = JSON.parse(event); 
 		// console.log(JSON.getString("text"));
@@ -908,7 +931,45 @@ function onScriptButton(script_id){
 		type: 'db_access',
 		script_id: script_id
 	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'actorListBySceneID',
+		type: 'db_access',
+		script_id: script_id
+	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'readActionTimingDataByScriptID',
+		type: 'db_access',
+		script_id: script_id
+	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'readWhoIsActionDataByScriptID',
+		type: 'db_access',
+		script_id: script_id
+	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'readWhoIsScriptDataByScene',
+		type: 'db_access',
+		script_id: script_id
+	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'readTimingScriptDataByScene',
+		type: 'db_access',
+		script_id: script_id
+	}));
+	
+	ws.send(JSON.stringify({
+		func_name: 'readActionImageDataByScriptID',
+		type: 'db_access',
+		script_id: script_id
+	}));
 
+	// createScriptTable();
+	
 }
 
 
@@ -934,40 +995,84 @@ function createXMLHttpRequest() {
 
 //scriptArrayに台本を読み込ませる
 function createScriptTable(csvData){
-	var CR = String.fromCharCode(13);	//改行コード
-    var c_tempArray = csvData.split(CR);	//縦配列、改行コードで分割
-    var c_csvArray = new Array();			//横配列
+	// var CR = String.fromCharCode(13);	//改行コード
+ //   var c_tempArray = csvData.split(CR);	//縦配列、改行コードで分割
+ //   var c_csvArray = new Array();			//横配列
 	scriptArray = new Array();
 	
-	//scriptArrayの初期化
-    for(var i = 0; i < c_tempArray.length;i++){ 
-		for(var j = 0; j<c_csvArray.length; j++){
+	var actionLength = actionTimingArray.length;
+	var scriptLength = scriptTimingArray.length;
+	var maxLength = actionLength + scriptLength;
+	
+	var i=0; //actionTimingArrayのindex
+	var j=0; //scriptTimingArrayのindex
+	var k=0; //順番全体の長さ
+	
+	// scriptArrayの初期化
+    for(var i = 0; i < maxLength;i++){ 
+    	scriptArray[i] = [5];
+		for(var j = 0; j<5; j++){
 			scriptArray[i][j] = "";
 		}
 	}
 	
+	while(i < actionLength || j < scriptLength){
+		if(i < actionLength && j < scriptLength){
+			if(actionTimingArray[i] > scriptTimingArray[j]){
+
+				scriptArray[k][0] = actionTimingArray[i];
+				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
+				scriptArray[k][2] = 0;
+				scriptArray[k][3] = actionImageArray[i];
+				scriptArray[k][4] = whoIsActionArray[i];
+				i++;
+				k++;
+			}else if(actionTimingArray[i] < scriptTimingArray[j]){
+
+				scriptArray[k][0] = scriptTimingArray[j];
+				scriptArray[k][1] = actorNameArray[whoIsScriptArray[j]];
+				scriptArray[k][2] = linesArray[j];
+				scriptArray[k][3] = 0;
+				scriptArray[k][4] = whoIsScriptArray[j];
+				j++;
+				k++;
+				
+			}else if(actionTimingArray[i] == scriptTimingArray[j]){
+
+				// scriptArray[k][0] = actionTimingArray[i];
+				// scriptArray[k][1] = 
+				// scriptArray[k][2] = 
+				// scriptArray[k][3] = 
+				// scriptArray[k][4] = 
+				
+			}
+		}
+		
+	}
 	
-	//島田修正，台本の配列に取得した情報を格納する格納する格納すr
+	//島田修正，台本の配列に取得した情報を格納する格納する格納する
+	
+	
 
 	//scriptArrayに台本csvファイルを格納
-    for(var i = 0; i < c_tempArray.length;i++){
-    	//c_tempArrayは台本のCSVファイルを行単位で格納した配列
-    	//c_csvArrayは行単位のものをカンマでさらに分けて要素ごとに分割
-		c_csvArray = c_tempArray[i].split(",");		//セミコロンで分割
-		scriptArray[i] = new Array();
-		for(var j = 0; j<c_csvArray.length; j++){
+ //   for(var i = 0; i < c_tempArray.length;i++){
+ //   	//c_tempArrayは台本のCSVファイルを行単位で格納した配列
+ //   	//c_csvArrayは行単位のものをカンマでさらに分けて要素ごとに分割
+	// 	c_csvArray = c_tempArray[i].split(",");		//セミコロンで分割
+	// 	scriptArray[i] = new Array();
+	// 	for(var j = 0; j<c_csvArray.length; j++){
 			
-			//c_csvArrayのiはCSVファイルの行番号に対応，jはCSVファイルの各列の要素に対応
-			scriptArray[i][j] = c_csvArray[j];
-		}
-	}
+	// 		//c_csvArrayのiはCSVファイルの行番号に対応，jはCSVファイルの各列の要素に対応
+	// 		scriptArray[i][j] = c_csvArray[j];
+	// 	}
+	// }
 	
 //	console.log(scriptArray);
 
 	//台本選択部分に反映
-	makeScripttable(c_tempArray.length, scriptArray);
+	makeScripttable(k+1, scriptArray);
 	//台本進行状況に反映
-	makeArray(c_tempArray.length, scriptArray);
+	makeArray(k+1, scriptArray);
 }
 
 
@@ -984,13 +1089,13 @@ function makeScripttable(length, scriptarray){
 	for(var i = 0; i < length; i++){
 		if(scriptarray[i][0] == 0){
 			if(scriptarray[i][4] == 1){
-				document.getElementById("actor1_name").innerHTML = scriptarray[i][1];
+				document.getElementById("actor1_name").innerHTML = actorNameArray[0];
 				document.getElementById("actor1_first").innerHTML = scriptarray[i][3];
 			} else if(scriptarray[i][4] == 2){
-				document.getElementById("actor2_name").innerHTML = scriptarray[i][1];
+				document.getElementById("actor2_name").innerHTML = actorNameArray[1];
 				document.getElementById("actor2_first").innerHTML = scriptarray[i][3];
 			} else if(scriptarray[i][4] == 3){
-				document.getElementById("actor3_name").innerHTML = scriptarray[i][1];
+				document.getElementById("actor3_name").innerHTML = actorNameArray[3];
 				document.getElementById("actor3_first").innerHTML = scriptarray[i][3];
 			}
 		}
