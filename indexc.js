@@ -994,7 +994,8 @@ function createXMLHttpRequest() {
 }
 
 //scriptArrayに台本を読み込ませる
-function createScriptTable(csvData){
+// function createScriptTable(csvData){
+function createScriptTable(){
 	// var CR = String.fromCharCode(13);	//改行コード
  //   var c_tempArray = csvData.split(CR);	//縦配列、改行コードで分割
  //   var c_csvArray = new Array();			//横配列
@@ -1009,15 +1010,20 @@ function createScriptTable(csvData){
 	var k=0; //順番全体の長さ
 	
 	// scriptArrayの初期化
-    for(var i = 0; i < maxLength;i++){ 
-    	scriptArray[i] = [5];
-		for(var j = 0; j<5; j++){
-			scriptArray[i][j] = "";
+    for(var x = 0; x < maxLength; x++){ 
+    	 scriptArray[x] = new Array(5);　　//この書き方するとページが動作を停止する
+    	 //console.log("create inner array");
+    	 //scriptArray[x] = [,,,,];
+		for(var y = 0; y<5; y++){
+		// console.log("scriptArray init");
+			scriptArray[x][y] = "";
 		}
 	}
 	
-	while(i < actionLength || j < scriptLength){
-		if(i < actionLength && j < scriptLength){
+	console.log("scriptArray init end!");
+	
+	while(i < actionLength && j < scriptLength){
+		// if(i < actionLength && j < scriptLength){
 			if(actionTimingArray[i] > scriptTimingArray[j]){
 
 				scriptArray[k][0] = actionTimingArray[i];
@@ -1037,16 +1043,18 @@ function createScriptTable(csvData){
 				j++;
 				k++;
 				
-			}else if(actionTimingArray[i] == scriptTimingArray[j]){
-
-				// scriptArray[k][0] = actionTimingArray[i];
-				// scriptArray[k][1] = 
-				// scriptArray[k][2] = 
-				// scriptArray[k][3] = 
-				// scriptArray[k][4] = 
-				
+			}else{
+				i++;
+				j++;
+				k++;
 			}
-		}
+		// 	else if(actionTimingArray[i] == scriptTimingArray[j]){
+		// //タイミングが同じ時だったらの分岐
+		// //セリフと行動の役者が同じかどうかで分岐する必要あり
+		// 	i++;
+		// 	j++;
+		// 	k++;
+		// 	}
 		
 	}
 	
@@ -1069,15 +1077,16 @@ function createScriptTable(csvData){
 	
 //	console.log(scriptArray);
 
+console.log(scriptArray);
 	//台本選択部分に反映
-	makeScripttable(k+1, scriptArray);
+	makeScriptTable(actorNameArray.length, scriptArray);
 	//台本進行状況に反映
 	makeArray(k+1, scriptArray);
 }
 
 
 //台本選択-台本概要テーブルの表示
-function makeScripttable(length, scriptarray){
+function makeScriptTable(length, scriptarray){
 	//初期化
 	document.getElementById("actor1_name").innerHTML = "none";
 	document.getElementById("actor1_first").innerHTML = "none";
@@ -1086,20 +1095,25 @@ function makeScripttable(length, scriptarray){
 	document.getElementById("actor3_name").innerHTML = "none";
 	document.getElementById("actor3_first").innerHTML = "none";
 	//値の代入
-	for(var i = 0; i < length; i++){
-		if(scriptarray[i][0] == 0){
-			if(scriptarray[i][4] == 1){
-				document.getElementById("actor1_name").innerHTML = actorNameArray[0];
-				document.getElementById("actor1_first").innerHTML = scriptarray[i][3];
-			} else if(scriptarray[i][4] == 2){
-				document.getElementById("actor2_name").innerHTML = actorNameArray[1];
-				document.getElementById("actor2_first").innerHTML = scriptarray[i][3];
-			} else if(scriptarray[i][4] == 3){
-				document.getElementById("actor3_name").innerHTML = actorNameArray[3];
-				document.getElementById("actor3_first").innerHTML = scriptarray[i][3];
-			}
-		}
-	}
+	// for(var i = 0; i < length; i++){
+	// 	if(scriptarray[i][0] == 0){
+	// 		if(scriptarray[i][4] == 1){
+	// 			document.getElementById("actor1_name").innerHTML = actorNameArray[0];
+	// 			document.getElementById("actor1_first").innerHTML = scriptarray[i][3];
+	// 		} else if(scriptarray[i][4] == 2){
+	// 			document.getElementById("actor2_name").innerHTML = actorNameArray[1];
+	// 			document.getElementById("actor2_first").innerHTML = scriptarray[i][3];
+	// 		} else if(scriptarray[i][4] == 3){
+	// 			document.getElementById("actor3_name").innerHTML = actorNameArray[3];
+	// 			document.getElementById("actor3_first").innerHTML = scriptarray[i][3];
+	// 		}
+	// 	}
+	// }
+	
+	document.getElementById("actor1_name").innerHTML = actorNameArray[0];
+	document.getElementById("actor2_name").innerHTML = actorNameArray[1];
+	document.getElementById("actor3_name").innerHTML = actorNameArray[2];
+
 }
 
 //台本進捗状況に台本テーブル表示
@@ -1113,7 +1127,7 @@ function makeArray(length, scriptarray){
 	
 	for(var i = 0; i < length; i++){
 		for(var j = 0; j < 4; j++){
-			if(scriptarray[i][0] != 0){
+			// if(scriptarray[i][0] != 0){
 				if(j == 0){
 					resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
 					resultTable +="<td>" + scriptarray[i][j] + "</td>";
@@ -1122,7 +1136,7 @@ function makeArray(length, scriptarray){
 				} else {
 					resultTable +="<td>" + scriptarray[i][j] + "</td>";
 				}
-			}
+			// }
 		}
 	}
 	resultTable += "</table>";
