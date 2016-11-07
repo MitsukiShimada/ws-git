@@ -1003,11 +1003,15 @@ function createScriptTable(){
 	
 	var actionLength = actionTimingArray.length;
 	var scriptLength = scriptTimingArray.length;
-	var maxLength = actionLength + scriptLength;
+	
+	// console.log("action length:" + actionLength);
+	// console.log("script length:" + scriptLength);
 	
 	var i=0; //actionTimingArrayのindex
 	var j=0; //scriptTimingArrayのindex
 	var k=0; //順番全体の長さ
+
+	var maxLength = actionLength + scriptLength;
 	
 	// scriptArrayの初期化
     for(var x = 0; x < maxLength; x++){ 
@@ -1021,19 +1025,19 @@ function createScriptTable(){
 	}
 	
 	console.log("scriptArray init end!");
-	
-	while(i < actionLength && j < scriptLength){
-		// if(i < actionLength && j < scriptLength){
-			if(actionTimingArray[i] > scriptTimingArray[j]){
-
-				scriptArray[k][0] = actionTimingArray[i];
-				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
-				scriptArray[k][2] = 0;
-				scriptArray[k][3] = actionImageArray[i];
-				scriptArray[k][4] = whoIsActionArray[i];
-				i++;
-				k++;
-			}else if(actionTimingArray[i] < scriptTimingArray[j]){
+	var flag = 0;
+	while(i < actionLength || j < scriptLength){
+	// while(k < (maxLength)){
+		if(i < actionLength && j < scriptLength){
+		
+			// var actionT = actionTimingArray[i];
+			// var scriptT = scriptTimingArray[j];
+		
+			if(Number(scriptTimingArray[j]) < Number(actionTimingArray[i])){
+				
+			console.log("script!");
+			console.log(actionTimingArray[i]);
+			console.log(scriptTimingArray[j]);
 
 				scriptArray[k][0] = scriptTimingArray[j];
 				scriptArray[k][1] = actorNameArray[whoIsScriptArray[j]];
@@ -1042,19 +1046,63 @@ function createScriptTable(){
 				scriptArray[k][4] = whoIsScriptArray[j];
 				j++;
 				k++;
-				
-			}else{
+			}else if(Number(actionTimingArray[i]) < Number(scriptTimingArray[j])){
+
+			console.log("action!");
+			console.log(actionTimingArray[i]);
+			console.log(scriptTimingArray[j]);
+			
+				scriptArray[k][0] = actionTimingArray[i];
+				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
+				scriptArray[k][2] = 0;
+				scriptArray[k][3] = actionImageArray[i];
+				scriptArray[k][4] = whoIsActionArray[i];
+				i++;
+				k++;
+			}else if(Number(actionTimingArray[i]) == Number(scriptTimingArray[j])){
+				scriptArray[k][0] = scriptTimingArray[j];
+				scriptArray[k][1] = actorNameArray[whoIsScriptArray[j]];
+				scriptArray[k][2] = linesArray[j];
+				scriptArray[k][3] = actionImageArray[i];
+				scriptArray[k][4] = whoIsScriptArray[j];				
 				i++;
 				j++;
 				k++;
 			}
+		}else if(i >= actionLength && j < scriptLength){
+				scriptArray[k][0] = scriptTimingArray[j];
+				scriptArray[k][1] = actorNameArray[whoIsScriptArray[j]];
+				scriptArray[k][2] = linesArray[j];
+				scriptArray[k][3] = 0;
+				scriptArray[k][4] = whoIsScriptArray[j];
+				j++;
+				k++;
+		}else if(i < actionLength && j >= scriptLength){
+				scriptArray[k][0] = actionTimingArray[i];
+				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
+				scriptArray[k][2] = 0;
+				scriptArray[k][3] = actionImageArray[i];
+				scriptArray[k][4] = whoIsActionArray[i];
+				i++;
+				k++;			
+		}
+			// else{
+			// 	console.log("no");
+			// 	// i++;
+			// 	// j++;
+			// 	flag = 3;
+			// }
+
+				// scriptArray[k][0] = "I'm in!";
+
+			
 		// 	else if(actionTimingArray[i] == scriptTimingArray[j]){
 		// //タイミングが同じ時だったらの分岐
 		// //セリフと行動の役者が同じかどうかで分岐する必要あり
 		// 	i++;
 		// 	j++;
 		// 	k++;
-		// 	}
+	// }
 		
 	}
 	
