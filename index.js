@@ -1,6 +1,7 @@
 //それぞれ変数の定義(websocket必須)
 var WebSocketServer = require("ws").Server;		//websocket
 var http = require("http");						//http
+// var https = require("https");
 var express = require("express");				//express
 var app = express();							//appという名のexpress
 var port = process.env.PORT || 5000;			//ポート
@@ -15,6 +16,7 @@ var pc1, pc2, pc3, tablet1, tablet2, tablet3;	//接続状態の記録
 //expressモジュールからhttpサーバを作成し、wsモジュールのseverの引数にし、websocket用サーバオブジェクトを作成
 app.use(express.static(__dirname + "/"));
 var server = http.createServer(app);
+// var server = https.createServer(app);
 
 //ポートにwebsocketサーバを立てる
 server.listen(port);

@@ -1,5 +1,6 @@
 //変数定義(websocket必須)
 var host = location.origin.replace(/^http/, 'ws');				//host
+// var host = location.origin.replace(/^https/, 'ws');
 var ws = new WebSocket(host);									//websocket
 //付け加え変数定義
 var userid = Math.floor(Math.random() * 500);					//自デバイスのユーザIDをランダムで生成
@@ -591,7 +592,7 @@ function onKinectCheckButton(){
 	RepairColor();
 	MessageChangeWhite();
 	//入力された値のcountを入力
-	kinect_count_ipt = document.getElementById("kinect_count_input");
+	var kinect_count_ipt = document.getElementById("kinect_count_input");
 	//kinectチェックメソッドへ
 	KinectCheck(kinect_count_ipt.value);
 }
@@ -1024,20 +1025,16 @@ function createScriptTable(){
 		}
 	}
 	
-	console.log("scriptArray init end!");
-	var flag = 0;
+	// console.log("scriptArray init end!");
+	// var flag = 0;
 	while(i < actionLength || j < scriptLength){
 	// while(k < (maxLength)){
 		if(i < actionLength && j < scriptLength){
-		
-			// var actionT = actionTimingArray[i];
-			// var scriptT = scriptTimingArray[j];
-		
-			if(Number(scriptTimingArray[j]) < Number(actionTimingArray[i])){
+			if(Number(scriptTimingArray[j]) < Number(actionTimingArray[i])){ //TEXT型で型でとってきてるから型変換して比較
 				
-			console.log("script!");
-			console.log(actionTimingArray[i]);
-			console.log(scriptTimingArray[j]);
+			// console.log("script!");
+			// console.log(actionTimingArray[i]);
+			// console.log(scriptTimingArray[j]);
 
 				scriptArray[k][0] = scriptTimingArray[j];
 				scriptArray[k][1] = actorNameArray[whoIsScriptArray[j]];
@@ -1048,9 +1045,9 @@ function createScriptTable(){
 				k++;
 			}else if(Number(actionTimingArray[i]) < Number(scriptTimingArray[j])){
 
-			console.log("action!");
-			console.log(actionTimingArray[i]);
-			console.log(scriptTimingArray[j]);
+			// console.log("action!");
+			// console.log(actionTimingArray[i]);
+			// console.log(scriptTimingArray[j]);
 			
 				scriptArray[k][0] = actionTimingArray[i];
 				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
@@ -1086,16 +1083,7 @@ function createScriptTable(){
 				i++;
 				k++;			
 		}
-			// else{
-			// 	console.log("no");
-			// 	// i++;
-			// 	// j++;
-			// 	flag = 3;
-			// }
-
-				// scriptArray[k][0] = "I'm in!";
-
-			
+		
 		// 	else if(actionTimingArray[i] == scriptTimingArray[j]){
 		// //タイミングが同じ時だったらの分岐
 		// //セリフと行動の役者が同じかどうかで分岐する必要あり
@@ -1125,7 +1113,7 @@ function createScriptTable(){
 	
 //	console.log(scriptArray);
 
-console.log(scriptArray);
+// console.log(scriptArray);
 	//台本選択部分に反映
 	makeScriptTable(actorNameArray.length, scriptArray);
 	//台本進行状況に反映
