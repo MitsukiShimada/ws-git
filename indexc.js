@@ -726,6 +726,8 @@ function onWatchRaiseButton3(){
 
 //稽古スタートボタン
 function onStartButton(){
+	
+	//島田追加，タイマーをスタート
 	timeCounterControl("start");
 	
 	//稽古中フラグを立てる
@@ -752,6 +754,7 @@ function onStartButton(){
 //一時停止ボタン
 function onStopButton(){
 	
+	//島田追加，タイマーをストップ
 	timeCounterControl("stop");
 
 	//timerを一度停止する
@@ -772,10 +775,10 @@ function onStopButton(){
 
 //再スタートボタン
 function onRestartButton(){
-	//稽古中フラグを立てる
-	
+	//島田追加，タイマーをリスタート
 	timeCounterControl("restart");
-	
+
+	//稽古中フラグを立てる
 	doing = 1;
 	document.getElementById("training_now").innerHTML = "稽古中";
 	//countは一つ下げる(NextNotification()でcount+1するので)
@@ -1011,25 +1014,12 @@ function timeCounterControl(control){
 	repeat = setInterval(function() {
  		if(repeatFlag == 1){
    		count += 1;
-   		console.log((count + timeKeeper)/10);
+   		console.log((count + timeKeeper)/100);
  		}else if(repeatFlag == 0){
  			console.log("time stop);");
  		}
-	}, 100);
-// actuon.onclick = function() {
-//     if(repeatFlag) {
-//         clearInterval(repeat);
-//         actuon.innerHTML = '再開';
-//         repeatFlag = false;
-//     } else {
-//         repeat = setInterval(function() {
-//             count += 1;
-//             console.log(count);
-//         }, 1000);
-//         actuon.innerHTML = '停止';
-//         repeatFlag = true;
-//     }
-// };
+	}, 10);
+
 
 
 //-----------------------------------------------------------------------------------------
