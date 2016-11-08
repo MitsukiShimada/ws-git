@@ -38,6 +38,8 @@ var actionImageArray;
 var timeCounter = 0;
 //時間を止めるとタイマーが０になるので０になる前のあたいを値を保持する変数
 var timeKeeper = 0;
+//
+var scriptPrgoress = 0;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
@@ -742,7 +744,10 @@ function onStartButton(){
 	//対象ユーザ部分の背景に色をつける
 	MessageChangeRed();
 	//WatchとKinectに情報を送る
-	SendInfo();
+	// SendInfo();
+	
+	SendInfo(scriptPrgoress);
+	
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
 	timer = setTimeout("SoundPlay()", 7000);
 	//順番表示
@@ -992,15 +997,17 @@ function onScriptButton(script_id){
 }
 
 
-var count = 0;
+var timeCount = 0;
 // var actuon = document.getElementById('chat_button');
-var repeatFlag = 1;
+var repeatFlag = 0;
 var repeat; 
 
+//経過時間を計るタイマーの制御
 function timeCounterControl(control){
 	
 	if(control == "start"){
 		timeKeeper = 0;
+		scriptPrgoress = 0;
 		repeatFlag = 1;
 	}else if(control == "stop"){
 		timeKeeper += repeat;
@@ -1013,12 +1020,19 @@ function timeCounterControl(control){
 
 	repeat = setInterval(function() {
  		if(repeatFlag == 1){
-   		count += 1;
-   		console.log((count + timeKeeper)/100);
- 		}else if(repeatFlag == 0){
- 			console.log("time stop);");
+   		timeCount += 1;
+   		var secConvert = timeCount / 10;
+   			if(secConvert > scriptArray[scriptPrgoress][0]){
+   				// console.log((count + timeKeeper)/10);
+				// console.log("Time: " + scriptArray[scriptPrgoress][0] + " Name: " + scriptArray[scriptPrgoress][1] + " Script: " + scriptArray[scriptPrgoress][2] + " Movement: " + scriptArray[scriptPrgoress][3] + " Move Actor: " + scriptArray[scriptPrgoress][4]);
+				
+   				scriptPrgoress++;
+   			}
  		}
-	}, 10);
+ 		// else if(repeatFlag == 0){
+ 			// console.log("time stop");
+ 		// }
+	}, 100);//setIntervalの第２引数でmsec単位で何秒ごとに処理を行うかを設定
 
 
 
@@ -1314,7 +1328,10 @@ function NextNotification(){
 	MessageChangeRed();
 	
 	//WatchとKinectに情報を送る
-	SendInfo();
+	// SendInfo();
+	
+	SendInfo(scriptPrgoress);
+	
 	document.getElementById("display_watching").innerHTML = watching;
 	document.getElementById("display_kinecting").innerHTML = kinecting;
 	
@@ -1326,56 +1343,104 @@ function NextNotification(){
 }
 
 //WatchとKinectに情報を送るメソッド
-function SendInfo(){
-//	console.log("順番:" + count);
-	for(var i = 0; i < scriptArray.length; i++){
-		if(scriptArray[i][0] == count){
+// function SendInfo(){
+// //	console.log("順番:" + count);
+// 	for(var i = 0; i < scriptArray.length; i++){
+// 		if(scriptArray[i][0] == count){
 			
+// 			//Watchにタイミングを通知 count | userid | type | actor | script | motion
+// 			if(scriptArray[i][4] == 1){
+// 				//台詞があった場合
+// 				if(scriptArray[i][2] != 0){
+// 					trainingsend(count, 'Tablet1', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+// 					watching += 1;
+// 				//台詞がなかった場合
+// 				} else if(scriptArray[i][2] == 0){
+// 					trainingsend(count, 'Tablet1', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+// 					//watchingフラグは立てない
+// 				}
+// 			}
+// 			if(scriptArray[i][4] == 2){
+// 				if(scriptArray[i][2] != 0){
+// 					trainingsend(count, 'Tablet2', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+// 					watching += 1;
+// 				//台詞がなかった場合
+// 				} else if(scriptArray[i][2] == 0){
+// 					trainingsend(count, 'Tablet2', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+// 					//watchingフラグは立てない
+// 				}
+// 			}
+// 			if(scriptArray[i][4] == 3){
+// 				if(scriptArray[i][2] != 0){
+// 					trainingsend(count, 'Tablet3', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+// 					watching += 1;
+// 				//台詞がなかった場合
+// 				} else if(scriptArray[i][2] == 0){
+// 					trainingsend(count, 'Tablet3', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+// 					//watchingフラグは立てない
+// 				}
+// 			}
+			
+// 			//kinectに通知
+// 			//Motionがなし(=0)でなければ通知
+// 			if(scriptArray[i][3] != 0){
+// 				//やっぱりkinectに通知はしない
+// //				motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
+// 				motion_user = scriptArray[i][4];
+// 				kinecting++;
+// 			}
+// 			console.log("通知した！watching:" + watching + "  kinecting:" + kinecting);
+// 		}
+// 	}
+// }
+
+function SendInfo(progress){
+	// console.log(scriptArray);
+	console.log("Timer: " + timeCount);
 			//Watchにタイミングを通知 count | userid | type | actor | script | motion
-			if(scriptArray[i][4] == 1){
+			if(Number(scriptArray[progress][4]) == 0){
 				//台詞があった場合
-				if(scriptArray[i][2] != 0){
-					trainingsend(count, 'Tablet1', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+				if(scriptArray[progress][2] != 0){
+					trainingsend(progress, 'Tablet1', 'training_send', scriptArray[progress][1], scriptArray[progress][2], scriptArray[progress][3]);
 					watching += 1;
 				//台詞がなかった場合
-				} else if(scriptArray[i][2] == 0){
-					trainingsend(count, 'Tablet1', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+				} else if(scriptArray[progress][2] == 0){
+					trainingsend(progress, 'Tablet1', 'training_send', scriptArray[progress][1], '動きのみ', scriptArray[progress][3]);
 					//watchingフラグは立てない
 				}
 			}
-			if(scriptArray[i][4] == 2){
-				if(scriptArray[i][2] != 0){
-					trainingsend(count, 'Tablet2', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+			if(Number(scriptArray[progress][4]) == 1){
+				if(scriptArray[progress][2] != 0){
+					trainingsend(progress, 'Tablet2', 'training_send', scriptArray[progress][1], scriptArray[progress][2], scriptArray[progress][3]);
 					watching += 1;
 				//台詞がなかった場合
-				} else if(scriptArray[i][2] == 0){
-					trainingsend(count, 'Tablet2', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+				} else if(scriptArray[progress][2] == 2){
+					trainingsend(progress, 'Tablet2', 'training_send', scriptArray[progress][1], '動きのみ', scriptArray[progress][3]);
 					//watchingフラグは立てない
 				}
 			}
-			if(scriptArray[i][4] == 3){
-				if(scriptArray[i][2] != 0){
-					trainingsend(count, 'Tablet3', 'training_send', scriptArray[i][1], scriptArray[i][2], scriptArray[i][3]);
+			if(Number(scriptArray[progress][4]) == 2){
+				if(scriptArray[progress][2] != 0){
+					trainingsend(progress, 'Tablet3', 'training_send', scriptArray[progress][1], scriptArray[progress][2], scriptArray[progress][3]);
 					watching += 1;
 				//台詞がなかった場合
-				} else if(scriptArray[i][2] == 0){
-					trainingsend(count, 'Tablet3', 'training_send', scriptArray[i][1], '動きのみ', scriptArray[i][3]);
+				} else if(scriptArray[progress][2] == 0){
+					trainingsend(progress, 'Tablet3', 'training_send', scriptArray[progress][1], '動きのみ', scriptArray[progress][3]);
 					//watchingフラグは立てない
 				}
 			}
 			
 			//kinectに通知
 			//Motionがなし(=0)でなければ通知
-			if(scriptArray[i][3] != 0){
+			if(scriptArray[progress][3] != 0){
 				//やっぱりkinectに通知はしない
 //				motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
-				motion_user = scriptArray[i][4];
+				motion_user = scriptArray[progress][4];
 				kinecting++;
 			}
 			console.log("通知した！watching:" + watching + "  kinecting:" + kinecting);
-		}
-	}
 }
+
 
 //システムなしモード、Kinectによる動作チェック
 function KinectCheck(Count){
@@ -1414,7 +1479,6 @@ function SendToKinectInfo(){
 //			}
 		}
 	}
-
 }
 
 
