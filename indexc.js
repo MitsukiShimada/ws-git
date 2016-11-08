@@ -19,6 +19,7 @@ var motion_user = 0;
 //タイマーの名前
 var timer = 0;
 
+//以下の変数島田宣言
 //登場人物の名前の配列
 var actorNameArray;
 //動きのタイミングの配列
@@ -33,6 +34,10 @@ var whoIsScriptArray;
 var linesArray;
 //動きのないよう内容
 var actionImageArray;
+//稽古の開始からの経過時間の計測
+var timeCounter = 0;
+//時間を止めるとタイマーが０になるので０になる前のあたいを値を保持する変数
+var timeKeeper = 0;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
@@ -721,6 +726,8 @@ function onWatchRaiseButton3(){
 
 //稽古スタートボタン
 function onStartButton(){
+	timeCounterControl("start");
+	
 	//稽古中フラグを立てる
 	doing = 1;
 	document.getElementById("training_now").innerHTML = "稽古中";
@@ -744,6 +751,9 @@ function onStartButton(){
 
 //一時停止ボタン
 function onStopButton(){
+	
+	timeCounterControl("stop");
+
 	//timerを一度停止する
 	clearTimeout(timer);
 	//稽古中フラグを閉じる
@@ -752,8 +762,6 @@ function onStopButton(){
 	//通知フラグも閉じる
 	watching = 0;
 	kinecting = 0;
-
-
 	//kinectチェック前という文字を表示する、文字黒くする
 	document.getElementById("check_kinect_text").innerHTML = "Kinectチェック前";
 	document.getElementById("check_kinect_text").style.backgroundColor="white";
@@ -765,6 +773,9 @@ function onStopButton(){
 //再スタートボタン
 function onRestartButton(){
 	//稽古中フラグを立てる
+	
+	timeCounterControl("restart");
+	
 	doing = 1;
 	document.getElementById("training_now").innerHTML = "稽古中";
 	//countは一つ下げる(NextNotification()でcount+1するので)
@@ -882,6 +893,10 @@ function getCSVFile(daihon) {
 
 //島田追加---------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
 //台本変換系-------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 
 //デバッグ用
 function DBdebug_chat(func_name, db_data){
@@ -974,11 +989,53 @@ function onScriptButton(script_id){
 }
 
 
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-/*****-------------------ここまで卒論の範囲の機能--------------------*****/
+var count = 0;
+// var actuon = document.getElementById('chat_button');
+var repeatFlag = 1;
+var repeat; 
+
+function timeCounterControl(control){
+	
+	if(control == "start"){
+		timeKeeper = 0;
+		repeatFlag = 1;
+	}else if(control == "stop"){
+		timeKeeper += repeat;
+		repeatFlag = 0;
+	}else if(control =="restart"){
+		repeatFlag =1;
+	}
+}
+ 
+
+	repeat = setInterval(function() {
+ 		if(repeatFlag == 1){
+   		count += 1;
+   		console.log((count + timeKeeper)/10);
+ 		}else if(repeatFlag == 0){
+ 			console.log("time stop);");
+ 		}
+	}, 100);
+// actuon.onclick = function() {
+//     if(repeatFlag) {
+//         clearInterval(repeat);
+//         actuon.innerHTML = '再開';
+//         repeatFlag = false;
+//     } else {
+//         repeat = setInterval(function() {
+//             count += 1;
+//             console.log(count);
+//         }, 1000);
+//         actuon.innerHTML = '停止';
+//         repeatFlag = true;
+//     }
+// };
 
 
-
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------
 
