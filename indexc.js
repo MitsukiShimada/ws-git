@@ -39,7 +39,7 @@ var timeCounter = 0;
 //時間を止めるとタイマーが０になるので０になる前のあたいを値を保持する変数
 var timeKeeper = 0;
 //
-var scriptPrgoress = 0;
+var scriptProgress = 0;
 
 //島田追加------------------------------------------------------------------------------
 // var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
@@ -746,8 +746,8 @@ function onStartButton(){
 	//WatchとKinectに情報を送る
 	// SendInfo();
 	
-	SendInfo(scriptPrgoress);
-	
+	SendInfo(scriptProgress);
+	scriptProgress++;
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
 	timer = setTimeout("SoundPlay()", 7000);
 	//順番表示
@@ -1007,7 +1007,7 @@ function timeCounterControl(control){
 	
 	if(control == "start"){
 		timeKeeper = 0;
-		scriptPrgoress = 0;
+		scriptProgress = 0;
 		repeatFlag = 1;
 	}else if(control == "stop"){
 		timeKeeper += repeat;
@@ -1022,11 +1022,11 @@ function timeCounterControl(control){
  		if(repeatFlag == 1){
    		timeCount += 1;
    		var secConvert = timeCount / 10;
-   			if(secConvert > scriptArray[scriptPrgoress][0]){
+   			if(secConvert > scriptArray[scriptProgress][0]){
    				// console.log((count + timeKeeper)/10);
-				// console.log("Time: " + scriptArray[scriptPrgoress][0] + " Name: " + scriptArray[scriptPrgoress][1] + " Script: " + scriptArray[scriptPrgoress][2] + " Movement: " + scriptArray[scriptPrgoress][3] + " Move Actor: " + scriptArray[scriptPrgoress][4]);
-				
-   				scriptPrgoress++;
+				// console.log("Time: " + scriptArray[scriptProgress][0] + " Name: " + scriptArray[scriptProgress][1] + " Script: " + scriptArray[scriptProgress][2] + " Movement: " + scriptArray[scriptProgress][3] + " Move Actor: " + scriptArray[scriptProgress][4]);
+				SendInfo(scriptProgress);
+   				scriptProgress++;
    			}
  		}
  		// else if(repeatFlag == 0){
@@ -1330,7 +1330,7 @@ function NextNotification(){
 	//WatchとKinectに情報を送る
 	// SendInfo();
 	
-	SendInfo(scriptPrgoress);
+	SendInfo(scriptProgress);
 	
 	document.getElementById("display_watching").innerHTML = watching;
 	document.getElementById("display_kinecting").innerHTML = kinecting;
@@ -1396,7 +1396,7 @@ function NextNotification(){
 
 function SendInfo(progress){
 	// console.log(scriptArray);
-	console.log("Timer: " + timeCount);
+	console.log("Timer: " + (timeCount/10));
 			//Watchにタイミングを通知 count | userid | type | actor | script | motion
 			if(Number(scriptArray[progress][4]) == 0){
 				//台詞があった場合
