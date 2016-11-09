@@ -41,43 +41,6 @@ var timeKeeper = 0;
 //
 var scriptProgress = 0;
 
-//島田追加------------------------------------------------------------------------------
-// var mysql = require(['node_modules/mysql']);	//require.jsを使用する場合
-// var mysql = require('mysql');	//browserifyを使用する場合, 通常の場合
-// // var DBClient = require('mysql').Client;
-
-// require(['db'], function(db_connect){
-// 	console.log(db_connect.countActors(1));
-// });
-	// var db = require('db');
-	// var mysql = require('mysql');
-	// db.countActors(1);
-
-// var db_connection;	//mysqlの接続
-// //接続設定の用意
-// var dbConfig = {
-// 	// host		: 'http://viztaro.s17.xrea.com/log/phpmyadmin/import.php#PMAURL-6:index.php?db=&table=&server=1&target=&token=d2dff2008e79084d172b3623c221575d', //接続先ホスト名
-// 	// user    	: 'viztaro', //ユーザー名
-// 	// password	: 'vizmos', //パスワード
-// 	// database	: 'viztaro' //DB名
-
-// 	// host	: "localhost",
-//  //  	user  : "root",
-//  //  	password  :  "vNagCs6H",
-//  //  	database  :  "ddihon"
-
-//  host : 'us-cdbr-iron-east-04.cleardb.net',
-//  user : 'b823897b16dff2',
-//  password : '43ac4401',
-//  database : 'heroku_26dd74052841cb5'
-// };
-
-// dbConnect();
-// countActors(1);
-// dbClose();
-//-------------------------------------------------------------------------------------------
-
-
 //********************オープン処理********************
 ws.onopen = function(){
 	ws.send(JSON.stringify({
