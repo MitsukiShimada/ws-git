@@ -188,6 +188,7 @@ function connect(s_user, s_text){
 	//クローズ処理
 	} else if(s_text == "close"){
 		console.log(s_user + "がクローズした");
+		dbClose();
 	
 	//デバイス登録
 	} else if(s_text == "PC.1"){
