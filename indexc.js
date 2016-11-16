@@ -400,7 +400,7 @@ ws.onmessage = function (event) {
 	//-----一応その他のtypeだった場合-----
 	}else if(messages.type == "db_access"){
 		console.log("DB access!");
-	} else {
+	}else {
 		console.log(event.data);
 		console.log(messages.data);
 		console.log("その他のtypeを受信: " + messages);
@@ -559,8 +559,8 @@ function onDeviceChangeRadioButton(){
 //-----kinect部分-----
 function onKinectCheckButton(){
 	//前の順番の色付き背景を白に戻す
-	RepairColor();
-	MessageChangeWhite();
+	RepairColor(scriptProgress);
+	MessageChangeWhite(scriptProgress);
 	//入力された値のcountを入力
 	var kinect_count_ipt = document.getElementById("kinect_count_input");
 	//kinectチェックメソッドへ
@@ -981,11 +981,20 @@ function timeCounterControl(control){
 }
  
 
+//繰り返し処理
 	repeat = setInterval(function() {
  		if(repeatFlag == 1){
    		timeCount += 1;
-   		var secConvert = timeCount / 10;
-   			if(secConvert > scriptArray[scriptProgress][0]){
+   		var secConvert = timeCount / 10.0;
+   		var timeAdjust = Number(scriptArray[scriptProgress][0]) + Number(scriptProgress) * 2.0;
+//		var timeAdjust = scriptProgress * 2.0 +scriptArray[scriptProgress][0];
+   		
+   			// if(secConvert > scriptArray[scriptProgress][0]){ //セリフの時間情報が来たら通知
+   			if(Number(timeAdjust) < Number(secConvert)){
+   				console.log("scriptArray[scriptProgress][0]: " + scriptArray[scriptProgress][0]);
+   				console.log("scriptProgress: " + scriptProgress);
+   				console.log("secConvert: " + secConvert);
+   				console.log("timeAdjust: " + timeAdjust);
    				// console.log((count + timeKeeper)/10);
 				// console.log("Time: " + scriptArray[scriptProgress][0] + " Name: " + scriptArray[scriptProgress][1] + " Script: " + scriptArray[scriptProgress][2] + " Movement: " + scriptArray[scriptProgress][3] + " Move Actor: " + scriptArray[scriptProgress][4]);
 				SendInfo(scriptProgress);
@@ -1398,6 +1407,7 @@ function SendInfo(progress){
 			if(scriptArray[progress][3] != 0){
 				//やっぱりkinectに通知はしない
 //				motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
+				send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);//デバッグ
 				motion_user = scriptArray[progress][4];
 				kinecting++;
 			}
@@ -1460,36 +1470,27 @@ function DisplayMessages(user, text){
 //+++++----- 色付け処理 -----+++++
 
 //通知中ではないデバイスのメッセージの色を黒くする
-function MessageChangeWhite(){
-	for(var i = 0; i < scriptArray.length; i++){
-		//順番が正しければ色を赤くする
-		if(scriptArray[i][0] == count){
-			
-			if(scriptArray[i][4] == 1) document.getElementById("watchvoicereply1").style.backgroundColor="white";
-			if(scriptArray[i][4] == 2) document.getElementById("watchvoicereply2").style.backgroundColor="white";
-			if(scriptArray[i][4] == 3) document.getElementById("watchvoicereply3").style.backgroundColor="white";
-			
-		}
-	}
+function MessageChangeWhite(Progress){
+			if(scriptArray[Progress][4] == 1) document.getElementById("watchvoicereply1").style.backgroundColor="white";
+			if(scriptArray[Progress][4] == 2) document.getElementById("watchvoicereply2").style.backgroundColor="white";
+			if(scriptArray[Progress][4] == 3) document.getElementById("watchvoicereply3").style.backgroundColor="white";
+
 }
 
 //通知中のデバイスのメッセージの色を黒くする
-function MessageChangeRed(){
-	for(var i = 0; i < scriptArray.length; i++){
-		//順番が正しければ色を赤くする
-		if(scriptArray[i][0] == count){
+function MessageChangeRed(Progress){
+
 			
-			if(scriptArray[i][4] == 1) document.getElementById("watchvoicereply1").style.backgroundColor="red";
-			if(scriptArray[i][4] == 2) document.getElementById("watchvoicereply2").style.backgroundColor="red";
-			if(scriptArray[i][4] == 3) document.getElementById("watchvoicereply3").style.backgroundColor="red";
-			
-		}
-	}
+			if(scriptArray[Progress][4] == 1) document.getElementById("watchvoicereply1").style.backgroundColor="red";
+			if(scriptArray[Progress][4] == 2) document.getElementById("watchvoicereply2").style.backgroundColor="red";
+			if(scriptArray[Progress][4] == 3) document.getElementById("watchvoicereply3").style.backgroundColor="red";
+
 }
 
 //前の順番の色付き背景を白に戻すメソッド
 function RepairColor(){
-	var ClassElement_1 = document.getElementsByClassName(count);
+	// var ClassElement_1 = document.getElementsByClassName(count);
+	var ClassElement_1 = document.getElementsByClassName(scriptProgress);
 	for(var i = 0; i < ClassElement_1.length; i++){
 		ClassElement_1[i].style.backgroundColor = "#ffffff";
 	}
@@ -1497,7 +1498,8 @@ function RepairColor(){
 
 //対象の順番の背景に色をつけるメソッド
 function AddColor(){
-	var ClassElement = document.getElementsByClassName(count);
+	// var ClassElement = document.getElementsByClassName(count);
+	var ClassElement = document.getElementsByClassName(scriptProgress);
 	for(var i = 0; i < ClassElement.length; i++){
 		ClassElement[i].style.backgroundColor = "#fffacd";
 	}
