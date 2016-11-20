@@ -335,16 +335,20 @@ table.script{
 	border-collapse: collapse;
 }
 th.one{
-	width: 40px;
+	width: 20px;
+	background-color: #81F79F;
 }
 th.two{
 	width: 40px;
 }
 th.three{
-	width: 280px;
+	width: 40px;
 }
 th.four{
-	width: 135px;
+	width: 280px;
+}
+th.five{
+	width: 60px;
 }
 tr.ttitle{
 	background-color: #afeeee;

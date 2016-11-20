@@ -751,6 +751,7 @@ function onRestartButton(){
 	document.getElementById("training_now").innerHTML = "稽古中";
 	//countは一つ下げる(NextNotification()でcount+1するので)
 	count -= 1;
+	scriptProgress -=1;
 	//通知フラグも閉じる
 	watching = 0;
 	kinecting = 0;
@@ -986,19 +987,22 @@ function timeCounterControl(control){
  		if(repeatFlag == 1){
    		timeCount += 1;
    		var secConvert = timeCount / 10.0;
-   		var timeAdjust = Number(scriptArray[scriptProgress][0]) + Number(scriptProgress) * 2.0;
-//		var timeAdjust = scriptProgress * 2.0 +scriptArray[scriptProgress][0];
+   		//時間情報を調整して通知
+   		// var timeAdjust = Number(scriptArray[scriptProgress][0]) + Number(scriptProgress) * 2.0;
+		//時間情報そのまま通知
+		var timeAdjust = scriptArray[scriptProgress][0];
    		
    			// if(secConvert > scriptArray[scriptProgress][0]){ //セリフの時間情報が来たら通知
    			if(Number(timeAdjust) < Number(secConvert)){
-   				console.log("scriptArray[scriptProgress][0]: " + scriptArray[scriptProgress][0]);
-   				console.log("scriptProgress: " + scriptProgress);
-   				console.log("secConvert: " + secConvert);
-   				console.log("timeAdjust: " + timeAdjust);
+   				// console.log("scriptArray[scriptProgress][0]: " + scriptArray[scriptProgress][0]);
+   				// console.log("scriptProgress: " + scriptProgress);
+   				// console.log("secConvert: " + secConvert);
+   				// console.log("timeAdjust: " + timeAdjust);
    				// console.log((count + timeKeeper)/10);
 				// console.log("Time: " + scriptArray[scriptProgress][0] + " Name: " + scriptArray[scriptProgress][1] + " Script: " + scriptArray[scriptProgress][2] + " Movement: " + scriptArray[scriptProgress][3] + " Move Actor: " + scriptArray[scriptProgress][4]);
 				SendInfo(scriptProgress);
-   				scriptProgress++;
+				NextNotification();
+   				// scriptProgress++;
    			}
  		}
  		// else if(repeatFlag == 0){
@@ -1192,13 +1196,16 @@ function makeArray(length, scriptarray){
 	
 	//格納する前に初期化
 	resultTable = "";
-	resultTable = "<table border=1 class=\"script\"><tr class=\"ttitle\"><th class=\"one\">順番</th><th class=\"two\">役者</th><th class=\"three\">セリフ</th><th class=\"four\">動き</th></tr>";
+	resultTable = "<table border=1 class=\"script\"><tr class=\"ttitle\"><th class=\"one\">順番</th><th class=\"two\">タイミング</th><th class=\"three\">役者</th><th class=\"four\">セリフ</th><th class=\"five\">動き</th></tr>";
 	
 	for(var i = 0; i < length; i++){
 		for(var j = 0; j < 4; j++){
 			// if(scriptarray[i][0] != 0){
+			
 				if(j == 0){
-					resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
+					// resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
+					resultTable += "<tr class=\""+ i +"\">";	//trにはクラス(0,1,2,3・・・)をつける
+					resultTable += "<td>" + i + "</td>";
 					resultTable +="<td>" + scriptarray[i][j] + "</td>";
 				} else if(j == 3){
 					resultTable +="<td>" + scriptarray[i][j] + "</td></tr>";
@@ -1292,6 +1299,7 @@ function NextNotification(){
 	
 	//順番を+1する
 	count += 1;
+	scriptProgress += 1;
 	
 	//対象の順番の背景に色をつける
 	AddColor();
@@ -1308,7 +1316,7 @@ function NextNotification(){
 	document.getElementById("display_kinecting").innerHTML = kinecting;
 	
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
-	timer = setTimeout("SoundPlay()", 7000);
+	// timer = setTimeout("SoundPlay()", 7000);
 	
 	//順番表示
 	DisplayCount();
@@ -1533,5 +1541,5 @@ function SoundPlay(){
 
 //+++++----- 順番を表示する処理 -----+++++
 function DisplayCount(){
-	document.getElementById("training_count").innerHTML = count;
+	document.getElementById("training_count").innerHTML = scriptProgress;
 }

@@ -108,59 +108,63 @@
 				<nobr id="kinect_title">---KINECT通信状況---</nobr><br>
 			</div>
 			<!-- Kinectボックス部分 -->
-			<div class="kinectbox">
-				通知なしモード:順番を入力してチェック<br>
-				<input type="text" id="kinect_count_input"/>
-				<button name="button_kinect_check" value="kinect_check" onclick="onKinectCheckButton();">kinectチェック</button><br>
-				<nobr id="check_kinect_text">kinectチェック前</nobr><br>
+			<!--<div class="kinectbox">-->
+			<!--	通知なしモード:順番を入力してチェック<br>-->
+			<!--	<input type="text" id="kinect_count_input"/>-->
+			<!--	<button name="button_kinect_check" value="kinect_check" onclick="onKinectCheckButton();">kinectチェック</button><br>-->
+			<!--	<nobr id="check_kinect_text">kinectチェック前</nobr><br>-->
 				
-				<nobr id="debug_daihon3">台本3 モーション有り</nobr><br>
-				<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>
-				<button name="scenario6" value="s6" onclick="Scenario6Button();">6</button>
-				<button name="scenario13" value="s13" onclick="Scenario13Button();">13</button>
-				<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button>
-				<button name="scenario19" value="s19" onclick="Scenario19Button();">19</button>
-				<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>
-				<button name="scenario24" value="s24" onclick="Scenario24Button();">24</button>
-				<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button><br>
-				<button name="scenario26" value="s26" onclick="Scenario26Button();">26</button>
-				<button name="scenario27" value="s27" onclick="Scenario27Button();">27</button>
-				<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>
-				<button name="scenario29" value="s29" onclick="Scenario29Button();">29</button>
-				<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>
-				<button name="scenario32" value="s32" onclick="Scenario32Button();">32</button>
-				<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button><br>
-				<nobr id="debug_daihon4">台本4 モーション有り</nobr><br>
-				<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>
-				<button name="scenario3" value="s3" onclick="Scenario3Button();">3</button>
-				<button name="scenario4" value="s4" onclick="Scenario4Button();">4</button>
-				<button name="scenario5" value="s5" onclick="Scenario5Button();">5</button>
-				<button name="scenario7" value="s7" onclick="Scenario7Button();">7</button>
-				<button name="scenario8" value="s8" onclick="Scenario8Button();">8</button>
-				<button name="scenario9" value="s9" onclick="Scenario9Button();">9</button>
-				<button name="scenario13" value="s15" onclick="Scenario15Button();">15</button>
-				<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button><br>
-				<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>
-				<button name="scenario23" value="s23" onclick="Scenario23Button();">23</button>
-				<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button>
-				<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>
-				<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>
-				<button name="scenario31" value="s31" onclick="Scenario31Button();">31</button>
-				<button name="scenario33" value="s33" onclick="Scenario33Button();">33</button><br>
-				<button name="scenario34" value="s34" onclick="Scenario34Button();">34</button>
-				<button name="scenario37" value="s37" onclick="Scenario37Button();">37</button>
-				<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button>
-				<button name="scenario39" value="s39" onclick="Scenario39Button();">39</button><br>
-				<br>
-				<nobr id="debug_watch">Watchデバッグ</nobr><br>
-				<button name="button_debug_watch1" value="debug_watch1" onclick="onDebugWatch1Button();">Watch1-OK</button>
-				<button name="button_debug_watch2" value="debug_watch2" onclick="onDebugWatch2Button();">Watch2-OK</button>
-				<button name="button_debug_watch3" value="debug_watch3" onclick="onDebugWatch3Button();">Watch3-OK</button><br>
-				<nobr>--母or男1-----父or女1-----娘or男2--</nobr><br>
-				<br>
-				watchingの値: <nobr id="display_watching">無</nobr>
-				kinectingの値: <nobr id="display_kinecting">無</nobr>
-			</div>
+			<!--	<nobr id="debug_daihon3">台本3 モーション有り</nobr><br>-->
+			<!--	<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>-->
+			<!--	<button name="scenario6" value="s6" onclick="Scenario6Button();">6</button>-->
+			<!--	<button name="scenario13" value="s13" onclick="Scenario13Button();">13</button>-->
+			<!--	<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button>-->
+			<!--	<button name="scenario19" value="s19" onclick="Scenario19Button();">19</button>-->
+			<!--	<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>-->
+			<!--	<button name="scenario24" value="s24" onclick="Scenario24Button();">24</button>-->
+			<!--	<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button><br>-->
+			<!--	<button name="scenario26" value="s26" onclick="Scenario26Button();">26</button>-->
+			<!--	<button name="scenario27" value="s27" onclick="Scenario27Button();">27</button>-->
+			<!--	<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>-->
+			<!--	<button name="scenario29" value="s29" onclick="Scenario29Button();">29</button>-->
+			<!--	<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>-->
+			<!--	<button name="scenario32" value="s32" onclick="Scenario32Button();">32</button>-->
+			<!--	<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button><br>-->
+			<!--	<nobr id="debug_daihon4">台本4 モーション有り</nobr><br>-->
+			<!--	<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>-->
+			<!--	<button name="scenario3" value="s3" onclick="Scenario3Button();">3</button>-->
+			<!--	<button name="scenario4" value="s4" onclick="Scenario4Button();">4</button>-->
+			<!--	<button name="scenario5" value="s5" onclick="Scenario5Button();">5</button>-->
+			<!--	<button name="scenario7" value="s7" onclick="Scenario7Button();">7</button>-->
+			<!--	<button name="scenario8" value="s8" onclick="Scenario8Button();">8</button>-->
+			<!--	<button name="scenario9" value="s9" onclick="Scenario9Button();">9</button>-->
+			<!--	<button name="scenario13" value="s15" onclick="Scenario15Button();">15</button>-->
+			<!--	<button name="scenario18" value="s18" onclick="Scenario18Button();">18</button><br>-->
+			<!--	<button name="scenario22" value="s22" onclick="Scenario22Button();">22</button>-->
+			<!--	<button name="scenario23" value="s23" onclick="Scenario23Button();">23</button>-->
+			<!--	<button name="scenario25" value="s25" onclick="Scenario25Button();">25</button>-->
+			<!--	<button name="scenario28" value="s28" onclick="Scenario28Button();">28</button>-->
+			<!--	<button name="scenario30" value="s30" onclick="Scenario30Button();">30</button>-->
+			<!--	<button name="scenario31" value="s31" onclick="Scenario31Button();">31</button>-->
+			<!--	<button name="scenario33" value="s33" onclick="Scenario33Button();">33</button><br>-->
+			<!--	<button name="scenario34" value="s34" onclick="Scenario34Button();">34</button>-->
+			<!--	<button name="scenario37" value="s37" onclick="Scenario37Button();">37</button>-->
+			<!--	<button name="scenario38" value="s38" onclick="Scenario38Button();">38</button>-->
+			<!--	<button name="scenario39" value="s39" onclick="Scenario39Button();">39</button><br>-->
+			<!--	<br>-->
+			<!--	<nobr id="debug_watch">Watchデバッグ</nobr><br>-->
+			<!--	<button name="button_debug_watch1" value="debug_watch1" onclick="onDebugWatch1Button();">Watch1-OK</button>-->
+			<!--	<button name="button_debug_watch2" value="debug_watch2" onclick="onDebugWatch2Button();">Watch2-OK</button>-->
+			<!--	<button name="button_debug_watch3" value="debug_watch3" onclick="onDebugWatch3Button();">Watch3-OK</button><br>-->
+			<!--	<nobr>--母or男1-----父or女1-----娘or男2--</nobr><br>-->
+			<!--	<br>-->
+			<!--	watchingの値: <nobr id="display_watching">無</nobr>-->
+			<!--	kinectingの値: <nobr id="display_kinecting">無</nobr>-->
+			<!--</div>-->
+			<!--<div class = "changeDatabase">-->
+			<!--	<input type="text" id="daihon_input"/>-->
+			<!--	<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="変更"/><br>				-->
+			<!--</div>-->
 		</div>
 		<br>
 	</div>
