@@ -38,8 +38,10 @@ var actionImageArray;
 var timeCounter = 0;
 //時間を止めるとタイマーが０になるので０になる前のあたいを値を保持する変数
 var timeKeeper = 0;
-//
+//台本の進行状況
 var scriptProgress = 0;
+//選択中の台本id
+var script_ID;
 
 //********************オープン処理********************
 ws.onopen = function(){
@@ -286,7 +288,6 @@ ws.onmessage = function (event) {
 		// 		chat_fld.innerHTML += "function: " + messages.function + " data: " + messages.text[key].scene + "<br>";
 		// 	}
 	//動きのタイミングの取得
-	//修正必要
 		}else if(messages.function == "readActionTimingDataByScriptID"){
 			var convertArray = convertStringDataInto1DFloatArray(messages.text[0].timing);
 			actionTimingArray = new Array();
@@ -305,7 +306,6 @@ ws.onmessage = function (event) {
 			}
 			
 	//動きをする人の順番取得	
-	//修正必要
 		}else if(messages.function == "readWhoIsActionDataByScriptID"){
 			var convertArray = convertStringDataInto1DIntArray(messages.text[0].actor);
 			// console.log("debug: " + messages.text[0].actor);
@@ -323,7 +323,6 @@ ws.onmessage = function (event) {
 			}
 			
 	//セリフをいう人の順番を取得（IDで）
-	//たぶんOKになった
 		}else if(messages.function == "readWhoIsScriptDataByScene"){
 				var convertArray = convertStringDataInto1DIntArray(messages.text[0].actor);
 				whoIsScriptArray = new Array();
@@ -893,11 +892,11 @@ function onDatabaseChangeButton(){
 	//changePoint -= 1;
 	
 	for(var i = scriptArray.length-1; i >= Number(changePoint-1); i--){	//挿入位置を開ける
-		console.log(i);
 		scriptArray[i][0] = Number(scriptArray[i][0]) + Number(3.0);	//挿入する位置以降の要素の時間情報をずらす
 		// scriptArray[i+1] = scriptArray[i];	//配列の要素を一つずつずらす
 		
-		scriptArray[i+1] = new Array(5);
+		//それぞれの要素別々に入れないときちんと動作しない
+		scriptArray[i+1] = new Array(5);	
 		scriptArray[i+1][0] = scriptArray[i][0];
 		scriptArray[i+1][1] = scriptArray[i][1];
 		scriptArray[i+1][2] = scriptArray[i][2];
@@ -932,23 +931,100 @@ function onDatabaseChangeButton(){
 	
 	//台本の配列をaction関係とscript関係に分割
 	for(var i = 0; i < scriptArray.length; i++){
-		if(scriptArray[i][3] != 0){	//ト書きがある場合
+		if(scriptArray[i][3] != 0 && scriptArray[i][1] != ""){	//ト書きがある場合
 			splitActionArray[actionIndex] = new Array(3);	//actionについての２次元配列，時間，ト書き，役者
 			splitActionArray[actionIndex][0] = scriptArray[i][0];	//時間情報
-			splitActionArray[actionIndex][1] = scriptArray[i][3];	//ト書き
-			splitActionArray[actionIndex][2] = scriptArray[i][4];	//役者id
+			splitActionArray[actionIndex][1] = scriptArray[i][4];	//役者id
+			splitActionArray[actionIndex][2] = scriptArray[i][3];	//ト書き
 			actionIndex++;
-		}else{
+		}else if(scriptArray[i][1] != ""){
 			splitScriptArray[scriptIndex] = new Array(3);
 			splitScriptArray[scriptIndex][0] = scriptArray[i][0];	//時間情報
-			splitScriptArray[scriptIndex][1] = scriptArray[i][2];	//セリフ
-			splitScriptArray[scriptIndex][2] = scriptArray[i][4];	//役者id
+			splitScriptArray[scriptIndex][1] = scriptArray[i][4];	//役者id
+			splitScriptArray[scriptIndex][2] = scriptArray[i][2];	//セリフ
+			scriptIndex++;
 		}
 	}
 	
+	//配列の中身確認用
+	// for(var i = 0; i < splitActionArray.length; i++){
+	// 	console.log("splitActionArray: " + splitActionArray[i]);
+	// }
+
+	// for(var i = 0; i < splitScriptArray.length; i++){
+	// 	console.log("splitScriptArray: " + splitScriptArray[i]);
+	// }
 	
+	//クエリを生成していく
+	var actionQuery = new Array(3);
+	var scriptQuery = new Array(3);
+	
+	//配列の初期化
+	for(var i = 0; i < 3; i++){
+		actionQuery[i] = "";
+		scriptQuery[i] = "";
+	}
+	
+	actionQuery[0] += "update action set timing = '";
+	actionQuery[1] += "update action set actor = '";
+	actionQuery[2] += "update action set image = '";
 
 	
+	scriptQuery[0] += "update script set timing = '";
+	scriptQuery[1] += "update script set actor = '";
+	scriptQuery[2] += "update script set line = '";
+
+	
+	var actionConvertArray = convertStringArrayIntoQuery(splitActionArray);	//クエリの配列を取得
+	var scriptConvertArray = convertStringArrayIntoQuery(splitScriptArray);	//クエリの配列を取得
+	
+	// console.log(actionConvertArray);
+	// console.log(scriptConvertArray);
+	
+	actionQuery[0] += actionConvertArray[0] + "' ";
+	actionQuery[1] += actionConvertArray[1] + "' ";
+	actionQuery[2] += actionConvertArray[2] + "' ";
+
+	scriptQuery[0] += scriptConvertArray[0] + "' ";
+	scriptQuery[1] += scriptConvertArray[1] + "' ";
+	scriptQuery[2] += scriptConvertArray[2] + "' ";
+	
+	actionQuery[0] += "where script_id = " + script_ID + ";";
+	actionQuery[1] += "where script_id = " + script_ID + ";";
+	actionQuery[2] += "where script_id = " + script_ID + ";";
+	
+	scriptQuery[0] += "where script_id = " + script_ID + ";";
+	scriptQuery[1] += "where script_id = " + script_ID + ";";
+	scriptQuery[2] += "where script_id = " + script_ID + ";";
+
+
+	console.log(actionQuery[0]);
+	console.log(actionQuery[1]);
+	console.log(actionQuery[2]);
+	console.log(scriptQuery[0]);
+	console.log(scriptQuery[1]);
+	console.log(scriptQuery[2]);
+	
+}
+
+function convertStringArrayIntoQuery(input){
+	var convertQuery = new Array(3);	//クエリを格納する配列
+	
+	//配列の初期化
+	for(var i = 0; i < 3; i++){
+		convertQuery[i] = "";
+	}
+	
+	for(var i=0; i < input.length-1; i++){	//最後の要素の一つ手前まで
+		convertQuery[0] += input[i][0] + ",";	//時間情報
+		convertQuery[1] += input[i][1] + ",";	//ト書きもしくはセリフの情報
+		convertQuery[2] += input[i][2] + "@@";	//役者id
+	}	
+	
+	convertQuery[0] += input[input.length-1][0];
+	convertQuery[1] += input[input.length-1][1];
+	convertQuery[2] += input[input.length-1][2];
+	return convertQuery;
 }
 
 function convertStringDataInto2DArray(input){
@@ -957,7 +1033,7 @@ function convertStringDataInto2DArray(input){
 }
 
 
-//この２つはどっちかでもいいかも,それか明示的に使い分ける++++++++++++++++++++++
+//javascriptは型を宣言しないからこの２つはどっちかでもいいかも,それか明示的に使い分ける++++++++++++++++++++++
 function convertStringDataInto1DFloatArray(input){
 	var splitArray = new Array();
 	return splitArray = input.split(",");
@@ -977,6 +1053,8 @@ function convertStringDataInto1DStringArray(input){
 
 
 function onScriptButton(script_id){
+
+	script_ID = script_id;
 
 	ws.send(JSON.stringify({
 		func_name: 'readScriptTitleByID',
