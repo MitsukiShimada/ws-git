@@ -879,7 +879,77 @@ function DBdebug_chat(func_name, db_data){
 	}; 
 }
 
+function onDatabaseChangeButton(){
 
+	//入力内容の取得	
+	var changePoint = document.getElementById("henkou_sitei").value;
+	var newElement = document.getElementById("togaki_naiyou").value;
+	var addActor = document.getElementById("addActor").value;
+	
+	document.getElementById("henkou_sitei").innerHTML = "";
+	document.getElementById("togaki_naiyou").innerHTML = "";
+	document.getElementById("addActor").innerHTML = "";	
+	
+	//changePoint -= 1;
+	
+	for(var i = scriptArray.length-1; i >= Number(changePoint-1); i--){	//挿入位置を開ける
+		console.log(i);
+		scriptArray[i][0] = Number(scriptArray[i][0]) + Number(3.0);	//挿入する位置以降の要素の時間情報をずらす
+		// scriptArray[i+1] = scriptArray[i];	//配列の要素を一つずつずらす
+		
+		scriptArray[i+1] = new Array(5);
+		scriptArray[i+1][0] = scriptArray[i][0];
+		scriptArray[i+1][1] = scriptArray[i][1];
+		scriptArray[i+1][2] = scriptArray[i][2];
+		scriptArray[i+1][3] = scriptArray[i][3];
+		scriptArray[i+1][4] = scriptArray[i][4];
+
+	}
+
+	if(actorNameArray.indexOf(addActor) >= 0 ){	//入力された名前の登場人物が台本にいれば行う.打ち間違い防止
+		scriptArray[changePoint-1][0] = Number(scriptArray[(changePoint-2)][0]) + Number(3.0);	//前の要素の時間情報の3秒後
+		scriptArray[changePoint-1][1] = addActor;	//役名
+		scriptArray[changePoint-1][2] = 0;	//セリフの内容，今回は扱わない
+		scriptArray[changePoint-1][3] = newElement;	//新しいト書き
+		scriptArray[changePoint][4] = Number(actorNameArray.indexOf(addActor)) + 1;
+		// for(var i = 0; i < actorNameArray.length; i++){
+		// 	if(actorNameArray[i] == addActor){	//入力された役名の役者idを入れる
+		// 		scriptArray[changePoint][4] = i;
+		// 	}
+		// }
+		
+	}else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
+	
+	makeArray(scriptArray.length, scriptArray);
+	//+++++++++++++ここまでが台本の配列の更新処理+++++++++++++++++++++++++++
+	
+	//++++++++++++++ここからデータベース更新処理++++++++++++++++++++++++++++
+	
+	var splitActionArray = new Array;
+	var splitScriptArray = new Array;
+	var actionIndex = 0;
+	var scriptIndex = 0;
+	
+	//台本の配列をaction関係とscript関係に分割
+	for(var i = 0; i < scriptArray.length; i++){
+		if(scriptArray[i][3] != 0){	//ト書きがある場合
+			splitActionArray[actionIndex] = new Array(3);	//actionについての２次元配列，時間，ト書き，役者
+			splitActionArray[actionIndex][0] = scriptArray[i][0];	//時間情報
+			splitActionArray[actionIndex][1] = scriptArray[i][3];	//ト書き
+			splitActionArray[actionIndex][2] = scriptArray[i][4];	//役者id
+			actionIndex++;
+		}else{
+			splitScriptArray[scriptIndex] = new Array(3);
+			splitScriptArray[scriptIndex][0] = scriptArray[i][0];	//時間情報
+			splitScriptArray[scriptIndex][1] = scriptArray[i][2];	//セリフ
+			splitScriptArray[scriptIndex][2] = scriptArray[i][4];	//役者id
+		}
+	}
+	
+	
+
+	
+}
 
 function convertStringDataInto2DArray(input){
 	var splitArray = new Array();
@@ -987,6 +1057,7 @@ function timeCounterControl(control){
  		if(repeatFlag == 1){
    		timeCount += 1;
    		var secConvert = timeCount / 10.0;
+   		
    		//時間情報を調整して通知
    		// var timeAdjust = Number(scriptArray[scriptProgress][0]) + Number(scriptProgress) * 2.0;
 		//時間情報そのまま通知
@@ -1205,7 +1276,7 @@ function makeArray(length, scriptarray){
 				if(j == 0){
 					// resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
 					resultTable += "<tr class=\""+ i +"\">";	//trにはクラス(0,1,2,3・・・)をつける
-					resultTable += "<td>" + i + "</td>";
+					resultTable += "<td>" + (i+1) + "</td>";
 					resultTable +="<td>" + scriptarray[i][j] + "</td>";
 				} else if(j == 3){
 					resultTable +="<td>" + scriptarray[i][j] + "</td></tr>";

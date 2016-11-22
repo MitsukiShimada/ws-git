@@ -107,13 +107,13 @@
 			<div class="kinect_part_title">
 				<nobr id="kinect_title">---KINECT通信状況---</nobr><br>
 			</div>
+			
 			<!-- Kinectボックス部分 -->
 			<!--<div class="kinectbox">-->
 			<!--	通知なしモード:順番を入力してチェック<br>-->
 			<!--	<input type="text" id="kinect_count_input"/>-->
 			<!--	<button name="button_kinect_check" value="kinect_check" onclick="onKinectCheckButton();">kinectチェック</button><br>-->
 			<!--	<nobr id="check_kinect_text">kinectチェック前</nobr><br>-->
-				
 			<!--	<nobr id="debug_daihon3">台本3 モーション有り</nobr><br>-->
 			<!--	<button name="scenario1" value="s1" onclick="Scenario1Button();">1</button>-->
 			<!--	<button name="scenario6" value="s6" onclick="Scenario6Button();">6</button>-->
@@ -161,10 +161,18 @@
 			<!--	watchingの値: <nobr id="display_watching">無</nobr>-->
 			<!--	kinectingの値: <nobr id="display_kinecting">無</nobr>-->
 			<!--</div>-->
-			<!--<div class = "changeDatabase">-->
-			<!--	<input type="text" id="daihon_input"/>-->
-			<!--	<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="変更"/><br>				-->
-			<!--</div>-->
+			
+			
+			<!--台本変更部分 島田修正-->
+			<div class = "changeDatabase_part">
+				変更箇所：<input type="text" id="henkou_sitei"/><br>
+				追加する役者: <input type="text" id="addActor"/><br>
+				追加内容：<input type="text" id="togaki_naiyou"/><br>
+				<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="変更"/><br>				
+			</div>
+			<!--変更部分修正終わり-->
+			
+			
 		</div>
 		<br>
 	</div>

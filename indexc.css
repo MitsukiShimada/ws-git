@@ -157,6 +157,18 @@ nobr#check_kinect_text{
 	display: table-cell;
 	vertical-align: middle;
 }
+
+
+/* *******************台本へ変更部分************** */
+div.changeDatabase_part{
+	width: 295px;
+	height: 550px;
+	border-style: solid;
+	border-color: gray;
+	background-color: white;
+}
+
+
 /* ********************稽古部分******************** */
 div.training_part{
 	margin-top: 20px;
