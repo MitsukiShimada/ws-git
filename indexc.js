@@ -42,6 +42,8 @@ var timeKeeper = 0;
 var scriptProgress = 0;
 //選択中の台本id
 var script_ID;
+//変更部分のidを保持
+var changePart = -1;
 
 //********************オープン処理********************
 ws.onopen = function(){
@@ -998,13 +1000,17 @@ function onDatabaseChangeButton(){
 	scriptQuery[2] += "where script_id = " + script_ID + ";";
 
 
-	console.log(actionQuery[0]);
-	console.log(actionQuery[1]);
-	console.log(actionQuery[2]);
-	console.log(scriptQuery[0]);
-	console.log(scriptQuery[1]);
-	console.log(scriptQuery[2]);
+	// console.log(actionQuery[0]);
+	// console.log(actionQuery[1]);
+	// console.log(actionQuery[2]);
+	// console.log(scriptQuery[0]);
+	// console.log(scriptQuery[1]);
+	// console.log(scriptQuery[2]);
 	
+	// var combineQuery = new Array(6);
+	var combineQuery = actionQuery.concat(scriptQuery);
+	// console.log(combineQuery);
+	send(0, "db_update", combineQuery);
 }
 
 function convertStringArrayIntoQuery(input){
@@ -1348,20 +1354,22 @@ function makeArray(length, scriptarray){
 	resultTable = "<table border=1 class=\"script\"><tr class=\"ttitle\"><th class=\"one\">順番</th><th class=\"two\">タイミング</th><th class=\"three\">役者</th><th class=\"four\">セリフ</th><th class=\"five\">動き</th></tr>";
 	
 	for(var i = 0; i < length; i++){
-		for(var j = 0; j < 4; j++){
-			// if(scriptarray[i][0] != 0){
+		if(scriptarray[i][2] != ""){
+			for(var j = 0; j < 4; j++){
+				// if(scriptarray[i][0] != 0){
 			
-				if(j == 0){
-					// resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
-					resultTable += "<tr class=\""+ i +"\">";	//trにはクラス(0,1,2,3・・・)をつける
-					resultTable += "<td>" + (i+1) + "</td>";
-					resultTable +="<td>" + scriptarray[i][j] + "</td>";
-				} else if(j == 3){
-					resultTable +="<td>" + scriptarray[i][j] + "</td></tr>";
-				} else {
-					resultTable +="<td>" + scriptarray[i][j] + "</td>";
-				}
-			// }
+					if(j == 0){
+						// resultTable += "<tr class=\""+ scriptarray[i][j] +"\">";	//trにはクラス(0,1,2,3・・・)をつける
+						resultTable += "<tr class=\""+ i +"\">";	//trにはクラス(0,1,2,3・・・)をつける
+						resultTable += "<td>" + (i+1) + "</td>";
+						resultTable +="<td>" + scriptarray[i][j] + "</td>";
+					} else if(j == 3){
+						resultTable +="<td>" + scriptarray[i][j] + "</td></tr>";
+					} else {
+						resultTable +="<td>" + scriptarray[i][j] + "</td>";
+					}
+				// }
+			}
 		}
 	}
 	resultTable += "</table>";
@@ -1454,7 +1462,7 @@ function NextNotification(){
 	AddColor();
 	
 	//対象ユーザ部分の背景に色をつける
-	MessageChangeRed();
+	MessageChangeRed(scriptProgress);
 	
 	//WatchとKinectに情報を送る
 	// SendInfo();
@@ -1666,27 +1674,27 @@ function AddColor(){
 //+++++----- 音鳴らす処理 -----+++++
 
 //音を鳴らすメソッド
-function SoundPlay(){
-	//音ファイルを鳴らす
-	var audio_correct = new Audio("music/correct_sound.mp3");		//正解音
-	var audio_wrong = new Audio("music/wrong_sound.mp3");			//ドラムロール音
-	var audio_drumroll = new Audio("music/drumroll_sound.mp3");		//間違い音
+// function SoundPlay(){
+// 	//音ファイルを鳴らす
+// 	var audio_correct = new Audio("music/correct_sound.mp3");		//正解音
+// 	var audio_wrong = new Audio("music/wrong_sound.mp3");			//ドラムロール音
+// 	var audio_drumroll = new Audio("music/drumroll_sound.mp3");		//間違い音
 	
-//	audio_drumroll.play();
-//	setTimeout(function musicplay(){ audio_correct.play(); }, 2700);	//遅延して再生
-//	audio_correct.play();
+// //	audio_drumroll.play();
+// //	setTimeout(function musicplay(){ audio_correct.play(); }, 2700);	//遅延して再生
+// //	audio_correct.play();
 	
-	if(kinecting != 0){
-		//間違いの音を出す
-		audio_wrong.play();
+// 	if(kinecting != 0){
+// 		//間違いの音を出す
+// 		audio_wrong.play();
 		
-		//kinectチェック前という文字を表示する、文字黒くする
-		document.getElementById("check_kinect_text").innerHTML = "Kinectチェック前";
-		document.getElementById("check_kinect_text").style.backgroundColor="white";
-	}
-	//順番表示
-	DisplayCount();
-}
+// 		//kinectチェック前という文字を表示する、文字黒くする
+// 		document.getElementById("check_kinect_text").innerHTML = "Kinectチェック前";
+// 		document.getElementById("check_kinect_text").style.backgroundColor="white";
+// 	}
+// 	//順番表示
+// 	DisplayCount();
+// }
 
 //+++++----- 順番を表示する処理 -----+++++
 function DisplayCount(){

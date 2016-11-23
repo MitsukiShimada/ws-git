@@ -86,7 +86,17 @@ wss.on("connection", function(ws) {
 		}
 
 // 島田追加-------------------------------------------------------------------
-		else if(JSON.parse(message).type == "db_access"){
+		
+		else if(JSON.parse(message).type == "db_update"){
+			var updateQuery = JSON.parse(message).text;
+			
+			// console.log(updateQuery);
+			for(var i=0; i < updateQuery.length; i++){
+			console.log(updateQuery[i]);
+			dbUpdate(updateQuery[i]);
+			}
+			
+		}else if(JSON.parse(message).type == "db_access"){
 			// var rows = db.countActors(1);
 			var funcName = JSON.parse(message).func_name;
 			// if(methodName == "actorListBySceneID"){
@@ -226,6 +236,12 @@ function dbClose(){
 	console.log('Database Connection Closed');
 	db_connection.end();
 }
+
+function dbUpdate(sql){
+	db_connection.query(sql, function(err, result, fields){
+		if(err) throw err;
+		console.log("Database Updated!");
+	});}
 
 function countActorOfScriptID(script_id){
 	var dbscript_id = script_id + 1;
