@@ -92,7 +92,7 @@ wss.on("connection", function(ws) {
 			
 			// console.log(updateQuery);
 			for(var i=0; i < updateQuery.length; i++){
-			console.log(updateQuery[i]);
+			// console.log(updateQuery[i]);
 			dbUpdate(updateQuery[i]);
 			}
 			

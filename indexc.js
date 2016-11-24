@@ -268,6 +268,25 @@ ws.onmessage = function (event) {
 				actorNameArray[key] = messages.text[key].actor_name;
 				// console.log("Name: " + actorNameArray[key]);
 			}
+			
+			
+			//変更するインタフェース部分の生成
+			var pullDown = document.getElementById("change_database");
+			var htmlCreate = "";
+			//一度htmlのインタフェース部分を初期化(ボタンが押されるたびに増えるのを防ぐ)
+			pullDown.innerHTML = htmlCreate;
+			
+			htmlCreate += '変更箇所：<input type="text" id="henkou_sitei"/><br>';
+			htmlCreate += '登場人物：<form name="selectCharacter"><select name="_select">'; 
+			for(var i=0; i < actorNameArray.length; i++){
+				htmlCreate += '<option id = "addActor" value="' + actorNameArray.concat([i]) + '">' + actorNameArray[i] + '</option>';
+			}
+			htmlCreate += '</select></form><br>';
+			
+			htmlCreate += 'ト書き：<input type="text" id="togaki_naiyou"/><br>';
+			htmlCreate += '<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="変更"/><br>';
+			
+			pullDown.innerHTML += htmlCreate;
 	
 	//シーンIDと役者IDから役者名取得
 	//修正必要
@@ -402,8 +421,8 @@ ws.onmessage = function (event) {
 	}else if(messages.type == "db_access"){
 		console.log("DB access!");
 	}else {
-		console.log(event.data);
-		console.log(messages.data);
+		// console.log(event.data);
+		// console.log(messages.data);
 		console.log("その他のtypeを受信: " + messages);
 	}
 
@@ -885,13 +904,18 @@ function onDatabaseChangeButton(){
 	//入力内容の取得	
 	var changePoint = document.getElementById("henkou_sitei").value;
 	var newElement = document.getElementById("togaki_naiyou").value;
-	var addActor = document.getElementById("addActor").value;
+	var form = document.forms.selectCharacter;
+	// var selectedActor = document.getElementById("selectActor");
+	var addActor = actorNameArray[form._select.selectedIndex];
+	// var addActor = actorNameArray[Number(document.getElementById("addActor").selectedIndex)];
+	// var addActor = actorNameArray[Number(form._select.value)];	//プルダウンメニューで選択されているものを取得
 	
 	document.getElementById("henkou_sitei").innerHTML = "";
 	document.getElementById("togaki_naiyou").innerHTML = "";
 	document.getElementById("addActor").innerHTML = "";	
 	
 	//changePoint -= 1;
+	console.log(addActor);
 	
 	for(var i = scriptArray.length-1; i >= Number(changePoint-1); i--){	//挿入位置を開ける
 		scriptArray[i][0] = Number(scriptArray[i][0]) + Number(3.0);	//挿入する位置以降の要素の時間情報をずらす
@@ -921,6 +945,7 @@ function onDatabaseChangeButton(){
 		
 	}else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
 	
+	console.log("chaned scriptArray: " + scriptArray);
 	makeArray(scriptArray.length, scriptArray);
 	//+++++++++++++ここまでが台本の配列の更新処理+++++++++++++++++++++++++++
 	
@@ -1354,7 +1379,7 @@ function makeArray(length, scriptarray){
 	resultTable = "<table border=1 class=\"script\"><tr class=\"ttitle\"><th class=\"one\">順番</th><th class=\"two\">タイミング</th><th class=\"three\">役者</th><th class=\"four\">セリフ</th><th class=\"five\">動き</th></tr>";
 	
 	for(var i = 0; i < length; i++){
-		if(scriptarray[i][2] != ""){
+		if(scriptarray[i][4] != ""){
 			for(var j = 0; j < 4; j++){
 				// if(scriptarray[i][0] != 0){
 			
