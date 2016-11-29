@@ -44,6 +44,11 @@ var scriptProgress = 0;
 var script_ID;
 //変更部分のidを保持
 var changePart = -1;
+//変更する箇所の台本における順番を格納する配列
+var changePointArray = new Array();
+//変更箇所の配列の進行具合を制御する変数
+var changeArrayProgress = 0;
+
 
 //********************オープン処理********************
 ws.onopen = function(){
@@ -273,6 +278,7 @@ ws.onmessage = function (event) {
 			//変更するインタフェース部分の生成
 			var pullDown = document.getElementById("change_database");
 			var htmlCreate = "";
+			
 			//一度htmlのインタフェース部分を初期化(ボタンが押されるたびに増えるのを防ぐ)
 			pullDown.innerHTML = htmlCreate;
 			
@@ -284,8 +290,9 @@ ws.onmessage = function (event) {
 			htmlCreate += '</select></form><br>';
 			
 			htmlCreate += 'ト書き：<input type="text" id="togaki_naiyou"/><br>';
-			htmlCreate += '<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="変更"/><br>';
-			
+			htmlCreate += '<input type="button" id="daihon_button" onclick="onDatabaseChangeButton()" value="追加"/><br>';
+			htmlCreate += '<input type="button" id="change_point" onClick="onChangePoint()" value="変更"/><br>';	
+
 			pullDown.innerHTML += htmlCreate;
 	
 	//シーンIDと役者IDから役者名取得
@@ -899,6 +906,31 @@ function DBdebug_chat(func_name, db_data){
 	}; 
 }
 
+
+//記録しなおす箇所を記録する配列に格納する
+function onChangePoint(){
+	var changePoint = document.getElementById("henkou_sitei").value;	//変更箇所の順番を取得
+	var changePoint = Number(changePoint) - 1;	//表示されている順番をindexの番号に直すため
+	var arrayLength = changePointArray.length;
+	
+	//入力欄を空にする
+	document.getElementById("henkou_sitei").value = "";
+	
+	//入力された修正位置を配列に格納
+	changePointArray[arrayLength] = Number(changePoint);
+	
+	//配列に格納された順番情報を昇順にソート
+	changePointArray.sort(function(a, b){
+		if(Number(a)<Number(b)) return -1;
+		if(Number(a)>Number(b)) return 1;
+		return 0;
+	});
+	
+	console.log("change point: " + changePointArray);
+	// send(scriptArray[changePoint][4], "change_point", changePoint);	//動きをする役者id, 処理分岐のタイプ, 変更する台本の順番
+	
+}
+
 function onDatabaseChangeButton(){
 
 	//入力内容の取得	
@@ -910,9 +942,19 @@ function onDatabaseChangeButton(){
 	// var addActor = actorNameArray[Number(document.getElementById("addActor").selectedIndex)];
 	// var addActor = actorNameArray[Number(form._select.value)];	//プルダウンメニューで選択されているものを取得
 	
-	document.getElementById("henkou_sitei").innerHTML = "";
-	document.getElementById("togaki_naiyou").innerHTML = "";
-	document.getElementById("addActor").innerHTML = "";	
+	//追加位置がすでに変更を指定したト書きより前だったら変更箇所を一つずらす
+	for(var i=0; i < changePointArray.length; i++){
+		if(changePointArray[i] > changePoint){
+			changePointArray[i]++;
+		}
+	}
+	
+	onChangePoint();	//新しく追加された要素も変更箇所の配列に入れる
+	
+	//ボタンが押され処理がされたら入力欄を空にする
+	document.getElementById("henkou_sitei").value = "";
+	document.getElementById("togaki_naiyou").value = "";
+	// document.getElementById("addActor").innerHTML = "";	
 	
 	//changePoint -= 1;
 	console.log(addActor);
@@ -945,7 +987,7 @@ function onDatabaseChangeButton(){
 		
 	}else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
 	
-	console.log("chaned scriptArray: " + scriptArray);
+	// console.log("chaned scriptArray: " + scriptArray);
 	makeArray(scriptArray.length, scriptArray);
 	//+++++++++++++ここまでが台本の配列の更新処理+++++++++++++++++++++++++++
 	
@@ -1148,8 +1190,12 @@ var repeat;
 //経過時間を計るタイマーの制御
 function timeCounterControl(control){
 	
+	//repeatFlag==1のときタイマー起動
+	//稽古スタートを押すとはじめから
+	//再スタートは止めたところのつづきから
 	if(control == "start"){
 		timeKeeper = 0;
+		timeCount = 0;
 		scriptProgress = 0;
 		repeatFlag = 1;
 	}else if(control == "stop"){
@@ -1162,6 +1208,7 @@ function timeCounterControl(control){
  
 
 //繰り返し処理
+//各デバイスへの通知を行う処理
 	repeat = setInterval(function() {
  		if(repeatFlag == 1){
    		timeCount += 1;
@@ -1492,9 +1539,9 @@ function NextNotification(){
 	//WatchとKinectに情報を送る
 	// SendInfo();
 	
-	SendInfo(scriptProgress);
+	// SendInfo(scriptProgress);
 	
-	document.getElementById("display_watching").innerHTML = watching;
+	// document.getElementById("display_watching").innerHTML = watching;
 	document.getElementById("display_kinecting").innerHTML = kinecting;
 	
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
@@ -1594,14 +1641,27 @@ function SendInfo(progress){
 			
 			//kinectに通知
 			//Motionがなし(=0)でなければ通知
-			if(scriptArray[progress][3] != 0){
-				//やっぱりkinectに通知はしない
-//				motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
-				send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);//デバッグ
-				motion_user = scriptArray[progress][4];
-				kinecting++;
+			//記録を更新したい箇所であるかを判定
+			if(changeArrayProgress < changePointArray.length){	//変更箇所がまだあれば
+				console.log("1つ目");
+				// console.log("progress: " + progress);
+				// console.log("changePointArray: " + changePointArray[changeArrayProgress]);
+				if(Number(progress) == Number(changePointArray[changeArrayProgress])){	//現在通知する順番が記録を更新したい箇所であるかを判定
+					console.log("2つ目");
+					console.log("ト書きの内容: " + scriptArray[progress][3]);
+					if(scriptArray[progress][3] != 0){	//入力された順番がちゃんと動きを伴うものかを判定
+						console.log("3つ目");
+						//やっぱりkinectに通知はしない
+//						motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
+						send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);	//記録するタイミングであることを通知
+						motion_user = scriptArray[progress][4];
+						kinecting++;
+						console.log("kinectに記録開始を通知！ト書き: " + scriptArray[progress][3]);
+						changeArrayProgress++;
+					}
+				}
 			}
-			console.log("通知した！watching:" + watching + "  kinecting:" + kinecting);
+			// console.log("通知した！watching:" + watching + "  kinecting:" + kinecting);
 }
 
 
@@ -1691,7 +1751,7 @@ function AddColor(){
 	// var ClassElement = document.getElementsByClassName(count);
 	var ClassElement = document.getElementsByClassName(scriptProgress);
 	for(var i = 0; i < ClassElement.length; i++){
-		ClassElement[i].style.backgroundColor = "#fffacd";
+		ClassElement[i].style.backgroundColor = "#2F4F4F";
 	}
 }
 
