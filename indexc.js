@@ -761,8 +761,8 @@ function onStopButton(){
 	watching = 0;
 	kinecting = 0;
 	//kinectチェック前という文字を表示する、文字黒くする
-	document.getElementById("check_kinect_text").innerHTML = "Kinectチェック前";
-	document.getElementById("check_kinect_text").style.backgroundColor="white";
+	// document.getElementById("check_kinect_text").innerHTML = "Kinectチェック前";
+	// document.getElementById("check_kinect_text").style.backgroundColor="white";
 
 	document.getElementById("display_watching").innerHTML = watching;
 	document.getElementById("display_kinecting").innerHTML = kinecting;
@@ -978,13 +978,13 @@ function onDatabaseChangeButton(){
 		scriptArray[changePoint-1][1] = addActor;	//役名
 		scriptArray[changePoint-1][2] = 0;	//セリフの内容，今回は扱わない
 		scriptArray[changePoint-1][3] = newElement;	//新しいト書き
-		scriptArray[changePoint][4] = Number(actorNameArray.indexOf(addActor)) + 1;
+		scriptArray[changePoint-1][4] = Number(actorNameArray.indexOf(addActor));
 		// for(var i = 0; i < actorNameArray.length; i++){
 		// 	if(actorNameArray[i] == addActor){	//入力された役名の役者idを入れる
 		// 		scriptArray[changePoint][4] = i;
 		// 	}
 		// }
-		
+
 	}else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
 	
 	// console.log("chaned scriptArray: " + scriptArray);
@@ -1227,8 +1227,9 @@ function timeCounterControl(control){
    				// console.log("timeAdjust: " + timeAdjust);
    				// console.log((count + timeKeeper)/10);
 				// console.log("Time: " + scriptArray[scriptProgress][0] + " Name: " + scriptArray[scriptProgress][1] + " Script: " + scriptArray[scriptProgress][2] + " Movement: " + scriptArray[scriptProgress][3] + " Move Actor: " + scriptArray[scriptProgress][4]);
-				SendInfo(scriptProgress);
 				NextNotification();
+				SendInfo(scriptProgress);
+
    				// scriptProgress++;
    			}
  		}
@@ -1542,7 +1543,7 @@ function NextNotification(){
 	// SendInfo(scriptProgress);
 	
 	// document.getElementById("display_watching").innerHTML = watching;
-	document.getElementById("display_kinecting").innerHTML = kinecting;
+	// document.getElementById("display_kinecting").innerHTML = kinecting;
 	
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
 	// timer = setTimeout("SoundPlay()", 7000);
@@ -1654,6 +1655,8 @@ function SendInfo(progress){
 						//やっぱりkinectに通知はしない
 //						motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
 						send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);	//記録するタイミングであることを通知
+						
+						console.log(scriptArray[progress]);
 						motion_user = scriptArray[progress][4];
 						kinecting++;
 						console.log("kinectに記録開始を通知！ト書き: " + scriptArray[progress][3]);
