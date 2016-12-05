@@ -105,7 +105,8 @@
 		<div class="kinect_part">
 			<!-- タイトル部分 -->
 			<div class="kinect_part_title">
-				<nobr id="kinect_title">---KINECT通信状況---</nobr><br>
+				<!--<nobr id="kinect_title">---KINECT通信状況---</nobr><br>-->
+				<nobr id="kinect_title">---台本編集---</nobr><br>
 			</div>
 			
 			<!-- Kinectボックス部分 -->
@@ -202,8 +203,10 @@
 					<!-- <button name="scriptbutton3" onclick="onScriptButton3();">台本3</button><br> -->
 					<!-- <button name="scriptbutton4" onclick="onScriptButton4();">台本4</button><br> -->
 
-					<button name="scriptbutton1" onclick="onScriptButton(12);">台本1</button><br>
-					<button name="scriptbutton2" onclick="onScriptButton(1);">台本2</button><br>
+					<button name="scriptbutton1" onclick="onScriptButton(14);">透明人間</button><br>
+					<!--<button name="scriptbutton1" onclick="onScriptButton(15);">台本1</button><br>-->
+					<button name="scriptbutton2" onclick="onScriptButton(15);">誘拐犯</button><br>
+					<!--<button name="scriptbutton2" onclick="onScriptButton(16);">台本2</button><br>-->
 					<button name="scriptbutton3" onclick="onScriptButton(2);">台本3</button><br>
 					<button name="scriptbutton4" onclick="onScriptButton(3);">台本4</button><br>
 
@@ -290,8 +293,11 @@
 					<button name="training_start" id="training_start" onclick="onStartButton();">稽古スタート</button>
 					<button name="training_stop" id="training_stop" onclick="onStopButton();">一時停止</button>
 					<button name="training_restart" id="training_restart" onclick="onRestartButton();">再スタート</button><br>
-					<button name="training_restart_back1" id="training_restart_back1" onclick="onRestartBack1Button();"><nobr id="restart_back1">-1</nobr>から再スタート</button>
-					<button name="training_restart_back2" id="training_restart_back2" onclick="onRestartBack2Button();"><nobr id="restart_back2">-2</nobr>から再スタート</button>
+					<!--<button name="training_restart_back1" id="training_restart_back1" onclick="onRestartBack1Button();"><nobr id="restart_back1">-1</nobr>から再スタート</button>-->
+					<!--<button name="training_restart_back2" id="training_restart_back2" onclick="onRestartBack2Button();"><nobr id="restart_back2">-2</nobr>から再スタート</button>-->
+					スタート位置：<input type="text" id="set_position"/><br>
+					<button name="start_from_set_position" id="start_position" onclick="onSetStartButton();">位置を指定してスタート</button><br>
+					
 				</div>
 				
 				

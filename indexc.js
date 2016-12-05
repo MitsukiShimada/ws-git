@@ -739,7 +739,7 @@ function onStartButton(){
 	SendInfo(scriptProgress);
 	scriptProgress++;
 	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
-	timer = setTimeout("SoundPlay()", 7000);
+	// timer = setTimeout("SoundPlay()", 7000);
 	//順番表示
 	DisplayCount();
 	document.getElementById("display_watching").innerHTML = watching;
@@ -892,10 +892,10 @@ function getCSVFile(daihon) {
 
 //島田追加---------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
 //台本変換系-------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
-//-----------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+//-----------------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+//-----------------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
+//-----------------------------------------------------------------------------------------++++++++++++++++++++++++++++++++++++++++++++
 
 //デバッグ用
 function DBdebug_chat(func_name, db_data){
@@ -906,6 +906,34 @@ function DBdebug_chat(func_name, db_data){
 	}; 
 }
 
+function onSetStartButton(){
+	var start_position = document.getElementById("set_position").value;	//テキストフィールドから開始位置取得
+	scriptProgress = Number(start_position)-1;	//台本の進行を管理する変数に位置を格納
+	timeCounterControl("set_start");
+
+	//以下の部分はonStartButton()と同じ
+	doing = 1;
+	document.getElementById("training_now").innerHTML = "稽古中";
+	//前の順番の色付き背景を白に戻す
+	RepairColor();
+	//一番目の色を付加
+	count = 1;
+	//対象の順番の背景に色をつける
+	AddColor();
+	//対象ユーザ部分の背景に色をつける
+	MessageChangeRed();
+	//WatchとKinectに情報を送る
+	// SendInfo();
+	
+	SendInfo(scriptProgress);
+	scriptProgress++;
+	//7秒後に動きが出来てるかどうかチェックし、だめなら音を出す
+	timer = setTimeout("SoundPlay()", 7000);
+	//順番表示
+	DisplayCount();
+	document.getElementById("display_watching").innerHTML = watching;
+	document.getElementById("display_kinecting").innerHTML = kinecting;
+}
 
 //記録しなおす箇所を記録する配列に格納する
 function onChangePoint(){
@@ -972,8 +1000,10 @@ function onDatabaseChangeButton(){
 		scriptArray[i+1][4] = scriptArray[i][4];
 
 	}
+	
+	// console.log(actorNameArray.indexOf(addActor));
 
-	if(actorNameArray.indexOf(addActor) >= 0 ){	//入力された名前の登場人物が台本にいれば行う.打ち間違い防止
+	if( Number(actorNameArray.indexOf(addActor)) >= 0 ){	//入力された名前の登場人物が台本にいれば行う.打ち間違い防止
 		scriptArray[changePoint-1][0] = Number(scriptArray[(changePoint-2)][0]) + Number(3.0);	//前の要素の時間情報の3秒後
 		scriptArray[changePoint-1][1] = addActor;	//役名
 		scriptArray[changePoint-1][2] = 0;	//セリフの内容，今回は扱わない
@@ -985,7 +1015,15 @@ function onDatabaseChangeButton(){
 		// 	}
 		// }
 
-	}else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
+	}
+	else {console.log("No Such Character");}	//入力された名前の登場人物がいなかったら
+
+		// scriptArray[changePoint-1][0] = Number(scriptArray[(changePoint-2)][0]) + Number(3.0);	//前の要素の時間情報の3秒後
+		// scriptArray[changePoint-1][1] = addActor;	//役名
+		// scriptArray[changePoint-1][2] = 0;	//セリフの内容，今回は扱わない
+		// scriptArray[changePoint-1][3] = newElement;	//新しいト書き
+		// scriptArray[changePoint-1][4] = Number(actorNameArray.indexOf(addActor));
+
 	
 	// console.log("chaned scriptArray: " + scriptArray);
 	makeArray(scriptArray.length, scriptArray);
@@ -1058,13 +1096,13 @@ function onDatabaseChangeButton(){
 	scriptQuery[1] += scriptConvertArray[1] + "' ";
 	scriptQuery[2] += scriptConvertArray[2] + "' ";
 	
-	actionQuery[0] += "where script_id = " + script_ID + ";";
-	actionQuery[1] += "where script_id = " + script_ID + ";";
-	actionQuery[2] += "where script_id = " + script_ID + ";";
+	actionQuery[0] += "where script_id = " + (script_ID+10) + ";";
+	actionQuery[1] += "where script_id = " + (script_ID+10) + ";";
+	actionQuery[2] += "where script_id = " + (script_ID+10) + ";";
 	
-	scriptQuery[0] += "where script_id = " + script_ID + ";";
-	scriptQuery[1] += "where script_id = " + script_ID + ";";
-	scriptQuery[2] += "where script_id = " + script_ID + ";";
+	scriptQuery[0] += "where script_id = " + (script_ID+10) + ";";
+	scriptQuery[1] += "where script_id = " + (script_ID+10) + ";";
+	scriptQuery[2] += "where script_id = " + (script_ID+10) + ";";
 
 
 	// console.log(actionQuery[0]);
@@ -1201,8 +1239,13 @@ function timeCounterControl(control){
 	}else if(control == "stop"){
 		timeKeeper += repeat;
 		repeatFlag = 0;
-	}else if(control =="restart"){
+	}else if(control == "restart"){
 		repeatFlag =1;
+	}else if(control == "set_start"){
+		timeKeeper = Number(scriptArray[scriptProgress][0]) * 10.0 - 2.0;	//引いているのはボタンを押した瞬間に通知がいかないようにするため
+		timeCount = Number(scriptArray[scriptProgress][0]) * 10.0 - 2.0;	//引いているのはボタンを押してほんのすこしだけ余裕をもたせるため
+		console.log(timeCount);
+		repeatFlag=1;
 	}
 }
  
@@ -1427,7 +1470,7 @@ function makeArray(length, scriptarray){
 	resultTable = "<table border=1 class=\"script\"><tr class=\"ttitle\"><th class=\"one\">順番</th><th class=\"two\">タイミング</th><th class=\"three\">役者</th><th class=\"four\">セリフ</th><th class=\"five\">動き</th></tr>";
 	
 	for(var i = 0; i < length; i++){
-		if(scriptarray[i][4] != ""){
+		if(scriptarray[i][1] != ""){
 			for(var j = 0; j < 4; j++){
 				// if(scriptarray[i][0] != 0){
 			
