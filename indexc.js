@@ -452,7 +452,7 @@ function db_send(function_name){
 	ws.send(JSON.stringify({
 		func_name: function_name,
 		type: 'db_access',
-		script_id: 12
+		script_id: script_ID
 	}));
 }
 
@@ -1096,13 +1096,31 @@ function onDatabaseChangeButton(){
 	scriptQuery[1] += scriptConvertArray[1] + "' ";
 	scriptQuery[2] += scriptConvertArray[2] + "' ";
 	
-	actionQuery[0] += "where script_id = " + (script_ID+10) + ";";
-	actionQuery[1] += "where script_id = " + (script_ID+10) + ";";
-	actionQuery[2] += "where script_id = " + (script_ID+10) + ";";
 	
-	scriptQuery[0] += "where script_id = " + (script_ID+10) + ";";
-	scriptQuery[1] += "where script_id = " + (script_ID+10) + ";";
-	scriptQuery[2] += "where script_id = " + (script_ID+10) + ";";
+	//保存先のscript_idの設定
+	// actionQuery[0] += "where script_id = " + (script_ID+10) + ";";
+	// actionQuery[1] += "where script_id = " + (script_ID+10) + ";";
+	// actionQuery[2] += "where script_id = " + (script_ID+10) + ";";
+	
+	// scriptQuery[0] += "where script_id = " + (script_ID+10) + ";";
+	// scriptQuery[1] += "where script_id = " + (script_ID+10) + ";";
+	// scriptQuery[2] += "where script_id = " + (script_ID+10) + ";";
+	
+	// actionQuery[0] += "where script_id = " + (script_ID+1) + ";";
+	// actionQuery[1] += "where script_id = " + (script_ID+1) + ";";
+	// actionQuery[2] += "where script_id = " + (script_ID+1) + ";";
+	
+	// scriptQuery[0] += "where script_id = " + (script_ID+1) + ";";
+	// scriptQuery[1] += "where script_id = " + (script_ID+1) + ";";
+	// scriptQuery[2] += "where script_id = " + (script_ID+1) + ";";
+
+	actionQuery[0] += "where script_id = " + script_ID + ";";
+	actionQuery[1] += "where script_id = " + script_ID + ";";
+	actionQuery[2] += "where script_id = " + script_ID + ";";
+	
+	scriptQuery[0] += "where script_id = " + script_ID + ";";
+	scriptQuery[1] += "where script_id = " + script_ID + ";";
+	scriptQuery[2] += "where script_id = " + script_ID + ";";
 
 
 	// console.log(actionQuery[0]);

@@ -244,8 +244,8 @@ function dbUpdate(sql){
 	});}
 
 function countActorOfScriptID(script_id){
-	var dbscript_id = script_id + 1;
-	var sql = "select count(script_id) from actor where script_id=" + dbscript_id;
+	// var dbscript_id = script_id + 1;
+	var sql = "select count(script_id) from actor where script_id=" + script_id;
 	// var sql = "select count(script_id) from actor where script_id=1";
 	db_connection.query(sql, function(err, result, fields) {
 		if(err) throw err;
@@ -259,7 +259,7 @@ function countActorOfScriptID(script_id){
 }
 
 function actorListBySceneID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select actor_name from actor where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -299,7 +299,7 @@ function getActorIDByActorName(name){
 }
 
 function readScriptTitleByID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select title from info where id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -313,7 +313,7 @@ function readScriptTitleByID(script_id){
 }
 
 function readScriptSceneTitleByID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select scene from info where id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -327,7 +327,7 @@ function readScriptSceneTitleByID(script_id){
 }
 
 function readActorNameBySceneAndID(script_id, actor_id){
-	script_id++;
+	// script_id++;
 	actor_id++;
 	var sql = "select actor_name from actor where script_id = " + script_id + " and actor_id = " + actor_id;
 	db_connection.query(sql, function(err, result, fields){
@@ -342,7 +342,7 @@ function readActorNameBySceneAndID(script_id, actor_id){
 }
 
 function readActionTimingDataByScriptID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select timing from action where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -356,7 +356,7 @@ function readActionTimingDataByScriptID(script_id){
 }
 
 function readWhoIsActionDataByScriptID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select actor from action where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -372,7 +372,7 @@ function readWhoIsActionDataByScriptID(script_id){
 
 //これを動きの記録用に転用？
 function readActionImageDataByScriptID(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select image from action where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -387,7 +387,7 @@ function readActionImageDataByScriptID(script_id){
 
 
 function readWhoIsScriptDataByScene(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select actor from script where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -401,7 +401,7 @@ function readWhoIsScriptDataByScene(script_id){
 }
 
 function readLinesScriptDataByScene(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select line from script where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
@@ -416,7 +416,7 @@ function readLinesScriptDataByScene(script_id){
 
 
 function readTimingScriptDataByScene(script_id){
-	script_id++;
+	// script_id++;
 	var sql = "select timing from script where script_id = " + script_id;
 	db_connection.query(sql, function(err, result, fields){
 		if(err) throw err;
