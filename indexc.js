@@ -282,7 +282,7 @@ ws.onmessage = function (event) {
 			//一度htmlのインタフェース部分を初期化(ボタンが押されるたびに増えるのを防ぐ)
 			pullDown.innerHTML = htmlCreate;
 			
-			htmlCreate += '変更箇所：<input type="text" id="henkou_sitei"/><br>';
+			htmlCreate += '変更する位置：<input type="text" id="henkou_sitei"/><br>';
 			htmlCreate += '登場人物：<form name="selectCharacter"><select name="_select">'; 
 			for(var i=0; i < actorNameArray.length; i++){
 				htmlCreate += '<option id = "addActor" value="' + actorNameArray.concat([i]) + '">' + actorNameArray[i] + '</option>';
@@ -1044,7 +1044,8 @@ function onDatabaseChangeButton(){
 			splitActionArray[actionIndex][1] = scriptArray[i][4];	//役者id
 			splitActionArray[actionIndex][2] = scriptArray[i][3];	//ト書き
 			actionIndex++;
-		}else if(scriptArray[i][1] != ""){
+		}
+		if(scriptArray[i][1] != ""){
 			splitScriptArray[scriptIndex] = new Array(3);
 			splitScriptArray[scriptIndex][0] = scriptArray[i][0];	//時間情報
 			splitScriptArray[scriptIndex][1] = scriptArray[i][4];	//役者id
@@ -1132,7 +1133,8 @@ function onDatabaseChangeButton(){
 	
 	// var combineQuery = new Array(6);
 	var combineQuery = actionQuery.concat(scriptQuery);
-	// console.log(combineQuery);
+	console.log(combineQuery);
+	console.log(scriptArray);
 	send(0, "db_update", combineQuery);
 }
 
@@ -1378,7 +1380,11 @@ function createScriptTable(){
 				scriptArray[k][0] = actionTimingArray[i];
 				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
 				scriptArray[k][2] = 0;
-				scriptArray[k][3] = actionImageArray[i];
+				if(actionImageArray[i] == ""){
+					scriptArray[k][3] = 0;
+				}else{
+					scriptArray[k][3] = actionImageArray[i];
+				}
 				scriptArray[k][4] = whoIsActionArray[i];
 				i++;
 				k++;
@@ -1404,7 +1410,11 @@ function createScriptTable(){
 				scriptArray[k][0] = actionTimingArray[i];
 				scriptArray[k][1] = actorNameArray[whoIsActionArray[i]];
 				scriptArray[k][2] = 0;
-				scriptArray[k][3] = actionImageArray[i];
+				if(actionImageArray[i] == ""){
+					scriptArray[k][3] = 0;
+				}else{
+					scriptArray[k][3] = actionImageArray[i];
+				}
 				scriptArray[k][4] = whoIsActionArray[i];
 				i++;
 				k++;			
@@ -1704,27 +1714,27 @@ function SendInfo(progress){
 			//kinectに通知
 			//Motionがなし(=0)でなければ通知
 			//記録を更新したい箇所であるかを判定
-			if(changeArrayProgress < changePointArray.length){	//変更箇所がまだあれば
-				console.log("1つ目");
+			// if(changeArrayProgress < changePointArray.length){	//変更箇所がまだあれば
+				// console.log("1つ目");
 				// console.log("progress: " + progress);
 				// console.log("changePointArray: " + changePointArray[changeArrayProgress]);
-				if(Number(progress) == Number(changePointArray[changeArrayProgress])){	//現在通知する順番が記録を更新したい箇所であるかを判定
-					console.log("2つ目");
-					console.log("ト書きの内容: " + scriptArray[progress][3]);
+				// if(Number(progress) == Number(changePointArray[changeArrayProgress])){	//現在通知する順番が記録を更新したい箇所であるかを判定
+					// console.log("2つ目");
+					// console.log("ト書きの内容: " + scriptArray[progress][3]);
 					if(scriptArray[progress][3] != 0){	//入力された順番がちゃんと動きを伴うものかを判定
-						console.log("3つ目");
+						// console.log("3つ目");
 						//やっぱりkinectに通知はしない
 //						motionsend(scriptArray[i][4],'kinect_send', scriptArray[i][3]);	//役者名とモーションを通知
-						send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);	//記録するタイミングであることを通知
+						send(scriptArray[progress][4], "kinect_start", scriptArray[progress][3]);	//記録するタイミングであることを通知、動きをする役者とト書きを送信
 						
-						console.log(scriptArray[progress]);
+						// console.log(scriptArray[progress]);
 						motion_user = scriptArray[progress][4];
 						kinecting++;
 						console.log("kinectに記録開始を通知！ト書き: " + scriptArray[progress][3]);
 						changeArrayProgress++;
 					}
-				}
-			}
+				// }
+			// }
 			// console.log("通知した！watching:" + watching + "  kinecting:" + kinecting);
 }
 
